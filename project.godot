@@ -13,3 +13,12 @@ config_version=5
 config/name="GO-ninja"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://Audio/": "purple",
+"res://Scenes/": "red",
+"res://Scripts/": "yellow",
+"res://Sprites/": "green"
+}
