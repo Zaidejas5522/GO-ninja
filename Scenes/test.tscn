@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clkdjefayh2lc"]
+
+[ext_resource type="Texture2D" uid="uid://dno0jhphay8g1" path="res://Sprites/Backgrounds/Vehicles/Sail.png" id="1_lc1oi"]
+
+[node name="Test" type="Sprite2D"]
+texture = ExtResource("1_lc1oi")
