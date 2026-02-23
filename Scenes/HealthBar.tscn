@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://hqy0rgoftvls"]
+
+[ext_resource type="Texture2D" uid="uid://djfp30jq4grjk" path="res://Sprites/Ui/Receptacle/LifeBarMiniUnder.png" id="1_1f0m8"]
+[ext_resource type="Script" uid="uid://pw22mu6d401v" path="res://Scripts/health_bar.gd" id="1_25q3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25q3q"]
+atlas = ExtResource("1_1f0m8")
+region = Rect2(0, 0, 18, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2s5sm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25q3q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25q3q"]
+bg_color = Color(0.37254903, 0.44313726, 0.3764706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0673"]
+bg_color = Color(0.6211153, 0.041959442, 0.22273365, 1)
+
+[node name="HealthBar" type="Node2D"]
+script = ExtResource("1_25q3q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_2s5sm")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_25q3q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n0673")
+show_percentage = false
