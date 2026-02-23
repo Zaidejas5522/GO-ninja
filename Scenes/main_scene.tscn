@@ -1,12 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3ck5t4am5w4"]
+[gd_scene load_steps=5 format=3 uid="uid://d3ck5t4am5w4"]
 
 [ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/Player.tscn" id="1_52fb6"]
+[ext_resource type="PackedScene" uid="uid://pl64ah3ih0x" path="res://Scenes/game_manager.tscn" id="1_x6ack"]
 [ext_resource type="PackedScene" uid="uid://clkdjefayh2lc" path="res://Scenes/test.tscn" id="2_6l7je"]
+[ext_resource type="PackedScene" uid="uid://hqy0rgoftvls" path="res://Scenes/HealthBar.tscn" id="2_jv6wh"]
 
 [node name="MainScene" type="Node2D"]
+position = Vector2(343, 227)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_52fb6")]
 position = Vector2(-151.68494, -118.420715)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_right = 379.0
+offset_bottom = 214.0
+
+[node name="HealthBar" parent="CanvasLayer/HBoxContainer" instance=ExtResource("2_jv6wh")]
+position = Vector2(90, 24)
+
+[node name="GameManager" parent="." instance=ExtResource("1_x6ack")]
 
 [node name="Test" parent="." instance=ExtResource("2_6l7je")]
 position = Vector2(-140, -206)
@@ -31,3 +45,7 @@ position = Vector2(20, -42)
 
 [node name="Test8" parent="." instance=ExtResource("2_6l7je")]
 position = Vector2(22, -127)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-151, -118)
+zoom = Vector2(3, 3)

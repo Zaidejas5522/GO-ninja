@@ -1,7 +1,24 @@
-[gd_scene load_steps=25 format=3 uid="uid://mhflwkvvtmwl"]
+[gd_scene load_steps=32 format=3 uid="uid://mhflwkvvtmwl"]
 
 [ext_resource type="Script" uid="uid://tkqoibpirqi2" path="res://Scripts/player.gd" id="1_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://demvewyrja0h4" path="res://Sprites/Actor/Characters/NinjaGreen/SeparateAnim/Attack.png" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://ci1hmcl1uvad" path="res://Sprites/Actor/Characters/NinjaGreen/SpriteSheet.png" id="2_gntrk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qidb7"]
+atlas = ExtResource("2_dewec")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70hv0"]
+atlas = ExtResource("2_dewec")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8flut"]
+atlas = ExtResource("2_dewec")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7x0b"]
+atlas = ExtResource("2_dewec")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
 atlas = ExtResource("2_gntrk")
@@ -85,6 +102,38 @@ region = Rect2(48, 48, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qidb7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qidb7")
+}],
+"loop": true,
+"name": &"AttackEast",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70hv0")
+}],
+"loop": true,
+"name": &"AttackNorth",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8flut")
+}],
+"loop": true,
+"name": &"AttackSouth",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7x0b")
+}],
+"loop": true,
+"name": &"AttackWest",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dewec")
@@ -190,16 +239,31 @@ animations = [{
 radius = 5.0
 height = 10.0
 
+[sub_resource type="GDScript" id="GDScript_gntrk"]
+script/source = "extends Area2D
+
+func _process(delta: float) -> void:
+	pass
+	"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
+size = Vector2(14.5, 14)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_kyqiw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qidb7")
-animation = &"IdleEast"
-frame_progress = 0.9606343
+animation = &"AttackWest"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_70hv0")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = SubResource("GDScript_gntrk")
+
+[node name="1" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(-8, 1)
+shape = SubResource("RectangleShape2D_dewec")
