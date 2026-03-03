@@ -15,6 +15,11 @@ var down_pressed := false
 var attacking = 0
 var attacktime= 0.2 #how much the attack should last
 
+var isdashing = 0 #checking if player is dashing
+var candash = true
+var dashtime= 0.2
+var dashcooldown = 0.1
+
 #Track last pressed direction
 enum Direction { NONE, LEFT, RIGHT, UP, DOWN }
 var last_direction := Direction.NONE # Last pressed direction for movement
@@ -29,6 +34,9 @@ func _process(delta: float) -> void:
 		print("gameover")
 	if Input.is_action_just_pressed("Attack") and not attacking:
 		start_attack()
+	elif Input.is_action_just_pressed("Dash") and not isdashing and candash:
+		start_dash()
+	
 	
 	if attacking:
 		# When attacking, don't move and play attack animation
@@ -49,6 +57,23 @@ func _process(delta: float) -> void:
 			Direction.NONE:
 				attack_hitbox.rotation=deg_to_rad(270)
 				sprite.play("AttackSouth") # default if no direction
+	elif isdashing:
+		match facing_direction:
+			Direction.LEFT:
+				velocity.x = -SPEED*2
+				sprite.play("DashWest")
+			Direction.RIGHT:
+				velocity.x = SPEED*2
+				sprite.play("DashEast")
+			Direction.UP:
+				velocity.y = -SPEED*2
+				sprite.play("DashNorth")
+			Direction.DOWN:
+				velocity.y = SPEED*2
+				sprite.play("DashSouth")
+			Direction.NONE:
+				velocity.y = -SPEED*2
+				sprite.play("DashSouth") # default if no direction
 	else:
 		_movement(delta)
 
@@ -69,6 +94,26 @@ func start_attack():
 				sprite.play("IdleSouth")
 			Direction.NONE:
 				sprite.play("IdleSouth")
+func start_dash():
+	isdashing = true
+	candash = false
+	await get_tree().create_timer(dashtime).timeout # attack timer, can modify
+	isdashing = false
+	# After attack finishes, play the appropriate idle animation
+	if not (left_pressed or right_pressed or up_pressed or down_pressed):
+		match facing_direction:
+			Direction.LEFT:
+				sprite.play("IdleWest")
+			Direction.RIGHT:
+				sprite.play("IdleEast")
+			Direction.UP:
+				sprite.play("IdleNorth")
+			Direction.DOWN:
+				sprite.play("IdleSouth")
+			Direction.NONE:
+				sprite.play("IdleSouth")
+	await get_tree().create_timer(dashcooldown).timeout
+	candash=true
 	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
