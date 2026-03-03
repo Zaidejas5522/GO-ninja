@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://hqy0rgoftvls"]
+[gd_scene format=3 uid="uid://hqy0rgoftvls"]
 
 [ext_resource type="Texture2D" uid="uid://djfp30jq4grjk" path="res://Sprites/Ui/Receptacle/LifeBarMiniUnder.png" id="1_1f0m8"]
 [ext_resource type="Script" uid="uid://pw22mu6d401v" path="res://Scripts/health_bar.gd" id="1_25q3q"]

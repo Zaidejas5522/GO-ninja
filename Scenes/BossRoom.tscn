@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://cw0lrosr3pcxt"]
+
+[ext_resource type="Script" uid="uid://tou6i0d1obvx" path="res://Scripts/Room.gd" id="1_b3mq6"]
+[ext_resource type="Script" uid="uid://nna1ujkickpk" path="res://Scenes/Door.gd" id="2_fe123"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmngc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yx6r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_id3dd"]
+size = Vector2(400, 20)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gcs6d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pxle"]
+size = Vector2(400, 20)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nvhwn"]
+
+[node name="BossRoom" type="Node2D" unique_id=1432320223]
+script = ExtResource("1_b3mq6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1886178257]
+offset_right = 400.0
+offset_bottom = 400.0
+color = Color(0.35923627, 0.08917994, 0.112603255, 1)
+
+[node name="DoorNorth" type="Area2D" parent="." unique_id=282594767 groups=["doors"]]
+script = ExtResource("2_fe123")
+
+[node name="YellowSquare" type="ColorRect" parent="DoorNorth" unique_id=206978659]
+offset_left = 45.0
+offset_right = 65.0
+offset_bottom = 20.0
+color = Color(0, 1, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorNorth" unique_id=1921587415]
+position = Vector2(55, 10)
+shape = SubResource("RectangleShape2D_fmngc")
+
+[node name="DoorSouth" type="Area2D" parent="." unique_id=2080104007 groups=["doors"]]
+script = ExtResource("2_fe123")
+
+[node name="YellowSquare" type="ColorRect" parent="DoorSouth" unique_id=306793410]
+offset_left = 365.0
+offset_top = 380.0
+offset_right = 385.0
+offset_bottom = 400.0
+color = Color(0, 0, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorSouth" unique_id=681996712]
+position = Vector2(375, 390)
+shape = SubResource("RectangleShape2D_7yx6r")
+
+[node name="Siena_Virsus" type="StaticBody2D" parent="." unique_id=1576974784]
+position = Vector2(200, -10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Virsus" unique_id=1982504764]
+shape = SubResource("RectangleShape2D_id3dd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Siena_Virsus" unique_id=531157255]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("PlaceholderTexture2D_gcs6d")
+
+[node name="Siena_Kaire" type="StaticBody2D" parent="." unique_id=445530197]
+position = Vector2(-10, 200)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Kaire" unique_id=1437506321]
+shape = SubResource("RectangleShape2D_5pxle")
+
+[node name="Sprite2D" type="Sprite2D" parent="Siena_Kaire" unique_id=1255763293]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("PlaceholderTexture2D_nvhwn")
+
+[node name="Siena_Desine" type="StaticBody2D" parent="." unique_id=535429904]
+position = Vector2(410, 200)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Desine" unique_id=1036231328]
+shape = SubResource("RectangleShape2D_5pxle")
+
+[node name="Sprite2D" type="Sprite2D" parent="Siena_Desine" unique_id=1603024292]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("PlaceholderTexture2D_nvhwn")
+
+[node name="Siena_Apacia" type="StaticBody2D" parent="." unique_id=1181521556]
+position = Vector2(200, 410)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Apacia" unique_id=2071054922]
+shape = SubResource("RectangleShape2D_5pxle")
+
+[node name="Sprite2D" type="Sprite2D" parent="Siena_Apacia" unique_id=298818985]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("PlaceholderTexture2D_nvhwn")

@@ -298,21 +298,22 @@ func _process(delta: float) -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
 size = Vector2(14.5, 14)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1119619144]
+z_index = 5
 script = ExtResource("1_kyqiw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2146963487]
 sprite_frames = SubResource("SpriteFrames_qidb7")
 animation = &"DashEast"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1580171097]
 shape = SubResource("CapsuleShape2D_70hv0")
 
-[node name="AttackHitbox" type="Area2D" parent="."]
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=107413334]
 collision_layer = 2
 collision_mask = 2
 script = SubResource("GDScript_gntrk")
 
-[node name="1" type="CollisionShape2D" parent="AttackHitbox"]
+[node name="1" type="CollisionShape2D" parent="AttackHitbox" unique_id=1682648341]
 position = Vector2(-8, 1)
 shape = SubResource("RectangleShape2D_dewec")
