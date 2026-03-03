@@ -5,6 +5,7 @@ extends CharacterBody2D
 #Speed of the player
 const SPEED = 130.0 
 
+var damage = 3
 #Track pressed states
 var left_pressed := false
 var right_pressed := false
