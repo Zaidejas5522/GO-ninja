@@ -16,8 +16,8 @@ var attacking = 0
 var attacktime= 0.2 #how much the attack should last
 
 var isdashing = 0 #checking if player is dashing
-var candash = true
-var dashtime= 0.2
+var candash = true # checking if a player can dash after dashing (cooldown)
+var dashtime= 0.2 # times for isdashing and candash
 var dashcooldown = 0.1
 
 #Track last pressed direction
