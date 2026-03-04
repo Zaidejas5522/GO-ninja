@@ -5,6 +5,9 @@ extends CharacterBody2D
 #Speed of the player
 const SPEED = 130.0 
 
+var breadcrumbs: Array[Vector2] = []
+const BREADCRUMB_SPACING := 1
+
 var damage = 3
 #Track pressed states
 var left_pressed := false
@@ -117,6 +120,14 @@ func start_dash():
 	
 func _physics_process(delta: float) -> void:
 	move_and_slide()
+
+	# Leave breadcrumb
+	if breadcrumbs.is_empty() or global_position.distance_to(breadcrumbs[-1]) > BREADCRUMB_SPACING:
+		breadcrumbs.append(global_position)
+
+	# Limit breadcrumbs to last 50 positions
+	if breadcrumbs.size() > 50:
+		breadcrumbs.pop_front()
 
 
 func _input(event: InputEvent) -> void:

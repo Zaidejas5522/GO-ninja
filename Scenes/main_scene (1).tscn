@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://booc2x7e4c2hr"]
+
+[ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/Player.tscn" id="2_6l7je"]
+
+[node name="MainScene" type="Node2D" unique_id=289803248]
+
+[node name="CharacterBody2D" parent="." unique_id=1219799318 instance=ExtResource("2_6l7je")]
+position = Vector2(543, 52)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=261393870]
+position = Vector2(-2, -1)
+scale = Vector2(0.5, 0.5)
+zoom = Vector2(3, 3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1755378104]
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=29757928]
+visible = false
+modulate = Color(0, 0, 0, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
