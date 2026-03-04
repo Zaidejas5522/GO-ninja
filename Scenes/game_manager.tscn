@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://pl64ah3ih0x"]
+
+[ext_resource type="Script" uid="uid://bcrp3wvwy2mhj" path="res://Scripts/bear.gd" id="1_oj352"]
+
+[node name="GameManager" type="Node2D" unique_id=1218740649]
+script = ExtResource("1_oj352")
