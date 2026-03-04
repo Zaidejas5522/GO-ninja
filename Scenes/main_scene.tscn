@@ -9,13 +9,15 @@ script = ExtResource("1_52fb6")
 [node name="CharacterBody2D" parent="." unique_id=1219799318 instance=ExtResource("2_6l7je")]
 position = Vector2(543, 52)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=261393870]
-position = Vector2(200, 200)
-zoom = Vector2(1.5, 1.5)
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=261393870]
+position = Vector2(-2, -1)
+scale = Vector2(0.5, 0.5)
+zoom = Vector2(3, 3)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1755378104]
 
 [node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=29757928]
+visible = false
 modulate = Color(0, 0, 0, 0)
 anchors_preset = 15
 anchor_right = 1.0
