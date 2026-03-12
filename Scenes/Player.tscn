@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://mhflwkvvtmwl"]
+[gd_scene format=3 uid="uid://mhflwkvvtmwl"]
 
 [ext_resource type="Script" uid="uid://tkqoibpirqi2" path="res://Scripts/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://demvewyrja0h4" path="res://Sprites/Actor/Characters/NinjaGreen/SeparateAnim/Attack.png" id="2_dewec"]
@@ -298,7 +298,7 @@ func _process(delta: float) -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
 size = Vector2(14.5, 14)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1119619144]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1119619144 groups=["player"]]
 z_index = 5
 script = ExtResource("1_kyqiw")
 

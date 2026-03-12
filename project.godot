@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="GO-ninja"
-run/main_scene="uid://d3ck5t4am5w4"
+run/main_scene="uid://dfln20iyviqp8"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 <<<<<<<Updatedupstreamconfig/features=PackedStringArray("4.5", "Forward Plus")
@@ -37,6 +37,10 @@ folder_colors={
 "res://Scripts/": "yellow",
 "res://Sprites/": "green"
 }
+
+[global_group]
+
+player=""
 
 [input]
 
