@@ -7,6 +7,7 @@ var speed := 50
 var stop_distance := 17.0
 
 var player_reference: Node = null
+
 #var animated_sprite: AnimatedSprite2D = null
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -19,7 +20,6 @@ var player
 
 func _ready():
 	player_reference=get_tree().get_first_node_in_group("player")
-	#player_reference = get_node("res://Scenes/Player.tscn")
 	#animated_sprite = get_node("/root/MainScene/Enemies/Bear/AnimatedSprite2D")
 
 
