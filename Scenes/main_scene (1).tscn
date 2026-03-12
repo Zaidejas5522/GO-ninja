@@ -1,10 +1,8 @@
-[gd_scene format=3 uid="uid://d3ck5t4am5w4"]
+[gd_scene format=3 uid="uid://booc2x7e4c2hr"]
 
-[ext_resource type="Script" uid="uid://blu3ooxd2q7uu" path="res://Scripts/DungeonGenerator.gd" id="1_52fb6"]
 [ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/Player.tscn" id="2_6l7je"]
 
 [node name="MainScene" type="Node2D" unique_id=289803248]
-script = ExtResource("1_52fb6")
 
 [node name="CharacterBody2D" parent="." unique_id=1219799318 instance=ExtResource("2_6l7je")]
 position = Vector2(543, 52)
@@ -12,7 +10,6 @@ position = Vector2(543, 52)
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=261393870]
 position = Vector2(-2, -1)
 scale = Vector2(0.5, 0.5)
-zoom = Vector2(3, 3)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1755378104]
 
