@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://hqy0rgoftvls" path="res://Scenes/HealthBar.tscn" id="1_awecc"]
 [ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/PlayerStuff/Player.tscn" id="1_qh7q1"]
+[ext_resource type="PackedScene" uid="uid://cafc7lujrnh3s" path="res://Scenes/PlayerStuff/stats.tscn" id="2_5qmmk"]
 [ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="3_5qmmk"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="3_831o6"]
 
@@ -62,6 +63,9 @@ texture = SubResource("PlaceholderTexture2D_npm7a")
 
 [node name="CharacterBody2D" parent="." unique_id=1119619144 instance=ExtResource("1_qh7q1")]
 position = Vector2(194.1896, 392.61194)
+
+[node name="Stats" parent="CharacterBody2D" unique_id=1149489152 instance=ExtResource("2_5qmmk")]
+position = Vector2(-360.1896, -155.61194)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1827669814]
 zoom = Vector2(1.5, 1.5)
