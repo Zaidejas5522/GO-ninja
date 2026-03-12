@@ -24,18 +24,17 @@ bg_color = Color(0.37254903, 0.44313726, 0.3764706, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0673"]
 bg_color = Color(0.6211153, 0.041959442, 0.22273365, 1)
 
-[node name="HealthBar" type="Node2D"]
+[node name="HealthBar" type="Node2D" unique_id=57236323]
 script = ExtResource("1_25q3q")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1515305448]
 scale = Vector2(10, 10)
 sprite_frames = SubResource("SpriteFrames_2s5sm")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1414635413]
 offset_left = -80.0
 offset_top = -10.0
 offset_right = 80.0
 offset_bottom = 10.0
 theme_override_styles/background = SubResource("StyleBoxFlat_25q3q")
 theme_override_styles/fill = SubResource("StyleBoxFlat_n0673")
-show_percentage = false
