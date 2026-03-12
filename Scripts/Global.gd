@@ -7,13 +7,14 @@ var PlayerSpeed = 130
 
 var PlayerDamage = 3
 
+#----
+var WeaponSlot = 0
+#----
+
 func _addHealth(ItemHealth):
 	MaxPlayerHealth+=ItemHealth
-	PlayerHealth+=ItemHealth
 func _minusHealth(ItemHealth):
 	MaxPlayerHealth-=ItemHealth
-	if PlayerHealth>MaxPlayerHealth:
-		PlayerHealth=MaxPlayerHealth
 		
 func _addSpeed(ItemSpeed):
 	PlayerSpeed+=ItemSpeed
