@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://02exqobn8eft"]
+
+[ext_resource type="Script" uid="uid://g60e6y3gywg2" path="res://Scripts/weapon.gd" id="1_5ufyc"]
+[ext_resource type="Texture2D" uid="uid://btalwcw1h08wr" path="res://Sprites/Items/Weapons/Axe/Sprite.png" id="2_hq8hb"]
+[ext_resource type="Texture2D" uid="uid://bw1ilvxcliv4f" path="res://Sprites/Items/Weapons/Axe/SpriteInHand.png" id="3_sdh2e"]
+[ext_resource type="Texture2D" uid="uid://b4w66bloj68ok" path="res://Sprites/Items/Weapons/Katana/Sprite.png" id="4_mxn8f"]
+[ext_resource type="Texture2D" uid="uid://btdillq3wyjsq" path="res://Sprites/Items/Weapons/Katana/SpriteInHand.png" id="5_1ho11"]
+[ext_resource type="Texture2D" uid="uid://cyg3ct3immp7f" path="res://Sprites/Items/Weapons/Stick/Sprite.png" id="6_1bhi5"]
+[ext_resource type="Texture2D" uid="uid://bfmca877mljqb" path="res://Sprites/Items/Weapons/Stick/SpriteInHand.png" id="7_mfbv8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv2dx"]
+atlas = ExtResource("2_hq8hb")
+region = Rect2(0, 0, 11, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbvjv"]
+atlas = ExtResource("3_sdh2e")
+region = Rect2(0, 0, 11, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdyfc"]
+atlas = ExtResource("4_mxn8f")
+region = Rect2(0, 0, 6, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7k0t"]
+atlas = ExtResource("5_1ho11")
+region = Rect2(0, 0, 6, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfyqn"]
+atlas = ExtResource("6_1bhi5")
+region = Rect2(0, 0, 3, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qekj7"]
+atlas = ExtResource("7_mfbv8")
+region = Rect2(0, 0, 3, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vlmj0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv2dx")
+}],
+"loop": true,
+"name": &"Axe",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbvjv")
+}],
+"loop": true,
+"name": &"AxeHand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdyfc")
+}],
+"loop": true,
+"name": &"Katana",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7k0t")
+}],
+"loop": true,
+"name": &"KatanaHand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfyqn")
+}],
+"loop": true,
+"name": &"Stick",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qekj7")
+}],
+"loop": true,
+"name": &"StickHand",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6qhy"]
+radius = 5.0
+height = 16.0
+
+[node name="Weapon" type="Area2D" unique_id=1349717131]
+script = ExtResource("1_5ufyc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=552138503]
+sprite_frames = SubResource("SpriteFrames_vlmj0")
+animation = &"StickHand"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1928605472]
+shape = SubResource("CapsuleShape2D_a6qhy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

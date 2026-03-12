@@ -298,7 +298,7 @@ func _process(delta: float) -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
 size = Vector2(14.5, 14)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1119619144 groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1119619144 groups=["player"]]
 z_index = 5
 script = ExtResource("1_kyqiw")
 
