@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 
 #Speed of the player
-const SPEED = 130.0 
+var SPEED = 130.0 
 
 var breadcrumbs: Array[Vector2] = []
 const BREADCRUMB_SPACING := 1
@@ -33,6 +33,8 @@ func _ready() -> void:
 	facing_direction = Direction.DOWN
 
 func _process(delta: float) -> void:
+	SPEED = Global.PlayerSpeed
+	damage=Global.PlayerDamage
 	if Global.PlayerHealth <= 0:
 		print("gameover")
 	if Input.is_action_just_pressed("Attack") and not attacking:

@@ -93,6 +93,8 @@ script = ExtResource("1_5ufyc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=552138503]
 sprite_frames = SubResource("SpriteFrames_vlmj0")
 animation = &"StickHand"
+flip_h = true
+flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1928605472]
 shape = SubResource("CapsuleShape2D_a6qhy")
