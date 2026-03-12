@@ -36,7 +36,7 @@ func _ready() -> void:
 	sprite.play(str(weapon))
 	item_damage=round(randf_range(1,10))
 	item_health=round(randf_range(1,10))
-	item_speed=round(randf_range(10,30))
+	item_speed=round(randf_range(10,100))
 
 func _process(delta: float) -> void:
 	if player_is_here:
@@ -46,7 +46,10 @@ func _process(delta: float) -> void:
 			Global._addDamage(item_damage)
 			sprite.play(str(weapon)+"Hand")
 			taken_slot = slot.addWeapon(weapon)
+			Global.IsHovering = false
 			taken=1
+			
+			
 	if Input.is_action_just_pressed("Drop") and taken == 1 and Global.WeaponSlot == taken_slot:
 		Global._minusHealth(item_health)
 		Global._minusSpeed(item_speed)
@@ -58,6 +61,11 @@ func _process(delta: float) -> void:
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:
+		Global.CurrentItemDamage = item_damage
+		Global.CurrentItemHealth=item_health
+		Global.CurrentItemSpeed=item_speed
+		
+		
 		if player.attacking and not was_attacking:
 			start_attack_motion()
 		was_attacking = player.attacking
@@ -106,9 +114,20 @@ func start_attack_motion():
 	
 func _on_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("player"):
-		player_is_here = 1
+		if taken == 0:
+			Global.IsHovering = true
+			player_is_here = 1
+		
+		Global.PotentialPlayerDamage = item_damage
+		Global.PotentialPlayerHealth = item_health
+		Global.PotentialPlayerSpeed=item_speed
+		
+
 		
 
 func _on_body_exited(body: CharacterBody2D) -> void:
 	if body.is_in_group("player"):
-		player_is_here = 0
+		if taken == 0:
+			Global.IsHovering = false
+			player_is_here = 0
+	

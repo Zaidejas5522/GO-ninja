@@ -6,13 +6,15 @@ var slots = 0
 var currentslot = 0
 var weapons = ["", ""]
 func _ready() -> void:
-	pass
+	weapon_sprite.flip_v=false
 
 func _process(delta: float) -> void:
 	Global.WeaponSlot = currentslot
-	if Input.is_action_just_pressed("Switch"):
+	if Input.is_action_just_pressed("SwitchUp"):
 		# Cycle through slots
 		switch_to_next_weapon()
+	elif Input.is_action_just_pressed("SwitchDown"):
+		switch_to_previous_weapon()
 		
 	if weapons[currentslot] == "":
 		weapon_sprite.visible=false
@@ -52,5 +54,19 @@ func switch_to_next_weapon():
 			break
 	
 	# If no occupied slot found, revert to the original slot
+	if not found:
+		currentslot = start_slot
+func switch_to_previous_weapon():
+	var start_slot = currentslot
+	var found = false
+	
+	# Search backwards for the previous occupied slot
+	for i in range(MaxSlots):
+		currentslot = (currentslot - 1 + MaxSlots) % MaxSlots  # Decrement with wrap
+		if weapons[currentslot] != "":
+			found = true
+			break
+	
+	# If no occupied slot found, revert to original
 	if not found:
 		currentslot = start_slot
