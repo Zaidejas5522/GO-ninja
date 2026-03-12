@@ -90,7 +90,7 @@ height = 16.0
 [node name="Weapon" type="Area2D" unique_id=1349717131]
 script = ExtResource("1_5ufyc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=552138503]
+[node name="WeaponSprites" type="AnimatedSprite2D" parent="." unique_id=552138503]
 sprite_frames = SubResource("SpriteFrames_vlmj0")
 animation = &"StickHand"
 flip_h = true
