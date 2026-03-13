@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cafc7lujrnh3s" path="res://Scenes/PlayerStuff/stats.tscn" id="2_5qmmk"]
 [ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="3_5qmmk"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="3_831o6"]
+[ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="5_vmvel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kanf6"]
 size = Vector2(400, 20)
@@ -76,6 +77,10 @@ position = Vector2(-293.1896, -194.61194)
 [node name="WeaponSlot" parent="CharacterBody2D" unique_id=496132504 instance=ExtResource("3_5qmmk")]
 position = Vector2(-331.18964, 167.38806)
 scale = Vector2(3, 3)
+
+[node name="Node2D" parent="CharacterBody2D" unique_id=1917729211 instance=ExtResource("5_vmvel")]
+position = Vector2(-255.1896, 171.38806)
+scale = Vector2(2, 2)
 
 [node name="Weapon" parent="." unique_id=124902673 instance=ExtResource("3_831o6")]
 position = Vector2(216, 223)

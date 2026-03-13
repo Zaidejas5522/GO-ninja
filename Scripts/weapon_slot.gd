@@ -1,5 +1,6 @@
 extends Node2D
 @onready var weapon_sprite: AnimatedSprite2D = $WeaponSprites
+@onready var label: Label = $Label
 
 var MaxSlots = 2
 var slots = 0
@@ -10,6 +11,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	Global.WeaponSlot = currentslot
+	label.text=str(slots) + "/" + str(MaxSlots)
 	if Input.is_action_just_pressed("SwitchUp"):
 		# Cycle through slots
 		switch_to_next_weapon()
