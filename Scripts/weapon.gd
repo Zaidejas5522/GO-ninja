@@ -24,6 +24,9 @@ var extra_offset: float = 0.0
 var is_spinning := false       # Specific flag for the axe spin
 var spin_angle := 0.0
 
+var is_lance_dashing := false       # Specific flag for lance dash
+var dash_dir := Vector2.ZERO
+
 #------
 # --- END ----
 
@@ -138,11 +141,22 @@ func _process(delta: float) -> void:
 			# Default (if facing NONE) – face down
 					global_position = player.global_position + Vector2(0, total_offset)
 					rotation = 0.0
-		if is_spinning:
+		elif is_spinning:
 				global_position = player.global_position + (Vector2(cos(spin_angle), sin(spin_angle)) * offset_distance)
-			# The weapon spins along with its orbit (rotation = spin_angle)
 				rotation = spin_angle
 				sprite.flip_v = false   # Disable flip during spin
+		elif is_lance_dashing:
+		# Position = player's position + direction * (base offset + extra offset)
+			position = player.global_position + dash_dir * (offset_distance + extra_offset)
+			# Rotate to face the dash direction
+			if dash_dir == Vector2.LEFT or dash_dir == Vector2.RIGHT:
+				rotation = dash_dir.angle() + deg_to_rad(90)
+			else:
+				rotation = dash_dir.angle() - deg_to_rad(90)
+			# Flip sprite for left/right if necessary
+			sprite.flip_v = (dash_dir == Vector2.LEFT or dash_dir == Vector2.RIGHT)
+
+			
 	elif taken == 1:
 		global_position=player.global_position
 func start_attack_motion():
@@ -289,7 +303,63 @@ func skill_attack():
 			skill_attacking = false
 			player.attacking=false
 		"Lance":
-			pass
+			is_lance_dashing = true
+			skill_attacking = true
+			player.isdashing = true
+
+		# Parameters
+			var dash_distance := 150.0        # How far the player moves
+			var dash_duration := 0.4           # Total dash time
+			var peek_distance := 20.0          # How far the lance extends
+			var extend_time := 0.1             # Time to extend lance
+			var retract_time := 0.1            # Time to retract lance at the end
+
+			# Get base position and direction based on player's facing
+			
+			match player.facing_direction:
+				player.Direction.DOWN:
+					dash_dir = Vector2.DOWN
+				player.Direction.UP:
+					dash_dir = Vector2.UP
+				player.Direction.LEFT:
+					dash_dir = Vector2.LEFT
+				player.Direction.RIGHT:
+					dash_dir = Vector2.RIGHT
+
+
+			# Ensure weapon starts at normal position
+			extra_offset = 0.0
+
+			# Create tweens for dash and lance extension
+			var tween = create_tween()
+			tween.set_parallel(true)   # Run animations together
+
+			# 1. Move the player forward
+			var target_player_pos =  player.global_position + dash_dir * dash_distance
+			#var player_tween = create_tween()
+			#player_tween.tween_property(player, "global_position", target_player_pos, dash_duration)
+			var OLDSPEED=player.SPEED
+			player.SPEED=OLDSPEED*2
+			# 2. Extend the lance (peek) – we do this in two steps: extend quickly, hold, then retract.
+			#    Since we're in parallel, we need to sequence the lance animation separately.
+			#    We'll use a second tween for the lance, chained sequentially.
+			var lance_tween = create_tween()
+			lance_tween.set_parallel(false)
+			lance_tween.tween_property(self, "extra_offset", peek_distance, extend_time)
+			lance_tween.tween_interval(dash_duration - extend_time - retract_time)
+			lance_tween.tween_property(self, "extra_offset", 0.0, retract_time)
+
+			# Wait for both tweens to finish
+			#await player_tween.finished
+			await lance_tween.finished
+
+			# Cleanup
+			extra_offset = 0.0
+			player.SPEED=OLDSPEED
+			is_lance_dashing = false
+			player.isdashing = false
+			skill_attacking = false
+
 func _on_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("player"):
 		if taken == 0:

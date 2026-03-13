@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://br6166lm1wcw8"]
 
-[ext_resource type="Script" path="res://Scripts/bear.gd" id="1_qpjwo"]
+[ext_resource type="Script" uid="uid://cjooicpgvdtup" path="res://Scripts/bear.gd" id="1_qpjwo"]
 [ext_resource type="Texture2D" uid="uid://cae5lvucq6q47" path="res://Sprites/Actor/Monsters/Bear/SpriteSheet.png" id="1_ylc52"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylc52"]
