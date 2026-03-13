@@ -24,7 +24,7 @@ var IsHovering = false
 #----
 
 var SkillReady = true
-var SkillCooldown = 10.0
+var SkillCooldown = 2
 var CurrentSkillCooldown = 0
 
 func _addHealth(ItemHealth):
