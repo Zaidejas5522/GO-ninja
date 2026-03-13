@@ -14,9 +14,14 @@ var attack_extra_offset: float = 0.0            # Current extra offset (0 when i
 var was_attacking: bool = false                 # Track previous attack state
 var current_attack_tween: Tween = null          # To manage attack tweens
 
+#SKILL RELATED----
 var skill_attacking: bool = false  
 var cooldown_timer: Timer
 var SkillUsed = 0
+
+var extra_offset: float = 0.0
+
+#------
 # --- END ----
 
 var item_damage = 0
@@ -53,6 +58,8 @@ func _on_cooldown_timeout():
 	SkillUsed = 0
 
 func _process(delta: float) -> void:
+	if SkillUsed == 1:
+			Global.CurrentSkillCooldown=cooldown_timer.time_left
 	if player_is_here:
 		if Input.is_action_just_pressed("Interact") and taken == 0 and slot.slots < slot.MaxSlots:
 			Global._addHealth(item_health)
@@ -95,8 +102,7 @@ func _process(delta: float) -> void:
 			cooldown_timer.start(Global.SkillCooldown)
 			skill_attack()
 		
-		if SkillUsed == 1:
-			Global.CurrentSkillCooldown=cooldown_timer.time_left
+		
 		if player.attacking:
 			sprite.visible=true
 		else:
@@ -105,30 +111,30 @@ func _process(delta: float) -> void:
 		# Calculate total offset: base + attack extra
 		var total_offset = offset_distance + attack_extra_offset
 		
+		if skill_attacking==false:
+			var facing = player.facing_direction
 		
-		var facing = player.facing_direction
-		
-		match facing:
-			player.Direction.DOWN:
-				sprite.flip_v = false
-				global_position = player.global_position + Vector2(0, total_offset)
-				rotation = 0.0
-			player.Direction.UP:
-				sprite.flip_v = false
-				global_position = player.global_position + Vector2(0, -total_offset)
-				rotation = PI
-			player.Direction.LEFT:
-				sprite.flip_v = true
-				global_position = player.global_position + Vector2(-total_offset, 0)
-				rotation = -PI / 2
-			player.Direction.RIGHT:
-				sprite.flip_v = true
-				global_position = player.global_position + Vector2(total_offset, 0)
-				rotation = PI / 2
-			_:
+			match facing:
+				player.Direction.DOWN:
+					sprite.flip_v = false
+					global_position = player.global_position + Vector2(0, total_offset)
+					rotation = 0.0
+				player.Direction.UP:
+					sprite.flip_v = false
+					global_position = player.global_position + Vector2(0, -total_offset)
+					rotation = PI
+				player.Direction.LEFT:
+					sprite.flip_v = true
+					global_position = player.global_position + Vector2(-total_offset, 0)
+					rotation = -PI / 2
+				player.Direction.RIGHT:
+					sprite.flip_v = true
+					global_position = player.global_position + Vector2(total_offset, 0)
+					rotation = PI / 2
+				_:
 			# Default (if facing NONE) – face down
-				global_position = player.global_position + Vector2(0, total_offset)
-				rotation = 0.0
+					global_position = player.global_position + Vector2(0, total_offset)
+					rotation = 0.0
 	elif taken == 1:
 		global_position=player.global_position
 func start_attack_motion():
@@ -172,17 +178,73 @@ func skill_attack():
 			tween.set_parallel(false)  # Sequential
 	
 			# Stretch out
-			tween.tween_property(sprite, "scale:y", original_scale.y * stretch_factor, stretch_duration)
+			tween.tween_property(self, "scale:y", original_scale.y * stretch_factor, stretch_duration)
 	
 			# Retract back
-			tween.tween_property(sprite, "scale:y", original_scale.y, retract_duration)
+			tween.tween_property(self, "scale:y", original_scale.y, retract_duration)
 	
 			# When done, reset skill_attacking flag
 			await tween.finished
 			skill_attacking = false
 			player.attacking=false
 		"Rapier":
-			pass
+			skill_attacking = true
+
+	
+			var thrusts = 6
+			var thrust_distance = 30.0      # How far the rapier thrusts forward
+			var thrust_duration = 0.04       # Time to extend
+			var return_duration = 0.04        # Time to retract
+			var pause_between = 0.02          # Pause between thrusts
+	
+			# Determine base position (where the weapon normally rests)
+			var base_pos = Vector2.ZERO
+			match player.facing_direction:
+				player.Direction.DOWN:
+					base_pos = player.global_position + Vector2(0, offset_distance)
+				player.Direction.UP:
+					base_pos =player.global_position + Vector2(0, -offset_distance)
+				player.Direction.LEFT:
+					base_pos = player.global_position + Vector2(-offset_distance, 0)
+				player.Direction.RIGHT:
+					base_pos = player.global_position + Vector2(offset_distance, 0)
+				_:
+					base_pos = player.global_position + Vector2(0, offset_distance)
+	
+			# Direction unit vector for thrust
+			var thrust_dir := Vector2.ZERO
+			match player.facing_direction:
+				player.Direction.DOWN:
+					thrust_dir = Vector2.DOWN
+				player.Direction.UP:
+					thrust_dir = Vector2.UP
+				player.Direction.LEFT:
+					thrust_dir = Vector2.LEFT
+				player.Direction.RIGHT:
+					thrust_dir = Vector2.RIGHT
+				_:
+					thrust_dir = Vector2.DOWN
+	
+			# Ensure we start at base position
+			position = base_pos
+	
+			var tween = create_tween()
+			tween.set_parallel(false)
+	
+			for i in range(thrusts):
+				# Thrust out
+				tween.tween_property(self, "position", base_pos + thrust_dir * thrust_distance, thrust_duration)
+				# Thrust back
+				tween.tween_property(self, "position", base_pos, return_duration)
+				# Small pause between thrusts (except after last)
+				if i < thrusts - 1 and pause_between > 0:
+					tween.tween_interval(pause_between)
+	
+			await tween.finished
+	
+			# Ensure we end at base position
+			position = base_pos
+			skill_attacking = false
 		"Lance":
 			pass
 func _on_body_entered(body: CharacterBody2D) -> void:
