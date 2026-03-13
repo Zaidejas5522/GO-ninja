@@ -336,8 +336,7 @@ func skill_attack():
 
 			# 1. Move the player forward
 			var target_player_pos =  player.global_position + dash_dir * dash_distance
-			#var player_tween = create_tween()
-			#player_tween.tween_property(player, "global_position", target_player_pos, dash_duration)
+
 			var OLDSPEED=player.SPEED
 			player.SPEED=OLDSPEED*2
 			# 2. Extend the lance (peek) – we do this in two steps: extend quickly, hold, then retract.
@@ -350,7 +349,6 @@ func skill_attack():
 			lance_tween.tween_property(self, "extra_offset", 0.0, retract_time)
 
 			# Wait for both tweens to finish
-			#await player_tween.finished
 			await lance_tween.finished
 
 			# Cleanup
