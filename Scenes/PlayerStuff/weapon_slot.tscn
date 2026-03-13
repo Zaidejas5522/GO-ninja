@@ -3,11 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://buawsbxv34suo" path="res://Sprites/Ui/Receptacle/Receptacle Sphere/BackgroundBamboo.png" id="1_0ggsw"]
 [ext_resource type="Script" uid="uid://c2137tg5a28t4" path="res://Scripts/weapon_slot.gd" id="1_r4v4r"]
 [ext_resource type="Texture2D" uid="uid://btalwcw1h08wr" path="res://Sprites/Items/Weapons/Axe/Sprite.png" id="2_ifkh6"]
+[ext_resource type="Texture2D" uid="uid://dryk83vhjuys2" path="res://Sprites/Ui/Receptacle/Receptacle Rectangle/BackgroundBamboo.png" id="2_q2ycr"]
 [ext_resource type="Texture2D" uid="uid://bw1ilvxcliv4f" path="res://Sprites/Items/Weapons/Axe/SpriteInHand.png" id="3_q2ycr"]
 [ext_resource type="Texture2D" uid="uid://b4w66bloj68ok" path="res://Sprites/Items/Weapons/Katana/Sprite.png" id="4_4turu"]
 [ext_resource type="Texture2D" uid="uid://btdillq3wyjsq" path="res://Sprites/Items/Weapons/Katana/SpriteInHand.png" id="5_j70kl"]
 [ext_resource type="Texture2D" uid="uid://cyg3ct3immp7f" path="res://Sprites/Items/Weapons/Stick/Sprite.png" id="6_3y05j"]
 [ext_resource type="Texture2D" uid="uid://bfmca877mljqb" path="res://Sprites/Items/Weapons/Stick/SpriteInHand.png" id="7_aveng"]
+[ext_resource type="Texture2D" uid="uid://bqhqnc63dkcqu" path="res://Sprites/Items/Weapons/Lance/Sprite.png" id="8_3y05j"]
+[ext_resource type="Texture2D" uid="uid://764buqgjlawc" path="res://Sprites/Items/Weapons/Lance/SpriteInHand.png" id="9_aveng"]
+[ext_resource type="Texture2D" uid="uid://b4po4wblh1e55" path="res://Sprites/Items/Weapons/Rapier/Sprite.png" id="10_xno7r"]
+[ext_resource type="Texture2D" uid="uid://c1poumnln1db4" path="res://Sprites/Items/Weapons/Rapier/SpriteInHand.png" id="11_ga14y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gv2dx"]
 atlas = ExtResource("2_ifkh6")
@@ -24,6 +29,22 @@ region = Rect2(0, 0, 6, 14)
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7k0t"]
 atlas = ExtResource("5_j70kl")
 region = Rect2(0, 0, 6, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thfnc"]
+atlas = ExtResource("8_3y05j")
+region = Rect2(0, 0, 6, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0icy"]
+atlas = ExtResource("9_aveng")
+region = Rect2(0, 0, 6, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw18d"]
+atlas = ExtResource("10_xno7r")
+region = Rect2(0, 0, 10, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cunb"]
+atlas = ExtResource("11_ga14y")
+region = Rect2(0, 0, 9, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xfyqn"]
 atlas = ExtResource("6_3y05j")
@@ -69,6 +90,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_thfnc")
+}],
+"loop": true,
+"name": &"Lance",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0icy")
+}],
+"loop": true,
+"name": &"LanceHand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gw18d")
+}],
+"loop": true,
+"name": &"Rapier",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cunb")
+}],
+"loop": true,
+"name": &"RapierHand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_xfyqn")
 }],
 "loop": true,
@@ -87,11 +140,25 @@ animations = [{
 [node name="WeaponSlot" type="Node2D" unique_id=496132504 groups=["WeaponSlot"]]
 script = ExtResource("1_r4v4r")
 
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2090344309]
+position = Vector2(0.5000004, -16.5)
+scale = Vector2(0.67647064, 0.55357146)
+texture = ExtResource("2_q2ycr")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2071594118]
 texture = ExtResource("1_0ggsw")
 
 [node name="WeaponSprites" type="AnimatedSprite2D" parent="." unique_id=1238315675]
 sprite_frames = SubResource("SpriteFrames_xno7r")
-animation = &"StickHand"
+animation = &"RapierHand"
 flip_h = true
 flip_v = true
+
+[node name="Label" type="Label" parent="." unique_id=1669133520]
+offset_left = -5.0
+offset_top = -26.0
+offset_right = 26.0
+offset_bottom = 2.0
+theme_override_colors/font_color = Color(0.45490196, 0.6392157, 0.20392157, 1)
+theme_override_font_sizes/font_size = 7
+text = "1/2"

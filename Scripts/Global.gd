@@ -23,6 +23,10 @@ var WeaponSlot = 0
 var IsHovering = false
 #----
 
+var SkillReady = true
+var SkillCooldown = 10.0
+var CurrentSkillCooldown = 0
+
 func _addHealth(ItemHealth):
 	MaxPlayerHealth+=ItemHealth
 func _minusHealth(ItemHealth):

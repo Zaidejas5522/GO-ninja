@@ -6,7 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://b4w66bloj68ok" path="res://Sprites/Items/Weapons/Katana/Sprite.png" id="4_mxn8f"]
 [ext_resource type="Texture2D" uid="uid://btdillq3wyjsq" path="res://Sprites/Items/Weapons/Katana/SpriteInHand.png" id="5_1ho11"]
 [ext_resource type="Texture2D" uid="uid://cyg3ct3immp7f" path="res://Sprites/Items/Weapons/Stick/Sprite.png" id="6_1bhi5"]
+[ext_resource type="Texture2D" uid="uid://bqhqnc63dkcqu" path="res://Sprites/Items/Weapons/Lance/Sprite.png" id="6_gs5cc"]
 [ext_resource type="Texture2D" uid="uid://bfmca877mljqb" path="res://Sprites/Items/Weapons/Stick/SpriteInHand.png" id="7_mfbv8"]
+[ext_resource type="Texture2D" uid="uid://764buqgjlawc" path="res://Sprites/Items/Weapons/Lance/SpriteInHand.png" id="7_nlhjp"]
+[ext_resource type="Texture2D" uid="uid://b4po4wblh1e55" path="res://Sprites/Items/Weapons/Rapier/Sprite.png" id="8_0n3rh"]
+[ext_resource type="Texture2D" uid="uid://c1poumnln1db4" path="res://Sprites/Items/Weapons/Rapier/SpriteInHand.png" id="9_11rfp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6qhy"]
+radius = 5.0
+height = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gv2dx"]
 atlas = ExtResource("2_hq8hb")
@@ -24,6 +32,22 @@ region = Rect2(0, 0, 6, 14)
 atlas = ExtResource("5_1ho11")
 region = Rect2(0, 0, 6, 10)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_thfnc"]
+atlas = ExtResource("6_gs5cc")
+region = Rect2(0, 0, 6, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0icy"]
+atlas = ExtResource("7_nlhjp")
+region = Rect2(0, 0, 6, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw18d"]
+atlas = ExtResource("8_0n3rh")
+region = Rect2(0, 0, 10, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cunb"]
+atlas = ExtResource("9_11rfp")
+region = Rect2(0, 0, 9, 11)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_xfyqn"]
 atlas = ExtResource("6_1bhi5")
 region = Rect2(0, 0, 3, 16)
@@ -32,7 +56,7 @@ region = Rect2(0, 0, 3, 16)
 atlas = ExtResource("7_mfbv8")
 region = Rect2(0, 0, 3, 12)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vlmj0"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ab45v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -68,6 +92,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_thfnc")
+}],
+"loop": true,
+"name": &"Lance",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0icy")
+}],
+"loop": true,
+"name": &"LanceHand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gw18d")
+}],
+"loop": true,
+"name": &"Rapier",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cunb")
+}],
+"loop": true,
+"name": &"RapierHand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_xfyqn")
 }],
 "loop": true,
@@ -83,21 +139,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6qhy"]
-radius = 5.0
-height = 16.0
-
 [node name="Weapon" type="Area2D" unique_id=1349717131]
 script = ExtResource("1_5ufyc")
 
-[node name="WeaponSprites" type="AnimatedSprite2D" parent="." unique_id=552138503]
-sprite_frames = SubResource("SpriteFrames_vlmj0")
-animation = &"StickHand"
-flip_h = true
-flip_v = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1928605472]
 shape = SubResource("CapsuleShape2D_a6qhy")
+
+[node name="WeaponSprites" type="AnimatedSprite2D" parent="." unique_id=188580851]
+sprite_frames = SubResource("SpriteFrames_ab45v")
+animation = &"RapierHand"
+flip_h = true
+flip_v = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
