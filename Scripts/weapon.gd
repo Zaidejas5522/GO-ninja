@@ -21,6 +21,9 @@ var SkillUsed = 0
 
 var extra_offset: float = 0.0
 
+var is_spinning := false       # Specific flag for the axe spin
+var spin_angle := 0.0
+
 #------
 # --- END ----
 
@@ -135,6 +138,11 @@ func _process(delta: float) -> void:
 			# Default (if facing NONE) – face down
 					global_position = player.global_position + Vector2(0, total_offset)
 					rotation = 0.0
+		if is_spinning:
+				global_position = player.global_position + (Vector2(cos(spin_angle), sin(spin_angle)) * offset_distance)
+			# The weapon spins along with its orbit (rotation = spin_angle)
+				rotation = spin_angle
+				sprite.flip_v = false   # Disable flip during spin
 	elif taken == 1:
 		global_position=player.global_position
 func start_attack_motion():
@@ -154,7 +162,40 @@ func start_attack_motion():
 func skill_attack():
 	match weapon:
 		"Axe":
-			pass
+			skill_attacking = true
+			is_spinning = true
+			player.attacking=true
+			var old_scale = self.scale
+			self.scale = self.scale * 7
+
+			# Determine starting angle based on player's facing direction
+			var start_angle := 0.0
+			match player.facing_direction:
+				player.Direction.RIGHT:
+					start_angle = 0.0
+				player.Direction.DOWN:
+					start_angle = PI / 2
+				player.Direction.LEFT:
+					start_angle = PI
+				player.Direction.UP:
+					start_angle = 3 * PI / 2
+				_:
+					start_angle = PI / 2   # fallback
+
+			spin_angle = start_angle
+			var rotations = 3.0
+			var target_angle = start_angle + 2 * PI * rotations
+			var spin_duration = 1.0   # Total time for three spins
+
+			var tween = create_tween()
+			tween.tween_property(self, "spin_angle", target_angle, spin_duration)
+			await tween.finished
+
+			# Clean up after spin
+			is_spinning = false
+			skill_attacking = false
+			player.attacking=false
+			self.scale = old_scale
 		"Katana":
 			pass
 		"Stick":
@@ -189,6 +230,7 @@ func skill_attack():
 			player.attacking=false
 		"Rapier":
 			skill_attacking = true
+			player.attacking=true
 
 	
 			var thrusts = 6
@@ -245,6 +287,7 @@ func skill_attack():
 			# Ensure we end at base position
 			position = base_pos
 			skill_attacking = false
+			player.attacking=false
 		"Lance":
 			pass
 func _on_body_entered(body: CharacterBody2D) -> void:
