@@ -1,21 +1,24 @@
 extends CharacterBody2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
+@onready var healthBar = $HealthBar
+@onready var collisionshape2d: CollisionShape2D = $DamageArea/CollisionShape2D
+
 
 #Speed of the player
 const SPEED = 130.0 
 
+
 var breadcrumbs: Array[Vector2] = []
 const BREADCRUMB_SPACING := 1
 
-var damage = 3
 #Track pressed states
 var left_pressed := false
 var right_pressed := false
 var up_pressed := false
 var down_pressed := false
 
-var attacking = 0
+var attacking = false
 var attacktime= 0.2 #how much the attack should last
 
 var isdashing = 0 #checking if player is dashing
@@ -28,12 +31,34 @@ enum Direction { NONE, LEFT, RIGHT, UP, DOWN }
 var last_direction := Direction.NONE # Last pressed direction for movement
 var facing_direction := Direction.NONE  # Direction the player is facing for idle/attack
 
+var maxHealth = 150
+var health = 70
 
 func _ready() -> void:
 	facing_direction = Direction.DOWN
+	healthBar.set_health_bar(health, maxHealth)
+	attacking = false
+	
+
+func take_damage(damage:int):
+	health -= damage
+	healthBar.change_health(-damage)
+	if health <= 0:
+		print("Player died")
+		get_tree().reload_current_scene()
+		
+func take_heal(heal:int):
+	health += heal
+	healthBar.change_health(heal)
 
 func _process(delta: float) -> void:
+<<<<<<< Updated upstream
 	if Global.PlayerHealth <= 0:
+=======
+	SPEED = Global.PlayerSpeed
+	#damage=Global.PlayerDamage
+	if health <= 0:
+>>>>>>> Stashed changes
 		print("gameover")
 	if Input.is_action_just_pressed("Attack") and not attacking:
 		start_attack()
@@ -79,6 +104,9 @@ func _process(delta: float) -> void:
 				sprite.play("DashSouth") # default if no direction
 	else:
 		_movement(delta)
+
+
+
 
 func start_attack():
 	attacking = true
@@ -212,3 +240,10 @@ func _movement(delta):
 		Direction.DOWN:
 			sprite.play("WalkSouth")
 			velocity.y = SPEED
+
+
+func _on_attack_hitbox_body_entered(body: Node2D) -> void:
+	if attacking:
+		print(body.name)
+		if body.has_method("take_damage"):
+			body.take_damage(15)

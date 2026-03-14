@@ -4,10 +4,23 @@ extends Node2D
 var speed := 50
 
 # Minimum distance before stopping
-var stop_distance := 17.0
+var stop_distance := 15.0
 
 var player_reference: Node = null
+<<<<<<< Updated upstream
 var animated_sprite: AnimatedSprite2D = null
+=======
+
+#var animated_sprite: AnimatedSprite2D = null
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var mob_health_bar: ProgressBar = $mob_health_bar
+
+var health = 50
+
+
+
+
+>>>>>>> Stashed changes
 
 var current_axis := "" 
 
@@ -15,8 +28,19 @@ var target_breadcrumb: Vector2 = Vector2.ZERO
 var player
 
 func _ready():
+<<<<<<< Updated upstream
 	player_reference = get_node("res://Scenes/Player.tscn")
 	animated_sprite = get_node("/root/MainScene/Enemies/Bear/AnimatedSprite2D")
+=======
+	player_reference=get_tree().get_first_node_in_group("player")
+	mob_health_bar.set_mob_health_bar(health)
+
+func take_damage(damage:int):
+	health -= damage
+	if health <= 0:
+		queue_free()
+
+>>>>>>> Stashed changes
 
 
 

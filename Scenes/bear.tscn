@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/bear.gd" id="1_qpjwo"]
 [ext_resource type="Texture2D" uid="uid://cae5lvucq6q47" path="res://Sprites/Actor/Monsters/Bear/SpriteSheet.png" id="1_ylc52"]
+[ext_resource type="Script" uid="uid://0jndlrjer2r0" path="res://Scripts/damage_area.gd" id="3_4or10"]
+[ext_resource type="Script" uid="uid://bex5b7nqn2mq" path="res://Scripts/monsters_progress_bar.gd" id="4_2imu7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylc52"]
 atlas = ExtResource("1_ylc52")
@@ -160,7 +162,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjwo"]
 size = Vector2(16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2imu7"]
+radius = 11.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elcei"]
+bg_color = Color(0.37254903, 0.44313726, 0.3764706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlyxe"]
+bg_color = Color(0.6211153, 0.041959442, 0.22273365, 1)
+
 [node name="Bear" type="CharacterBody2D" unique_id=979668803]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_qpjwo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229832353]
@@ -170,3 +183,30 @@ autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 shape = SubResource("RectangleShape2D_qpjwo")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1475167744]
+script = ExtResource("3_4or10")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1711207645]
+shape = SubResource("CircleShape2D_2imu7")
+
+[node name="mob_health_bar" type="ProgressBar" parent="." unique_id=699858267]
+visible = false
+offset_left = -23.0
+offset_top = 9.0
+offset_right = 23.0
+offset_bottom = 32.0
+theme_override_styles/background = SubResource("StyleBoxFlat_elcei")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mlyxe")
+script = ExtResource("4_2imu7")
+
+[node name="Label" type="Label" parent="mob_health_bar" unique_id=314711897]
+visible = false
+layout_mode = 0
+offset_right = 160.0
+offset_bottom = 24.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_body_entered"]
