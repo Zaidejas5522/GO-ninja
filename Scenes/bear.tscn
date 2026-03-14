@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://br6166lm1wcw8"]
 
-[ext_resource type="Script" path="res://Scripts/bear.gd" id="1_qpjwo"]
+[ext_resource type="Script" uid="uid://cjooicpgvdtup" path="res://Scripts/bear.gd" id="1_qpjwo"]
 [ext_resource type="Texture2D" uid="uid://cae5lvucq6q47" path="res://Sprites/Actor/Monsters/Bear/SpriteSheet.png" id="1_ylc52"]
+[ext_resource type="Script" uid="uid://0jndlrjer2r0" path="res://Scripts/damage_area.gd" id="3_2imu7"]
+[ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="3_4or10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylc52"]
 atlas = ExtResource("1_ylc52")
@@ -160,6 +162,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjwo"]
 size = Vector2(16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2imu7"]
+
 [node name="Bear" type="CharacterBody2D" unique_id=979668803]
 script = ExtResource("1_qpjwo")
 
@@ -170,3 +174,17 @@ autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 shape = SubResource("RectangleShape2D_qpjwo")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=912148255]
+script = ExtResource("3_2imu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1640189461]
+shape = SubResource("CircleShape2D_2imu7")
+
+[node name="mob_health_bar" type="ProgressBar" parent="." unique_id=2144973691]
+visible = false
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("3_4or10")
+
+[connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_body_entered"]

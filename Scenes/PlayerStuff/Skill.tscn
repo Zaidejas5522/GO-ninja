@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bypikxkvdqgpk"]
+
+[ext_resource type="Texture2D" uid="uid://7r0twmiiwyv4" path="res://Sprites/Ui/Skill Icon/Items & Weapon/Guard.png" id="1_vbdgd"]
+[ext_resource type="Script" uid="uid://dolua7xsbp7uh" path="res://Scripts/skill.gd" id="1_w84k6"]
+[ext_resource type="Texture2D" uid="uid://3l7ndkreers" path="res://Sprites/Ui/Skill Icon/Items & Weapon/GuardDisabled.png" id="2_w84k6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntjkg"]
+atlas = ExtResource("1_vbdgd")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7me14"]
+atlas = ExtResource("2_w84k6")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y2toc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntjkg")
+}],
+"loop": true,
+"name": &"Active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7me14")
+}],
+"loop": true,
+"name": &"Disabled",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fppku"]
+bg_color = Color(0.90145975, 0.37451905, 0.80847085, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tu5xk"]
+bg_color = Color(0.33450097, 0.28894374, 0.08444158, 1)
+
+[node name="Node2D" type="Node2D" unique_id=1917729211]
+script = ExtResource("1_w84k6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=943504717]
+sprite_frames = SubResource("SpriteFrames_y2toc")
+animation = &"Active"
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=2043298707]
+offset_left = -12.0
+offset_top = -17.0
+offset_right = 12.0
+offset_bottom = -13.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fppku")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tu5xk")
+fill_mode = 1
+show_percentage = false

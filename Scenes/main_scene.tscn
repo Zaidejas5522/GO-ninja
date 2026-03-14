@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3ck5t4am5w4"]
 
 [ext_resource type="Script" uid="uid://blu3ooxd2q7uu" path="res://Scripts/DungeonGenerator.gd" id="1_52fb6"]
-[ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/Player.tscn" id="2_6l7je"]
+[ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/PlayerStuff/Player.tscn" id="2_6l7je"]
 
 [node name="MainScene" type="Node2D" unique_id=289803248]
 script = ExtResource("1_52fb6")
