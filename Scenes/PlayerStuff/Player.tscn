@@ -296,7 +296,7 @@ func _process(delta: float) -> void:
 	"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
-size = Vector2(14.5, 14)
+size = Vector2(19.25, 14)
 
 [node name="Player" type="CharacterBody2D" unique_id=1119619144 groups=["player"]]
 z_index = 5
@@ -310,10 +310,10 @@ animation = &"DashEast"
 shape = SubResource("CapsuleShape2D_70hv0")
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=107413334]
-collision_layer = 2
-collision_mask = 2
 script = SubResource("GDScript_gntrk")
 
 [node name="1" type="CollisionShape2D" parent="AttackHitbox" unique_id=1682648341]
-position = Vector2(-8, 1)
+position = Vector2(-10.375, 1)
 shape = SubResource("RectangleShape2D_dewec")
+
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
