@@ -22,6 +22,9 @@ var player
 
 
 # NEW: Track the direction the enemy is currently facing
+#Idejau recoila ant enemy nes su shorter weapons biski nekazka buna
+#gal ideja padaryt kad kiekvieni weaponai turetu skirtinga recoila ateiciai irgi
+#bet cia man jau sitas
 var facing_direction: Vector2 = Vector2.RIGHT
 
 func _ready():
