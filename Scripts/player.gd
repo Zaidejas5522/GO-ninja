@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 
 #Speed of the player
-const SPEED = 130.0 
+var SPEED = 130.0 
 
 
 var breadcrumbs: Array[Vector2] = []
@@ -238,7 +238,7 @@ func _movement(delta):
 
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
-	if attacking:
+	if attacking and $WeaponSlot.slots == 0:
 		print(body.name)
 		if body.has_method("take_damage"):
-			body.take_damage(15)
+			body.take_damage(Global.PlayerDamage)

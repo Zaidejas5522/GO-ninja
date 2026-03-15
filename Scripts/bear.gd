@@ -20,14 +20,24 @@ var current_axis := ""
 var target_breadcrumb: Vector2 = Vector2.ZERO
 var player
 
+
+# NEW: Track the direction the enemy is currently facing
+var facing_direction: Vector2 = Vector2.RIGHT
+
 func _ready():
 	player_reference = get_node("res://Scenes/Player.tscn")
 	animated_sprite = get_node("/root/StartRoom/Bear/AnimatedSprite2D")
 	player_reference=get_tree().get_first_node_in_group("player")
-	mob_health_bar.set_mob_health_bar(health)
+
 
 func take_damage(damage:int):
 	health -= damage
+	
+	# NEW: Recoil in the opposite direction of where the enemy is facing
+	var recoil_strength = 30  # Adjust as needed
+	global_position += -facing_direction * recoil_strength
+	
+	
 	if health <= 0:
 		queue_free()
 
@@ -63,6 +73,9 @@ func _physics_process(delta: float) -> void:
 
 			if abs(delta_pos.x) < 2:
 				current_axis = "y"
+			
+			# Update facing direction
+			facing_direction = Vector2(direction.x, 0)
 
 			if direction.x > 0:
 				if animated_sprite.animation != "WalkingRight":
@@ -76,6 +89,10 @@ func _physics_process(delta: float) -> void:
 
 			if abs(delta_pos.y) < 2:
 				current_axis = "x"
+			
+			
+			# Update facing direction
+			facing_direction = Vector2(0, direction.y)
 
 			if direction.y > 0:
 				if animated_sprite.animation != "WalkingDown":

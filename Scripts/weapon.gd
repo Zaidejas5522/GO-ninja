@@ -37,6 +37,13 @@ var item_speed  = 0
 var taken = 0
 
 var player_is_here = 0
+var enemy_is_here = 0
+
+# for enemy ------
+var hasattacked = false
+var enemybody = ""
+
+#--------
 
 var weapons = ["Axe", "Katana", "Stick","Rapier","Lance"]
 var weapon=""
@@ -101,6 +108,12 @@ func _process(delta: float) -> void:
 			start_attack_motion()
 
 		was_attacking = player.attacking
+		
+		if enemy_is_here and hasattacked == false and player.attacking:
+			enemybody.take_damage(Global.PlayerDamage)
+			hasattacked = true
+			await get_tree().create_timer(attack_duration).timeout
+			hasattacked = false
 		
 		if  Input.is_action_just_pressed("Skill") and not skill_attacking and Global.SkillReady:
 			SkillUsed = 1
@@ -368,6 +381,13 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		Global.PotentialPlayerHealth = item_health
 		Global.PotentialPlayerSpeed=item_speed
 		
+	elif body.is_in_group("enemy"):
+		print("hi")
+		if player.attacking and taken == 1 and Global.WeaponSlot == taken_slot:
+			enemybody=body
+			enemy_is_here = 1
+			#body.take_damage(Global.PlayerDamage)
+		
 
 		
 
@@ -376,6 +396,10 @@ func _on_body_exited(body: CharacterBody2D) -> void:
 		if taken == 0:
 			Global.IsHovering = false
 			player_is_here = 0
+	elif body.is_in_group("enemy"):
+		if player.attacking and taken == 1 and Global.WeaponSlot == taken_slot:
+			enemy_is_here = 0
+		
 	
 func _choose_item_stats(name):
 	match name:

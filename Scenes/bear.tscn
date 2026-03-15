@@ -164,7 +164,7 @@ size = Vector2(16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2imu7"]
 
-[node name="Bear" type="CharacterBody2D" unique_id=979668803]
+[node name="Bear" type="CharacterBody2D" unique_id=979668803 groups=["enemy"]]
 script = ExtResource("1_qpjwo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229832353]
@@ -176,15 +176,17 @@ autoplay = "Idle"
 shape = SubResource("RectangleShape2D_qpjwo")
 
 [node name="DamageArea" type="Area2D" parent="." unique_id=912148255]
+collision_mask = 4
 script = ExtResource("3_2imu7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1640189461]
+visible = false
 shape = SubResource("CircleShape2D_2imu7")
 
 [node name="mob_health_bar" type="ProgressBar" parent="." unique_id=2144973691]
-visible = false
 offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("3_4or10")
 
 [connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_body_entered"]
+[connection signal="body_exited" from="DamageArea" to="DamageArea" method="_on_body_exited"]
