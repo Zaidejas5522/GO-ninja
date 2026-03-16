@@ -23,6 +23,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Siena_Virsus" type="StaticBody2D" parent="." unique_id=1718960792]
 position = Vector2(200, -10)
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Virsus" unique_id=476660926]
 shape = SubResource("RectangleShape2D_kanf6")
@@ -34,6 +35,7 @@ texture = SubResource("PlaceholderTexture2D_npm7a")
 [node name="Siena_Kaire" type="StaticBody2D" parent="." unique_id=1088240649]
 position = Vector2(-10, 200)
 rotation = 1.5707964
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Kaire" unique_id=709413245]
 shape = SubResource("RectangleShape2D_kanf6")
@@ -45,6 +47,7 @@ texture = SubResource("PlaceholderTexture2D_npm7a")
 [node name="Siena_Desine" type="StaticBody2D" parent="." unique_id=1160762600]
 position = Vector2(410, 200)
 rotation = 1.5707964
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Desine" unique_id=422408768]
 shape = SubResource("RectangleShape2D_kanf6")
@@ -55,6 +58,7 @@ texture = SubResource("PlaceholderTexture2D_npm7a")
 
 [node name="Siena_Apacia" type="StaticBody2D" parent="." unique_id=179189381]
 position = Vector2(200, 410)
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Siena_Apacia" unique_id=458516505]
 shape = SubResource("RectangleShape2D_kanf6")

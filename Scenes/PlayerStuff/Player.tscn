@@ -301,6 +301,7 @@ size = Vector2(19.25, 14)
 [node name="Player" type="CharacterBody2D" unique_id=1119619144 groups=["player"]]
 z_index = 5
 collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_kyqiw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2146963487]

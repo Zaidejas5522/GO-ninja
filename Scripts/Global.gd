@@ -1,6 +1,8 @@
 extends Node
 
 var PlayerHealth = 2
+var IsDamagable = false
+var OtherAttacking = false
 
 
 

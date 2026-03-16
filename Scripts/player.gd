@@ -41,8 +41,9 @@ func _ready() -> void:
 	
 
 func take_damage(damage:int):
-	health -= damage
-	healthBar.change_health(-damage)
+	if Global.IsDamagable == false:
+		health -= damage
+		healthBar.change_health(-damage)
 	if health <= 0:
 		print("Player died")
 		get_tree().reload_current_scene()

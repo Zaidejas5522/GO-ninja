@@ -316,9 +316,13 @@ func skill_attack():
 			skill_attacking = false
 			player.attacking=false
 		"Lance":
+			Global.IsDamagable = true
+			Global.OtherAttacking = true
 			is_lance_dashing = true
 			skill_attacking = true
 			player.isdashing = true
+			player.collision_layer &= ~1
+			player.collision_mask &= ~1
 
 		# Parameters
 			var dash_distance := 150.0        # How far the player moves
@@ -367,9 +371,13 @@ func skill_attack():
 			# Cleanup
 			extra_offset = 0.0
 			player.SPEED=OLDSPEED
+			Global.IsDamagable = false
+			Global.OtherAttacking = false
 			is_lance_dashing = false
 			player.isdashing = false
 			skill_attacking = false
+			player.collision_layer |= ~1
+			player.collision_mask |= ~1
 
 func _on_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("player"):
@@ -382,11 +390,13 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		Global.PotentialPlayerSpeed=item_speed
 		
 	elif body.is_in_group("enemy"):
-		print("hi")
-		if player.attacking and taken == 1 and Global.WeaponSlot == taken_slot:
-			enemybody=body
-			enemy_is_here = 1
-			#body.take_damage(Global.PlayerDamage)
+		print("weapon")
+		if taken == 1 and Global.WeaponSlot == taken_slot:
+			if player.attacking:
+				enemybody=body
+				enemy_is_here = 1
+			if Global.OtherAttacking:
+				body.take_damage(Global.PlayerDamage)
 		
 
 		
