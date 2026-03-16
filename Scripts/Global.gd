@@ -29,6 +29,8 @@ var SkillReady = true
 var SkillCooldown = 2
 var CurrentSkillCooldown = 0
 
+var ShieldActive = 0
+
 func _addHealth(ItemHealth):
 	MaxPlayerHealth+=ItemHealth
 func _minusHealth(ItemHealth):

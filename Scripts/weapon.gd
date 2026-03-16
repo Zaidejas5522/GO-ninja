@@ -95,6 +95,7 @@ func _process(delta: float) -> void:
 		rotation = 0.0
 		taken_slot = -1
 		sprite.visible=true
+		player_is_here=false
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:
@@ -224,7 +225,11 @@ func skill_attack():
 			player.attacking=false
 			self.scale = old_scale
 		"Katana":
-			pass
+			Global.ShieldActive = 1
+			var shield_scene = preload("res://Scenes/PlayerStuff/SpellShield.tscn")
+			var shield = shield_scene.instantiate()
+			shield.position = global_position
+			add_child(shield)
 		"Stick":
 			# Prevent multiple skill attacks at once
 			if skill_attacking:
