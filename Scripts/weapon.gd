@@ -395,7 +395,6 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		Global.PotentialPlayerSpeed=item_speed
 		
 	elif body.is_in_group("enemy"):
-		print("weapon")
 		if taken == 1 and Global.WeaponSlot == taken_slot:
 			if player.attacking:
 				enemybody=body

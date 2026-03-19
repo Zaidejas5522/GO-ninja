@@ -36,7 +36,7 @@ var health = 80
 
 func _ready() -> void:
 	facing_direction = Direction.DOWN
-	healthBar.set_health_bar(health, maxHealth)
+#	healthBar.set_health_bar(health, maxHealth)
 	attacking = false
 	
 
@@ -45,9 +45,8 @@ func take_damage(damage:int):
 		if Global.ShieldActive > 0:
 			Global.ShieldActive-=1
 		else:
-			health -= damage
-			healthBar.change_health(-damage)
-	if health <= 0:
+			Global.PlayerHealth -= damage
+	if Global.PlayerHealth <= 0:
 		print("Player died")
 		get_tree().reload_current_scene()
 		

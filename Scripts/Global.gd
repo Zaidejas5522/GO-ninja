@@ -1,13 +1,13 @@
 extends Node
 
-var PlayerHealth = 2
+var PlayerHealth = 30
 var IsDamagable = false
 var OtherAttacking = false
 
 
 
 #POTENTIAL STUFF IS IN WEAPON SCRIPT WHEN A BODY ENTERS AREA 2D AND CURRENT IS IN PROCESS METHOD
-var MaxPlayerHealth = 3
+var MaxPlayerHealth = 30
 var PotentialPlayerHealth = 0
 var CurrentItemHealth = 0
 

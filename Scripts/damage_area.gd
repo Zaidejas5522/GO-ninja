@@ -11,8 +11,9 @@ var realbody = "" #keepina track of the body
 func _on_body_entered(body):
 	print(body.name)
 	entered = true
-	if body.has_method("take_damage"):
-		realbody = body
+	if body.is_in_group("player"):
+		if body.has_method("take_damage"):
+			realbody = body
 
 
 func _on_body_exited(body):
@@ -23,7 +24,7 @@ func _on_body_exited(body):
 #ir trigerintusi overtime vel jei jis yra tenais
 func _process(delta: float) -> void:  
 	if entered and hasattacked == false:
-		realbody.take_damage(15)
+		realbody.take_damage(1)
 		hasattacked = true
 		await get_tree().create_timer(2).timeout
 		hasattacked = false

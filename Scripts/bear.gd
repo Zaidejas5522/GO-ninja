@@ -7,7 +7,7 @@ var speed := 50
 var stop_distance := 15.0
 
 var player_reference: Node = null
-var animated_sprite: AnimatedSprite2D = null
+#var animated_sprite: AnimatedSprite2D = null
 
 #var animated_sprite: AnimatedSprite2D = null
 @onready var mob_health_bar: ProgressBar = $mob_health_bar
@@ -26,10 +26,12 @@ var player
 #gal ideja padaryt kad kiekvieni weaponai turetu skirtinga recoila ateiciai irgi
 #bet cia man jau sitas
 var facing_direction: Vector2 = Vector2.RIGHT
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
-	player_reference = get_node("res://Scenes/Player.tscn")
-	animated_sprite = get_node("/root/StartRoom/Bear/AnimatedSprite2D")
+	#player_reference = get_node("res://Scenes/Player.tscn")
+	#animated_sprite = get_node("/root/StartRoom/Bear/AnimatedSprite2D")
+
 	player_reference=get_tree().get_first_node_in_group("player")
 
 
