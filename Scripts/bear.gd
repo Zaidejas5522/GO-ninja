@@ -1,4 +1,5 @@
-extends Node2D
+# pakeiciau is extends Node2D, nes reikalingas velocity ir move_and_slide()
+extends CharacterBody2D
 
 # Enemy movement speed
 var speed := 50
@@ -105,8 +106,11 @@ func _physics_process(delta: float) -> void:
 			else:
 				if animated_sprite.animation != "WalkingUp":
 					animated_sprite.play("WalkingUp")
-
-		global_position += direction * speed * delta
+					
+# pakeiciu sita kolkas - Lukas
+		#global_position += direction * speed * delta
+		velocity = direction * speed
+		move_and_slide()
 
 	else:
 		animated_sprite.stop()

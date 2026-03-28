@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RoomData" format=3 uid="uid://dlidm6dgbaosc"]
+
+[ext_resource type="PackedScene" uid="uid://cbmd2xb0eq8nr" path="res://Scenes/Rooms/CombatRoom.tscn" id="1_mwsmf"]
+[ext_resource type="Script" uid="uid://7lfaty8w7pgr" path="res://Scripts/RoomData.gd" id="1_ttlf6"]
+
+[resource]
+script = ExtResource("1_ttlf6")
+room_name = "Combat"
+room_scene = ExtResource("1_mwsmf")
+has_north = true
+has_south = true
+metadata/_custom_type_script = "uid://7lfaty8w7pgr"

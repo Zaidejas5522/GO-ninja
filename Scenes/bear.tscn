@@ -165,6 +165,7 @@ size = Vector2(16, 16)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2imu7"]
 
 [node name="Bear" type="CharacterBody2D" unique_id=979668803 groups=["enemy"]]
+collision_layer = 2
 script = ExtResource("1_qpjwo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229832353]
@@ -187,6 +188,7 @@ shape = SubResource("CircleShape2D_2imu7")
 offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("3_4or10")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="DamageArea" method="_on_body_exited"]

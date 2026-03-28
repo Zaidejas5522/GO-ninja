@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoomData" format=3 uid="uid://xvv00pyrfqga"]
+
+[ext_resource type="PackedScene" uid="uid://2bggujrla3o3" path="res://Scenes/Rooms/RoomCorridor.tscn" id="1_15o1g"]
+[ext_resource type="Script" uid="uid://7lfaty8w7pgr" path="res://Scripts/RoomData.gd" id="1_ejecc"]
+
+[resource]
+script = ExtResource("1_ejecc")
+room_name = "Corridor"
+room_scene = ExtResource("1_15o1g")
+type = "Corridor"
+has_north = true
+has_east = true
+metadata/_custom_type_script = "uid://7lfaty8w7pgr"

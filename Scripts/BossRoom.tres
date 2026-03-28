@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoomData" format=3 uid="uid://bqw6dalfuy1vx"]
+
+[ext_resource type="PackedScene" uid="uid://cw0lrosr3pcxt" path="res://Scenes/Rooms/BossRoom.tscn" id="1_2am85"]
+[ext_resource type="Script" uid="uid://7lfaty8w7pgr" path="res://Scripts/RoomData.gd" id="1_es02q"]
+
+[resource]
+script = ExtResource("1_es02q")
+room_name = "Boss"
+room_scene = ExtResource("1_2am85")
+type = "Boss"
+has_north = true
+has_east = true
+metadata/_custom_type_script = "uid://7lfaty8w7pgr"
