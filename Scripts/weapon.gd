@@ -385,22 +385,24 @@ func skill_attack():
 			player.collision_mask |= ~1
 
 func _on_body_entered(body: CharacterBody2D) -> void:
-	if body.is_in_group("player"):
-		if taken == 0:
-			Global.IsHovering = true
-			player_is_here = 1
+	var bodies=get_overlapping_bodies()
+	for bod in bodies:
+		if bod.is_in_group("player"):
+			if taken == 0:
+				Global.IsHovering = true
+				player_is_here = 1
 		
-		Global.PotentialPlayerDamage = item_damage
-		Global.PotentialPlayerHealth = item_health
-		Global.PotentialPlayerSpeed=item_speed
+			Global.PotentialPlayerDamage = item_damage
+			Global.PotentialPlayerHealth = item_health
+			Global.PotentialPlayerSpeed=item_speed
 		
-	elif body.is_in_group("enemy"):
-		if taken == 1 and Global.WeaponSlot == taken_slot:
-			if player.attacking:
-				enemybody=body
-				enemy_is_here = 1
-			if Global.OtherAttacking:
-				body.take_damage(Global.PlayerDamage)
+		elif bod.is_in_group("enemy"):
+			if taken == 1 and Global.WeaponSlot == taken_slot:
+				if player.attacking:
+					enemybody=body
+					enemy_is_here = 1
+				if Global.OtherAttacking:
+					bod.take_damage(Global.PlayerDamage)
 		
 
 		
