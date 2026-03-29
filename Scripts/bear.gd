@@ -63,6 +63,8 @@ func _physics_process(delta: float) -> void:
 	var delta_pos = target_breadcrumb - global_position
 	var distance = delta_pos.length()
 
+
+
 	# Only move if not close enough
 	if distance > stop_distance:
 
