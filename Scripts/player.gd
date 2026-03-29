@@ -242,6 +242,6 @@ func _movement(delta):
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	if attacking and $WeaponSlot.slots == 0:
-		print(body.name)
+		#print(body.name)
 		if body.has_method("take_damage"):
 			body.take_damage(Global.PlayerDamage)

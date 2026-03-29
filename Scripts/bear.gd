@@ -54,7 +54,7 @@ func take_damage(damage:int):
 func _physics_process(delta: float) -> void:
 	if not player_reference:
 		return
-
+	
 	if player_reference.breadcrumbs.size() == 0:
 		return
 
@@ -93,7 +93,7 @@ func _physics_process(delta: float) -> void:
 		elif current_axis == "y":
 			direction.y = sign(delta_pos.y)
 
-			if abs(delta_pos.y) < 2:
+			if abs(delta_pos.y) < 2 or (current_axis == "y" and abs(delta_pos.x) > abs(delta_pos.y) * 2):
 				current_axis = "x"
 			
 			
@@ -115,6 +115,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		animated_sprite.stop()
 		current_axis = ""
+		velocity = Vector2(0,0)
 
 		if distance < 5:
 			global_position = target_breadcrumb

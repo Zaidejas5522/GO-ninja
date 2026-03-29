@@ -8,7 +8,7 @@ extends Area2D
 
 @export var offset_distance: float = 0
 @export var attack_extra_distance: float = 17.0 # Extra distance during attack , WILL NEED TO TWEAK FOR EACH DIFFERENT WEAPON
-@export var attack_duration: float = 0.3   
+@export var attack_duration: float = 0.1
 
 var attack_extra_offset: float = 0.0            # Current extra offset (0 when idle)
 var was_attacking: bool = false                 # Track previous attack state
@@ -41,7 +41,7 @@ var enemy_is_here = 0
 
 # for enemy ------
 var hasattacked = false
-var enemybody = ""
+var enemies_in_area: Array[CharacterBody2D] = [] 
 
 #--------
 
@@ -110,9 +110,14 @@ func _process(delta: float) -> void:
 
 		was_attacking = player.attacking
 		
-		if enemy_is_here and hasattacked == false and player.attacking:
-			enemybody.take_damage(Global.PlayerDamage)
+		if hasattacked == false and player.attacking:
 			hasattacked = true
+			await get_tree().create_timer(0.1).timeout
+			print("START ATTACK")
+			for enemy in enemies_in_area:
+				if is_instance_valid(enemy):   # avoid errors if enemy was freed
+					print("ATTACK")
+					enemy.take_damage(Global.PlayerDamage)
 			await get_tree().create_timer(attack_duration).timeout
 			hasattacked = false
 		
@@ -385,36 +390,38 @@ func skill_attack():
 			player.collision_mask |= ~1
 
 func _on_body_entered(body: CharacterBody2D) -> void:
-	var bodies=get_overlapping_bodies()
-	for bod in bodies:
-		if bod.is_in_group("player"):
-			if taken == 0:
-				Global.IsHovering = true
-				player_is_here = 1
+	if body.is_in_group("player"):
+		if taken == 0:
+			Global.IsHovering = true
+			player_is_here = 1
 		
-			Global.PotentialPlayerDamage = item_damage
-			Global.PotentialPlayerHealth = item_health
-			Global.PotentialPlayerSpeed=item_speed
+		Global.PotentialPlayerDamage = item_damage
+		Global.PotentialPlayerHealth = item_health
+		Global.PotentialPlayerSpeed=item_speed
 		
-		elif bod.is_in_group("enemy"):
-			if taken == 1 and Global.WeaponSlot == taken_slot:
-				if player.attacking:
-					enemybody=body
-					enemy_is_here = 1
+	elif body.is_in_group("enemy"):
+		if taken == 1 and Global.WeaponSlot == taken_slot and player.attacking:
+				if body not in enemies_in_area:
+					print("added")
+					enemies_in_area.append(body)
 				if Global.OtherAttacking:
-					bod.take_damage(Global.PlayerDamage)
+					body.take_damage(Global.PlayerDamage)
 		
 
 		
 
 func _on_body_exited(body: CharacterBody2D) -> void:
-	if body.is_in_group("player"):
-		if taken == 0:
-			Global.IsHovering = false
-			player_is_here = 0
-	elif body.is_in_group("enemy"):
-		if player.attacking and taken == 1 and Global.WeaponSlot == taken_slot:
-			enemy_is_here = 0
+		print("body exit")
+		if body.is_in_group("player"):
+			if taken == 0:
+				Global.IsHovering = false
+				player_is_here = 0
+		elif body.is_in_group("enemy"):
+			await get_tree().create_timer(1.5).timeout
+			if  taken == 1 and Global.WeaponSlot == taken_slot:
+				if body in enemies_in_area:
+					print("removed")
+					enemies_in_area.erase(body)
 		
 	
 func _choose_item_stats(name):

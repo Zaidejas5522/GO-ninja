@@ -166,6 +166,7 @@ size = Vector2(16, 16)
 
 [node name="Bear" type="CharacterBody2D" unique_id=979668803 groups=["enemy"]]
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_qpjwo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229832353]

@@ -17,7 +17,8 @@ func _on_body_entered(body):
 
 
 func _on_body_exited(body):
-	entered = false
+	if body.is_in_group("player"):
+		entered = false
 
 	
 #pirmai zaidejas turedavo iseiti ir vel ieiti kad triggerintusi ataka tai padariau kad paatakuotu 
