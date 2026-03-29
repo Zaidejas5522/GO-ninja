@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://c2t73myafyy6b"]
+
+[ext_resource type="Script" uid="uid://wt5y0r1fulcu" path="res://Scripts/Obstacle_Scripts/SandTrap.gd" id="1_x8nbe"]
+[ext_resource type="Texture2D" uid="uid://cm5s2qim3ifoe" path="res://Sprites/Backgrounds/Animated/QuickSand/QuickSand32x32.png" id="2_1q30k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85y3v"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbtmq"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba0xv"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvqq"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dqlm"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twsgu"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x6gt"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_615b4"]
+atlas = ExtResource("2_1q30k")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wgl2k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85y3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbtmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba0xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dqlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twsgu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x6gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_615b4")
+}],
+"loop": true,
+"name": &"new_animation_2",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dn35q"]
+radius = 16.0
+
+[node name="QuickSandTrap" type="Area2D" unique_id=766078108]
+script = ExtResource("1_x8nbe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=597842023]
+sprite_frames = SubResource("SpriteFrames_wgl2k")
+animation = &"new_animation_2"
+autoplay = "new_animation_2"
+frame_progress = 0.9849006
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1795455339]
+shape = SubResource("CircleShape2D_dn35q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

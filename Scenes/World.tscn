@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bb4j6akeso10e"]
+
+[ext_resource type="Script" uid="uid://blu3ooxd2q7uu" path="res://Scripts/DungeonGenerator.gd" id="1_5nsto"]
+[ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/PlayerStuff/Player.tscn" id="4_gjpho"]
+[ext_resource type="PackedScene" uid="uid://cafc7lujrnh3s" path="res://Scenes/PlayerStuff/stats.tscn" id="5_q2d71"]
+[ext_resource type="PackedScene" uid="uid://hqy0rgoftvls" path="res://Scenes/HealthBar.tscn" id="6_uo7di"]
+[ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="7_kn06e"]
+[ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="8_7yo87"]
+
+[node name="World" type="Node2D" unique_id=1974652767]
+script = ExtResource("1_5nsto")
+
+[node name="CharacterBody2D" parent="." unique_id=1119619144 instance=ExtResource("4_gjpho")]
+position = Vector2(200, 200)
+
+[node name="Stats" parent="CharacterBody2D" unique_id=1149489152 instance=ExtResource("5_q2d71")]
+position = Vector2(-360.1896, -155.61194)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=2009808720]
+zoom = Vector2(1.5, 1.5)
+
+[node name="HealthBar" parent="CharacterBody2D" unique_id=57236323 instance=ExtResource("6_uo7di")]
+position = Vector2(-293.1896, -194.61194)
+
+[node name="WeaponSlot" parent="CharacterBody2D" unique_id=496132504 instance=ExtResource("7_kn06e")]
+position = Vector2(-331.18964, 167.38806)
+scale = Vector2(3, 3)
+
+[node name="Node2D" parent="CharacterBody2D" unique_id=1917729211 instance=ExtResource("8_7yo87")]
+position = Vector2(-255.1896, 171.38806)
+scale = Vector2(2, 2)
