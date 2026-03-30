@@ -25,8 +25,8 @@ func _on_body_exited(body):
 #ir trigerintusi overtime vel jei jis yra tenais
 func _process(delta: float) -> void:  
 	if entered and hasattacked == false:
-		realbody.take_damage(3)
+		realbody.take_damage(5)
 		hasattacked = true
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(3).timeout
 		hasattacked = false
 		

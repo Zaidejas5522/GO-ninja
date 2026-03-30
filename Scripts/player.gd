@@ -48,6 +48,7 @@ func take_damage(damage:int):
 			Global.PlayerHealth -= damage
 	if Global.PlayerHealth <= 0:
 		print("Player died")
+		Global.PlayerHealth = 150
 		get_tree().reload_current_scene()
 		
 func take_heal(heal:int):

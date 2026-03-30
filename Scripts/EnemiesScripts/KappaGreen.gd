@@ -2,7 +2,7 @@
 extends CharacterBody2D
 
 # Enemy movement speed
-var speed := 50
+var speed := 70
 
 # Minimum distance before stopping
 var stop_distance := 15.0
@@ -13,7 +13,7 @@ var player_reference: Node = null
 #var animated_sprite: AnimatedSprite2D = null
 @onready var mob_health_bar: ProgressBar = $mob_health_bar
 
-var health = 50
+var health = 70
 
 
 var current_axis := "" 
@@ -40,7 +40,7 @@ func take_damage(damage:int):
 	health -= damage
 	
 	# NEW: Recoil in the opposite direction of where the enemy is facing
-	var recoil_strength = 30  # Adjust as needed
+	var recoil_strength = 20  # Adjust as needed
 	global_position += -facing_direction * recoil_strength
 	
 	

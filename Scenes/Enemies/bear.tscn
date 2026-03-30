@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://br6166lm1wcw8"]
 
-[ext_resource type="Script" uid="uid://cjooicpgvdtup" path="res://Scripts/bear.gd" id="1_qpjwo"]
+[ext_resource type="Script" uid="uid://cjooicpgvdtup" path="res://Scripts/EnemiesScripts/bear.gd" id="1_qpjwo"]
 [ext_resource type="Texture2D" uid="uid://cae5lvucq6q47" path="res://Sprites/Actor/Monsters/Bear/SpriteSheet.png" id="1_ylc52"]
-[ext_resource type="Script" uid="uid://0jndlrjer2r0" path="res://Scripts/damage_area.gd" id="3_2imu7"]
+[ext_resource type="Script" uid="uid://cgwa46dct3ge1" path="res://Scripts/EnemiesScripts/bear_damage_area.gd" id="3_0dxi8"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="3_4or10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylc52"]
@@ -178,11 +178,11 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 shape = SubResource("RectangleShape2D_qpjwo")
 
-[node name="DamageArea" type="Area2D" parent="." unique_id=912148255]
+[node name="BearDamageArea" type="Area2D" parent="." unique_id=912148255]
 collision_mask = 4
-script = ExtResource("3_2imu7")
+script = ExtResource("3_0dxi8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=1640189461]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BearDamageArea" unique_id=1640189461]
 visible = false
 shape = SubResource("CircleShape2D_2imu7")
 
@@ -192,5 +192,5 @@ offset_bottom = 27.0
 script = ExtResource("3_4or10")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="body_entered" from="DamageArea" to="DamageArea" method="_on_body_entered"]
-[connection signal="body_exited" from="DamageArea" to="DamageArea" method="_on_body_exited"]
+[connection signal="body_entered" from="BearDamageArea" to="BearDamageArea" method="_on_body_entered"]
+[connection signal="body_exited" from="BearDamageArea" to="BearDamageArea" method="_on_body_exited"]
