@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bklqlnx56lmxn" path="res://Sprites/Backgrounds/Tilesets/TilesetLogic.png" id="5_7mujt"]
 [ext_resource type="PackedScene" uid="uid://c2t73myafyy6b" path="res://Scenes/Obstacles/QuickSand.tscn" id="6_ei308"]
 [ext_resource type="Script" uid="uid://bly6qpk5xeuyg" path="res://Scripts/Obstacle_Scripts/BaseRoom.gd" id="7_7mujt"]
-[ext_resource type="PackedScene" uid="uid://br6166lm1wcw8" path="res://Scenes/bear.tscn" id="7_ru8b1"]
+[ext_resource type="PackedScene" uid="uid://br6166lm1wcw8" path="res://Scenes/Enemies/bear.tscn" id="7_ru8b1"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h7asn"]
 texture = ExtResource("2_ob0g0")

@@ -19,13 +19,12 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	if body.is_in_group("player"):
 		entered = false
-
 	
 #pirmai zaidejas turedavo iseiti ir vel ieiti kad triggerintusi ataka tai padariau kad paatakuotu 
 #ir trigerintusi overtime vel jei jis yra tenais
 func _process(delta: float) -> void:  
 	if entered and hasattacked == false:
-		realbody.take_damage(3)
+		#realbody.take_damage(3)
 		hasattacked = true
 		await get_tree().create_timer(2).timeout
 		hasattacked = false
