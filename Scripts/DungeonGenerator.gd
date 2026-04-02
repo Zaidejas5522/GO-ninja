@@ -107,7 +107,7 @@ func _change_room(body, area):
 	if next_index != -1:
 		_load_room(next_index, body, going_deeper)
 	else:
-		print("Kelio galas - nėra kur eiti!")
+		print("the end")
 		is_changing_room = false
 
 func _load_room(index, player = null, deeper = true):
@@ -125,7 +125,7 @@ func _load_room(index, player = null, deeper = true):
 			var spawn_point = new_room.find_child(spawn_name, true, false)
 			if spawn_point:
 				player.global_position = spawn_point.global_position
-				print("Teleportuota į: ", spawn_name)
+				print("tp'ed to: ", spawn_name)
 		
 		# removinam old room
 		if current_room:
