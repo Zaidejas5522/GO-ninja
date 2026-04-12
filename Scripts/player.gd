@@ -31,8 +31,8 @@ enum Direction { NONE, LEFT, RIGHT, UP, DOWN }
 var last_direction := Direction.NONE # Last pressed direction for movement
 var facing_direction := Direction.NONE  # Direction the player is facing for idle/attack
 
-var maxHealth = 150
-var health = 80
+#var maxHealth = 150
+#var health = 80
 
 func _ready() -> void:
 	facing_direction = Direction.DOWN
@@ -52,12 +52,12 @@ func take_damage(damage:int):
 		get_tree().reload_current_scene()
 		
 func take_heal(heal:int):
-	health += heal
+	Global.PlayerHealth += heal
 	healthBar.change_health(heal)
 
 func _process(delta: float) -> void:
 	#damage=Global.PlayerDamage
-	if health <= 0:
+	if Global.PlayerHealth <= 0:
 		print("gameover")
 	if Input.is_action_just_pressed("Attack") and not attacking:
 		start_attack()
