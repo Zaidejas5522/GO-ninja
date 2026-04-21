@@ -4,6 +4,7 @@ extends CharacterBody2D
 # Enemy movement speed
 var speed := 60
 
+
 # Minimum distance before stopping
 var stop_distance := 15.0
 
@@ -45,11 +46,33 @@ func take_damage(damage:int):
 	
 	
 	if health <= 0:
-		queue_free()
+		die()
+		
+		
+		
+func die():
+	# Preload the scenes (you can also use @export, but you requested hardcoded paths)
+	const MONEY_SCENE = preload("res://Scenes/PlayerStuff/Money.tscn")
+	const CONSUMABLE_SCENE = preload("res://Scenes/PlayerStuff/Consumable.tscn")
 
-
-
-
+	var rare_chance = 0.1   # 10% chance for consumable drop
+	
+	var drop_scene = MONEY_SCENE
+	if randf() < rare_chance:
+		drop_scene = CONSUMABLE_SCENE
+	
+	var drop = drop_scene.instantiate()
+	drop.global_position = global_position
+	get_parent().add_child(drop)
+	
+	queue_free()	
+		
+		
+		
+		
+		
+		
+		
 
 func _physics_process(delta: float) -> void:
 	if not player_reference:

@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b120fdsa6hsuo" path="res://Sprites/Backgrounds/Tilesets/TilesetFloor.png" id="6_1euoc"]
 [ext_resource type="Texture2D" uid="uid://lb7jlro0ipxx" path="res://Sprites/Backgrounds/Tilesets/TilesetField.png" id="7_5n0on"]
 [ext_resource type="Script" uid="uid://bly6qpk5xeuyg" path="res://Scripts/Obstacle_Scripts/BaseRoom.gd" id="8_clfhn"]
+[ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="9_clfhn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3f8ul"]
 texture = ExtResource("2_18u5k")
@@ -1498,3 +1499,6 @@ position = Vector2(136, 144)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor" unique_id=16356661]
 position = Vector2(136, 232)
 shape = SubResource("RectangleShape2D_18u5k")
+
+[node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("9_clfhn")]
+position = Vector2(136, 176)
