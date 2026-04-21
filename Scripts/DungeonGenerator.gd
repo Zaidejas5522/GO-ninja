@@ -1,129 +1,145 @@
-extends Node
+extends Node2D
 
-var start_room_scene = preload("res://Scenes/StartRoom.tscn")
-var combat_room_scene = preload("res://Scenes/CombatRoom.tscn")
-var treasure_room_scene = preload("res://Scenes/TreasureRoom.tscn")
-var boss_room_scene = preload("res://Scenes/BossRoom.tscn")
-
-#var previous_room_scene = null # praeito kambario save
 var current_room = null
+var current_room_index = 0 # Pradedame nuo StartRoom (indeksas 0)
+var history_stack = []     # Saugo buvusių kambarių indeksus
+var future_stack = []      # Saugo future kambarių indeksus (grįžimui)
 var is_changing_room = false
-var is_boss_defeated = true # true for now, kol testinu
 
-var history_stack=[]
-var future_stack=[]
+# room sequence
+@onready var room_sequence = [
+	"res://Scenes/Rooms/StartRoom.tscn",
+	"res://Scenes/Rooms/RoomCorridor.tscn",
+	"res://Scenes/Rooms/CombatRoom.tscn",
+	"res://Scenes/Rooms/TreasureRoom.tscn",
+	"res://Scenes/Rooms/BossRoom.tscn"
+]
 
-@onready var fade_rect = $CanvasLayer/FadeRect
-
-func _ready() -> void:
-	randomize()
-	current_room = start_room_scene.instantiate()
-	current_room.set_meta("scene_ref", start_room_scene)
-	add_child(current_room)
-	current_room.position = Vector2(0, 0)
-	_setup_door_signals(current_room)
-	
+func _ready():
+	for child in get_children():
+		if "Room" in child.name:
+			current_room = child
+			break
+			
 	var player = get_node_or_null("CharacterBody2D")
-	if player:
-		player.position = Vector2(200, 200)
+	
+	if current_room == null:
+		_load_room(0, player)
+	else:
+		_setup_door_signals(current_room)
+		if player:
+			await get_tree().process_frame
+			var start_point = current_room.find_child("DoorEnter", true, false)
+			if start_point:
+				player.global_position = start_point.global_position
+				print("veikia")
 
 func _setup_door_signals(room):
-	var all_areas = room.find_children("*", "Area2D")
-	for area in all_areas:
-		if area.is_in_group("doors"):
-			if area.body_entered.is_connected(_on_door_entered):
-				area.body_entered.disconnect(_on_door_entered)
-			area.body_entered.connect(_on_door_entered.bind(area))
+	# ExitDoor (Eiti gilyn)
+	var exit = room.find_child("ExitDoor", true, false)
+	if exit and not exit.body_entered.is_connected(_on_door_entered):
+		exit.body_entered.connect(_on_door_entered.bind(exit))
+		
+	# BackDoor (Grįžti atgal)
+	var back = room.find_child("BackDoor", true, false)
+	if back and not back.body_entered.is_connected(_on_door_entered):
+		back.body_entered.connect(_on_door_entered.bind(back))
+
+	var localA = room.find_child("LocalDoorA", true, false)
+	if localA and not localA.body_entered.is_connected(_on_local_teleport):
+		localA.body_entered.connect(_on_local_teleport.bind("SpawnPointB"))
+		
+	var localB = room.find_child("LocalDoorB", true, false)
+	if localB and not localB.body_entered.is_connected(_on_local_teleport):
+		localB.body_entered.connect(_on_local_teleport.bind("SpawnPointA"))
+		
+		
+func _on_local_teleport(body, target_marker_name):
+	print("duris touchino: ", body.name)
+	
+	if body is CharacterBody2D:
+		var target = current_room.find_child(target_marker_name, true, false)
+		if target:
+			body.global_position = target.global_position
+			
+			if "current_axis" in body:
+				body.current_axis = ""
+				print("veikia: ", body.name, "tp'ed i ", target_marker_name)
+		
+		# kolkas taip, del enemies triggerinimo (nepamirst patikrint veliau)
+func _on_local_door_entered(body, target_marker_name):
+	# checkas ar playeris ar enemy group object
+	if body.name == "CharacterBody2D" or body.is_in_group("enemy"):
+		var target = current_room.find_child(target_marker_name, true, false)
+		
+		if target:
+			body.global_position = target.global_position
+			
+			if "current_axis" in body:
+				body.current_axis = ""
+				
+			print("tp: ", body.name, " to ", target_marker_name)
 
 func _on_door_entered(body, area):
-	if is_changing_room or not body is CharacterBody2D:
-		return
-	#if current_room.name.contains("BossRoom") and not is_boss_defeated:
-		#return
-
-	is_changing_room = true
-	var tween = create_tween()
-	tween.tween_property(fade_rect, "modulate:a", 1.0, 0.15)
-	tween.tween_callback(_change_room.bind(body, area))
-	tween.tween_property(fade_rect, "modulate:a", 0.0, 0.15)
-	tween.tween_callback(func(): is_changing_room = false)
+	# check ar įėjo žaidėjas ir ar nevyksta perėjimas
+	if body.name == "CharacterBody2D" and not is_changing_room:
+		is_changing_room = true
+		call_deferred("_change_room", body, area)
 
 func _change_room(body, area):
-	var old_room = current_room
-	var next_scene = null
-	#var new_room=next_scene.instantiate()
-	#new_room.set_meta("scene_ref", next_scene)
-	#add_child(new_room)
-	var going_north=area.name.contains("North")
-	var going_south=area.name.contains("South")
+	var next_index = -1
+	var going_deeper = (area.name == "ExitDoor")
 	
-	var current_scene_ref=_get_room_ref(old_room)
-	
-	# ejimas atgal (north durys)
-	if going_north:
-		if history_stack.size()>0:
-			#saugom dabartini kambari del future, kad atgal tuo paciu route eitu gryzt
-			future_stack.append(current_scene_ref)
-			#pasiimam kambari is history
-			next_scene=history_stack.pop_back()
-			print("gryzimas atgal. dar liko: ", history_stack.size())
-		else:
-			print("start room")
-			is_changing_room=false
-			return
-	#judejimas i prieki *(South durys)
-	elif going_south:
-		#dabartini kambari i history ikraunam
-		history_stack.append(current_scene_ref)
-		
-		if future_stack.size()>0:
-			next_scene=future_stack.pop_back()
-			print("einam i jau lankyta rooma")
-		else:
-			next_scene=_generate_random_next_room(old_room.name)
-			print("generuojam nauja room")
-			future_stack.clear()
+	if going_deeper:
+		# jei einame gilyn, žiūrime ar yra kas nors ateityje, jei ne - imam sekantį iš sąrašo
+		if future_stack.size() > 0:
+			history_stack.append(current_room_index)
+			next_index = future_stack.pop_back()
+		elif current_room_index < room_sequence.size() - 1:
+			history_stack.append(current_room_index)
+			next_index = current_room_index + 1
+	else:
+		# jei grįžtame atgal
+		if history_stack.size() > 0:
+			future_stack.append(current_room_index)
+			next_index = history_stack.pop_back()
 
-	if next_scene:
+	if next_index != -1:
+		_load_room(next_index, body, going_deeper)
+	else:
+		print("the end")
+		is_changing_room = false
+
+func _load_room(index, player = null, deeper = true):
+	var path = room_sequence[index]
+	if FileAccess.file_exists(path):
+		var next_scene = load(path)
 		var new_room = next_scene.instantiate()
-		new_room.set_meta("scene_ref", next_scene)
+		
+		# addinam new room
 		add_child(new_room)
-		new_room.position = Vector2(0, 0)
+		
+		# tp žaidėją ant atitinkamo markerio
+		if player:
+			var spawn_name = "DoorEnter" if deeper else "DoorReturn"
+			var spawn_point = new_room.find_child(spawn_name, true, false)
+			if spawn_point:
+				player.global_position = spawn_point.global_position
+				print("tp'ed to: ", spawn_name)
+		
+		# removinam old room
+		if current_room:
+			current_room.queue_free()
+		
 		current_room = new_room
+		current_room_index = index
 		
-		_setup_door_signals(new_room)
-		
-		# Teleportacija
-		if going_south:
-			body.position=Vector2(200,60) #kad virsuj spawn
-		else:
-			body.position=Vector2(200,340) #kad apacioj spawn (del uztikrinimo, kad nesispawnintu uz ribu kambario)
-		old_room.queue_free()
+		# patikrint dar
+		call_deferred("_setup_door_signals", new_room)
+		print("success: uzkrautas kambariuks: ", path)
 	else:
-		is_changing_room=false
-		
-func _get_room_ref(room_node: Node):
-	# get_meta kad nemestų klaidos, jei neranda
-	var ref = room_node.get_meta("scene_ref", null)
-	if ref != null:
-		return ref
+		print("nera failo: ", path)
 	
-	# jei neranda, gryztam prie pavadinimo tikrinimo
-	var r_name = room_node.name.to_lower()
-	if "start" in r_name: return start_room_scene
-	if "combat" in r_name: return combat_room_scene
-	if "boss" in r_name: return boss_room_scene
-	if "treasure" in r_name: return treasure_room_scene
-	
-	return start_room_scene
-	
-func _generate_random_next_room(current_name):
-	var roll=randf()
-	if current_name.contains("StartRoom"):
-		return treasure_room_scene if roll<=0.10 else combat_room_scene
-	elif current_name.contains("BossRoom"):
-		return treasure_room_scene if roll<=0.40 else start_room_scene
-	else:
-		if roll<=0.15:return treasure_room_scene
-		elif roll<=0.25:return boss_room_scene
-		else:return combat_room_scene
+	# cia del, to kad nepersoktu iskart i kita room
+	await get_tree().create_timer(0.3).timeout
+	is_changing_room = false

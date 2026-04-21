@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://dwwhjsnvuyq87"]
+
+[ext_resource type="Script" uid="uid://ceqo0oickwfel" path="res://Scripts/Obstacle_Scripts/Spike_Trap.gd" id="1_xy1ik"]
+[ext_resource type="Texture2D" uid="uid://bdo5nnrgtrthv" path="res://Sprites/extra/Moving Spikes 32x32 scaled 64x64.png" id="2_5hlq6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cuun"]
+atlas = ExtResource("2_5hlq6")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_by27d"]
+atlas = ExtResource("2_5hlq6")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c6xs"]
+atlas = ExtResource("2_5hlq6")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h5v3"]
+atlas = ExtResource("2_5hlq6")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfnif"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cuun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_by27d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2c6xs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h5v3")
+}],
+"loop": true,
+"name": &"spikey",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xf0s3"]
+size = Vector2(16, 16)
+
+[node name="SpikeTrap" type="Area2D" unique_id=471977528]
+script = ExtResource("1_xy1ik")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=340110767]
+position = Vector2(-7.1525574e-07, 2.3841858e-07)
+scale = Vector2(0.24999999, 0.25)
+sprite_frames = SubResource("SpriteFrames_kfnif")
+animation = &"spikey"
+autoplay = "spikey"
+frame_progress = 0.76976573
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1374525229]
+shape = SubResource("RectangleShape2D_xf0s3")
+
+[node name="Timer" type="Timer" parent="." unique_id=877131794]
+wait_time = 0.75
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

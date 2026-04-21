@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 
 #Speed of the player
-const SPEED = 130.0 
+var SPEED = 130.0 
 
 
 var breadcrumbs: Array[Vector2] = []
@@ -31,29 +31,33 @@ enum Direction { NONE, LEFT, RIGHT, UP, DOWN }
 var last_direction := Direction.NONE # Last pressed direction for movement
 var facing_direction := Direction.NONE  # Direction the player is facing for idle/attack
 
-var maxHealth = 150
-var health = 80
+#var maxHealth = 150
+#var health = 80
 
 func _ready() -> void:
 	facing_direction = Direction.DOWN
-	healthBar.set_health_bar(health, maxHealth)
+#	healthBar.set_health_bar(health, maxHealth)
 	attacking = false
 	
 
 func take_damage(damage:int):
-	health -= damage
-	healthBar.change_health(-damage)
-	if health <= 0:
+	if Global.IsDamagable == false:
+		if Global.ShieldActive > 0:
+			Global.ShieldActive-=1
+		else:
+			Global.PlayerHealth -= damage
+	if Global.PlayerHealth <= 0:
 		print("Player died")
+		Global.PlayerHealth = 150
 		get_tree().reload_current_scene()
 		
 func take_heal(heal:int):
-	health += heal
+	Global.PlayerHealth += heal
 	healthBar.change_health(heal)
 
 func _process(delta: float) -> void:
 	#damage=Global.PlayerDamage
-	if health <= 0:
+	if Global.PlayerHealth <= 0:
 		print("gameover")
 	if Input.is_action_just_pressed("Attack") and not attacking:
 		start_attack()
@@ -238,7 +242,7 @@ func _movement(delta):
 
 
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
-	if attacking:
-		print(body.name)
+	if attacking and $WeaponSlot.slots == 0:
+		#print(body.name)
 		if body.has_method("take_damage"):
-			body.take_damage(15)
+			body.take_damage(Global.PlayerDamage)

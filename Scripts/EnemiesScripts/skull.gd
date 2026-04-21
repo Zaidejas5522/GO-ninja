@@ -1,0 +1,148 @@
+# pakeiciau is extends Node2D, nes reikalingas velocity ir move_and_slide()
+extends CharacterBody2D
+
+# Enemy movement speed
+var speed := 40
+
+# Minimum distance before stopping
+var stop_distance := 250.0
+
+var player_reference: Node = null
+#var animated_sprite: AnimatedSprite2D = null
+
+#var animated_sprite: AnimatedSprite2D = null
+@onready var mob_health_bar: ProgressBar = $mob_health_bar
+
+var health = 20
+
+
+var current_axis := "" 
+
+var target_breadcrumb: Vector2 = Vector2.ZERO
+var player
+
+
+# NEW: Track the direction the enemy is currently facing
+#Idejau recoila ant enemy nes su shorter weapons biski nekazka buna
+#gal ideja padaryt kad kiekvieni weaponai turetu skirtinga recoila ateiciai irgi
+#bet cia man jau sitas
+var facing_direction: Vector2 = Vector2.RIGHT
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+func _ready():
+	#player_reference = get_node("res://Scenes/Player.tscn")
+	#animated_sprite = get_node("/root/StartRoom/Bear/AnimatedSprite2D")
+
+	player_reference=get_tree().get_first_node_in_group("player")
+
+
+func take_damage(damage:int):
+	health -= damage
+	
+	# NEW: Recoil in the opposite direction of where the enemy is facing
+	var recoil_strength = 60  # Adjust as needed
+	global_position += -facing_direction * recoil_strength
+	
+	
+	if health <= 0:
+		queue_free()
+
+
+
+@onready var ray_cast: RayCast2D = $RayCast2D
+@onready var timer: Timer = $Timer
+@export var fireball : PackedScene
+
+func _aim():
+	ray_cast.target_position=to_local(player_reference.position)
+
+func _check_player_collision():
+	if ray_cast.get_collider() == player_reference and timer.is_stopped():
+		timer.start()
+	elif ray_cast.get_collider() != player_reference and not timer.is_stopped():
+		timer.stop()
+
+
+
+func _physics_process(delta: float) -> void:
+	if not player_reference:
+		return
+	
+	if player_reference.breadcrumbs.size() == 0:
+		return
+
+	target_breadcrumb = player_reference.breadcrumbs[-1]
+
+	var delta_pos = target_breadcrumb - global_position
+	var distance = delta_pos.length()
+	_aim()
+	_check_player_collision()
+
+	# Only move if not close enough
+	if distance > stop_distance:
+
+		var direction = Vector2.ZERO
+
+		if current_axis == "":
+			if abs(delta_pos.x) > abs(delta_pos.y):
+				current_axis = "x"
+			else:
+				current_axis = "y"
+
+		if current_axis == "x":
+			direction.x = sign(delta_pos.x)
+
+			if abs(delta_pos.x) < 2:
+				current_axis = "y"
+			
+			# Update facing direction
+			facing_direction = Vector2(direction.x, 0)
+
+			if direction.x > 0:
+				if animated_sprite.animation != "WalkingRight":
+					animated_sprite.play("WalkingRight")
+			else:
+				if animated_sprite.animation != "WalkingLeft":
+					animated_sprite.play("WalkingLeft")
+
+		elif current_axis == "y":
+			direction.y = sign(delta_pos.y)
+
+			if abs(delta_pos.y) < 2 or (current_axis == "y" and abs(delta_pos.x) > abs(delta_pos.y) * 2):
+				current_axis = "x"
+			
+			
+			# Update facing direction
+			facing_direction = Vector2(0, direction.y)
+
+			if direction.y > 0:
+				if animated_sprite.animation != "WalkingDown":
+					animated_sprite.play("WalkingDown")
+			else:
+				if animated_sprite.animation != "WalkingUp":
+					animated_sprite.play("WalkingUp")
+					
+# pakeiciu sita kolkas - Lukas
+		#global_position += direction * speed * delta
+		velocity = direction * speed
+		move_and_slide()
+
+	else:
+		animated_sprite.stop()
+		current_axis = ""
+		velocity = Vector2(0,0)
+
+		if distance < 5:
+			global_position = target_breadcrumb
+
+		player_reference.breadcrumbs.pop_front()
+
+
+func _on_timer_timeout() -> void:
+	_shoot()
+
+func _shoot():
+	var fire = fireball.instantiate()
+	fire.position = position
+	fire.direction = (ray_cast.target_position).normalized()
+	get_tree().current_scene.add_child(fire)

@@ -1,10 +1,8 @@
 extends Node2D
 
 func _ready():
-	# Kai žaidimas prasideda, šis kambarys pasislepia
 	visible = true
 
-# Šią funkciją iškviesime vėliau, kai žaidėjas įžengs į kambarį
 func discover_room():
 	visible = true
 

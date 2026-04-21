@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://blu3ooxd2q7uu" path="res://Scripts/DungeonGenerator.gd" id="1_52fb6"]
 [ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/PlayerStuff/Player.tscn" id="2_6l7je"]
+[ext_resource type="PackedScene" uid="uid://cafc7lujrnh3s" path="res://Scenes/PlayerStuff/stats.tscn" id="3_6ev3c"]
+[ext_resource type="PackedScene" uid="uid://hqy0rgoftvls" path="res://Scenes/HealthBar.tscn" id="4_maf8m"]
+[ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="5_huasi"]
+[ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="6_m1efj"]
 
 [node name="MainScene" type="Node2D" unique_id=289803248]
 script = ExtResource("1_52fb6")
@@ -9,10 +13,22 @@ script = ExtResource("1_52fb6")
 [node name="CharacterBody2D" parent="." unique_id=1219799318 instance=ExtResource("2_6l7je")]
 position = Vector2(543, 52)
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=261393870]
-position = Vector2(-2, -1)
-scale = Vector2(0.5, 0.5)
-zoom = Vector2(3, 3)
+[node name="Stats" parent="CharacterBody2D" unique_id=1149489152 instance=ExtResource("3_6ev3c")]
+position = Vector2(-360.1896, -155.61194)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1624269334]
+zoom = Vector2(1.5, 1.5)
+
+[node name="HealthBar" parent="CharacterBody2D" unique_id=57236323 instance=ExtResource("4_maf8m")]
+position = Vector2(-293.1896, -194.61194)
+
+[node name="WeaponSlot" parent="CharacterBody2D" unique_id=496132504 instance=ExtResource("5_huasi")]
+position = Vector2(-331.18964, 167.38806)
+scale = Vector2(3, 3)
+
+[node name="Node2D" parent="CharacterBody2D" unique_id=1917729211 instance=ExtResource("6_m1efj")]
+position = Vector2(-255.1896, 171.38806)
+scale = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1755378104]
 

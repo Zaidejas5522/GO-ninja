@@ -8,7 +8,7 @@ extends Area2D
 
 @export var offset_distance: float = 0
 @export var attack_extra_distance: float = 17.0 # Extra distance during attack , WILL NEED TO TWEAK FOR EACH DIFFERENT WEAPON
-@export var attack_duration: float = 0.3   
+@export var attack_duration: float = 0.1
 
 var attack_extra_offset: float = 0.0            # Current extra offset (0 when idle)
 var was_attacking: bool = false                 # Track previous attack state
@@ -37,6 +37,13 @@ var item_speed  = 0
 var taken = 0
 
 var player_is_here = 0
+var enemy_is_here = 0
+
+# for enemy ------
+var hasattacked = false
+var enemies_in_area: Array[CharacterBody2D] = [] 
+
+#--------
 
 var weapons = ["Axe", "Katana", "Stick","Rapier","Lance"]
 var weapon=""
@@ -88,6 +95,7 @@ func _process(delta: float) -> void:
 		rotation = 0.0
 		taken_slot = -1
 		sprite.visible=true
+		player_is_here=false
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:
@@ -101,6 +109,17 @@ func _process(delta: float) -> void:
 			start_attack_motion()
 
 		was_attacking = player.attacking
+		
+		if hasattacked == false and player.attacking:
+			hasattacked = true
+			await get_tree().create_timer(0.1).timeout
+			print("START ATTACK")
+			for enemy in enemies_in_area:
+				if is_instance_valid(enemy):   # avoid errors if enemy was freed
+					print("ATTACK")
+					enemy.take_damage(Global.PlayerDamage)
+			await get_tree().create_timer(attack_duration).timeout
+			hasattacked = false
 		
 		if  Input.is_action_just_pressed("Skill") and not skill_attacking and Global.SkillReady:
 			SkillUsed = 1
@@ -211,7 +230,11 @@ func skill_attack():
 			player.attacking=false
 			self.scale = old_scale
 		"Katana":
-			pass
+			Global.ShieldActive = 1
+			var shield_scene = preload("res://Scenes/PlayerStuff/SpellShield.tscn")
+			var shield = shield_scene.instantiate()
+			shield.position = global_position
+			add_child(shield)
 		"Stick":
 			# Prevent multiple skill attacks at once
 			if skill_attacking:
@@ -303,9 +326,13 @@ func skill_attack():
 			skill_attacking = false
 			player.attacking=false
 		"Lance":
+			Global.IsDamagable = true
+			Global.OtherAttacking = true
 			is_lance_dashing = true
 			skill_attacking = true
 			player.isdashing = true
+			player.collision_layer &= ~1
+			player.collision_mask &= ~1
 
 		# Parameters
 			var dash_distance := 150.0        # How far the player moves
@@ -354,9 +381,13 @@ func skill_attack():
 			# Cleanup
 			extra_offset = 0.0
 			player.SPEED=OLDSPEED
+			Global.IsDamagable = false
+			Global.OtherAttacking = false
 			is_lance_dashing = false
 			player.isdashing = false
 			skill_attacking = false
+			player.collision_layer |= ~1
+			player.collision_mask |= ~1
 
 func _on_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("player"):
@@ -368,14 +399,30 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		Global.PotentialPlayerHealth = item_health
 		Global.PotentialPlayerSpeed=item_speed
 		
+	elif body.is_in_group("enemy"):
+		if taken == 1 and Global.WeaponSlot == taken_slot and player.attacking:
+				if body not in enemies_in_area:
+					print("added")
+					enemies_in_area.append(body)
+				if Global.OtherAttacking:
+					body.take_damage(Global.PlayerDamage)
+		
 
 		
 
 func _on_body_exited(body: CharacterBody2D) -> void:
-	if body.is_in_group("player"):
-		if taken == 0:
-			Global.IsHovering = false
-			player_is_here = 0
+		print("body exit")
+		if body.is_in_group("player"):
+			if taken == 0:
+				Global.IsHovering = false
+				player_is_here = 0
+		elif body.is_in_group("enemy"):
+			await get_tree().create_timer(1.5).timeout
+			if  taken == 1 and Global.WeaponSlot == taken_slot:
+				if body in enemies_in_area:
+					print("removed")
+					enemies_in_area.erase(body)
+		
 	
 func _choose_item_stats(name):
 	match name:

@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://bjygadbmigkju"]
+
+[ext_resource type="Texture2D" uid="uid://ce0up7jar512m" path="res://Sprites/extra/Suriken.png" id="1_2fhdc"]
+[ext_resource type="Script" uid="uid://cjvt2cw5117s8" path="res://Scripts/Obstacle_Scripts/ShurikenTrap.gd" id="1_p47wn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p47wn"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8x4mr"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kid0f"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eulbg"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k54vh"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ucux"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6322i"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv550"]
+atlas = ExtResource("1_2fhdc")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ao6vm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p47wn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8x4mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kid0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eulbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k54vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ucux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6322i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv550")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aibvb"]
+size = Vector2(32, 32)
+
+[node name="ShurikenMoving" type="Area2D" unique_id=1942575249]
+script = ExtResource("1_p47wn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1047578822]
+sprite_frames = SubResource("SpriteFrames_ao6vm")
+autoplay = "default"
+frame_progress = 0.022308681
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1194529669]
+shape = SubResource("RectangleShape2D_aibvb")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=191325075]
+target_position = Vector2(0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
