@@ -4,6 +4,43 @@
 [ext_resource type="Script" uid="uid://cd5lccltunhl1" path="res://Scripts/stats.gd" id="1_r5cav"]
 [ext_resource type="Texture2D" uid="uid://dao0me5spcwyh" path="res://Sprites/Ui/Skill Icon/Spell/Heal.png" id="2_r5cav"]
 [ext_resource type="Texture2D" uid="uid://bjp18blyrh3xb" path="res://Sprites/Ui/Skill Icon/Items & Weapon/Boot.png" id="3_y7n1g"]
+[ext_resource type="Texture2D" uid="uid://bapf33px6rno" path="res://Sprites/Items/Treasure/Coin2.png" id="5_y7n1g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sa2k"]
+atlas = ExtResource("5_y7n1g")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e77xb"]
+atlas = ExtResource("5_y7n1g")
+region = Rect2(10, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68t3h"]
+atlas = ExtResource("5_y7n1g")
+region = Rect2(20, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8h7g"]
+atlas = ExtResource("5_y7n1g")
+region = Rect2(30, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ln6sx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sa2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e77xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68t3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8h7g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Stats" type="Node2D" unique_id=1149489152]
 script = ExtResource("1_r5cav")
@@ -67,5 +104,20 @@ offset_left = 49.0
 offset_top = -11.0
 offset_right = 89.0
 offset_bottom = 12.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=128505106]
+position = Vector2(1, 86.00001)
+scale = Vector2(2.7, 2.9)
+sprite_frames = SubResource("SpriteFrames_ln6sx")
+autoplay = "default"
+
+[node name="Label3" type="Label" parent="." unique_id=1707760646]
+offset_left = 12.0
+offset_top = 75.0
+offset_right = 53.0
+offset_bottom = 99.0
+text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
