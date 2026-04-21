@@ -3,6 +3,7 @@ extends Node
 var PlayerHealth = 30
 var IsDamagable = false
 var OtherAttacking = false
+var Money = 0
 
 
 
