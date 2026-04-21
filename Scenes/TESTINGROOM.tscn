@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://0c6mcqqtg2ik" path="res://Scenes/Enemies/KappaGreen.tscn" id="9_y57jb"]
 [ext_resource type="PackedScene" uid="uid://cyli1l8pkb042" path="res://Scenes/Enemies/Lizard.tscn" id="10_eo2vv"]
 [ext_resource type="PackedScene" uid="uid://b8uxkl02oobii" path="res://Scenes/Enemies/Reptile.tscn" id="11_x15nk"]
+[ext_resource type="PackedScene" uid="uid://rbm455k844v4" path="res://Scenes/PlayerStuff/Consumable.tscn" id="12_eo2vv"]
+[ext_resource type="PackedScene" uid="uid://br6166lm1wcw8" path="res://Scenes/Enemies/bear.tscn" id="13_x15nk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kanf6"]
 size = Vector2(400, 20)
@@ -117,3 +119,12 @@ position = Vector2(251, 294)
 
 [node name="Reptile" parent="." unique_id=1662797811 instance=ExtResource("11_x15nk")]
 position = Vector2(312, 349)
+
+[node name="Consumable" parent="." unique_id=1046143464 instance=ExtResource("12_eo2vv")]
+position = Vector2(77, 38)
+
+[node name="Consumable2" parent="." unique_id=1156219933 instance=ExtResource("12_eo2vv")]
+position = Vector2(113, 39)
+
+[node name="Bear" parent="." unique_id=465263545 instance=ExtResource("13_x15nk")]
+position = Vector2(192, 293)

@@ -3,6 +3,7 @@ extends Node
 var PlayerHealth = 30
 var IsDamagable = false
 var OtherAttacking = false
+var Money = 0
 
 
 
@@ -15,7 +16,7 @@ var PlayerSpeed = 130
 var PotentialPlayerSpeed = 0
 var CurrentItemSpeed = 0
 
-var PlayerDamage = 3
+var PlayerDamage = 10
 var PotentialPlayerDamage = 0
 var CurrentItemDamage = 0
 

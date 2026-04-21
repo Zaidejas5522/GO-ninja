@@ -1502,10 +1502,4 @@ position = Vector2(136, 232)
 shape = SubResource("RectangleShape2D_18u5k")
 
 [node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("9_clfhn")]
-position = Vector2(180, 141)
-
-[node name="Lizard" parent="." unique_id=979668803 instance=ExtResource("9_e7dc4")]
-position = Vector2(24, 46)
-
-[node name="Lizard2" parent="." unique_id=98779448 instance=ExtResource("9_e7dc4")]
-position = Vector2(242, 195)
+position = Vector2(136, 176)

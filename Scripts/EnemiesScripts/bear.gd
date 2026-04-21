@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 var speed := 60
+
+
+# Minimum distance before stopping
 var stop_distance := 15.0
 
 var player_reference: Node = null
@@ -43,6 +46,42 @@ func _physics_process(delta: float) -> void:
 	else:
 		_follow_last_seen()
 
+func take_damage(damage:int):
+	health -= damage
+	
+	# NEW: Recoil in the opposite direction of where the enemy is facing
+	var recoil_strength = 30  # Adjust as needed
+	global_position += -facing_direction * recoil_strength
+	
+	
+	if health <= 0:
+		die()
+		
+		
+		
+func die():
+	# Preload the scenes (you can also use @export, but you requested hardcoded paths)
+	const MONEY_SCENE = preload("res://Scenes/PlayerStuff/Money.tscn")
+	const CONSUMABLE_SCENE = preload("res://Scenes/PlayerStuff/Consumable.tscn")
+
+	var rare_chance = 0.1   # 10% chance for consumable drop
+	
+	var drop_scene = MONEY_SCENE
+	if randf() < rare_chance:
+		drop_scene = CONSUMABLE_SCENE
+	
+	var drop = drop_scene.instantiate()
+	drop.global_position = global_position
+	get_parent().add_child(drop)
+	
+	queue_free()	
+		
+		
+		
+		
+		
+		
+		
 
 # LINE OF SIGHT
 func _update_vision():

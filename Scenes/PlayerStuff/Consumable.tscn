@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://rbm455k844v4"]
+
+[ext_resource type="Script" uid="uid://cc5ukqrk8ifi7" path="res://Scripts/consumable.gd" id="1_hsgbo"]
+[ext_resource type="Texture2D" uid="uid://dk1ewnnq71j8n" path="res://Sprites/Items/Potion/Medipack.png" id="2_r0xdn"]
+[ext_resource type="Texture2D" uid="uid://dgay22wa6atco" path="res://Sprites/Items/Object/MoneyBag.png" id="3_lmi3g"]
+[ext_resource type="Texture2D" uid="uid://bqbnpf331rjt" path="res://Sprites/Items/Tool/Anvil.png" id="4_01dfy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38e8x"]
+atlas = ExtResource("2_r0xdn")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c02w"]
+atlas = ExtResource("3_lmi3g")
+region = Rect2(0, 0, 14, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_222qo"]
+atlas = ExtResource("4_01dfy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kgio3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38e8x")
+}],
+"loop": true,
+"name": &"Heal1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c02w")
+}],
+"loop": true,
+"name": &"MoneyBag",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_222qo")
+}],
+"loop": true,
+"name": &"Upgrade",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8eng"]
+size = Vector2(12, 13)
+
+[node name="Consumable" type="Area2D" unique_id=1046143464]
+script = ExtResource("1_hsgbo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1155685193]
+sprite_frames = SubResource("SpriteFrames_kgio3")
+animation = &"Heal1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2014956382]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_l8eng")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
