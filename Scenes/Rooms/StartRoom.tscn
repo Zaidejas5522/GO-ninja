@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://lb7jlro0ipxx" path="res://Sprites/Backgrounds/Tilesets/TilesetField.png" id="7_5n0on"]
 [ext_resource type="Script" uid="uid://bly6qpk5xeuyg" path="res://Scripts/Obstacle_Scripts/BaseRoom.gd" id="8_clfhn"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="9_clfhn"]
+[ext_resource type="PackedScene" uid="uid://cyli1l8pkb042" path="res://Scenes/Enemies/Lizard.tscn" id="9_e7dc4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3f8ul"]
 texture = ExtResource("2_18u5k")

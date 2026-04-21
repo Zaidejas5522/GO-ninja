@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b8uxkl02oobii"]
 
-[ext_resource type="Script" uid="uid://cjooicpgvdtup" path="res://Scripts/EnemiesScripts/bear.gd" id="1_n5lcy"]
+[ext_resource type="Script" uid="uid://cx0gms1ptfev3" path="res://Scripts/EnemiesScripts/reptile.gd" id="1_n7upd"]
 [ext_resource type="Texture2D" uid="uid://dcboynu28lphs" path="res://Sprites/Actor/Monsters/Reptile/Reptile.png" id="2_n7upd"]
 [ext_resource type="Script" uid="uid://dbjlcrtn55q6v" path="res://Scripts/EnemiesScripts/reptile_damage_area.gd" id="3_43mbf"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="4_4ogu1"]
@@ -161,12 +161,14 @@ size = Vector2(16, 16)
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
-script = ExtResource("1_n5lcy")
+script = ExtResource("1_n7upd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1229832353]
 sprite_frames = SubResource("SpriteFrames_4or10")
 animation = &"WalkingUp"
 autoplay = "Idle"
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1386562578]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 shape = SubResource("RectangleShape2D_qpjwo")
