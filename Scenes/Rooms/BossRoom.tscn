@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bvyj6ihvsris8" path="res://Sprites/Backgrounds/Tilesets/TilesetHole.png" id="5_dgrtl"]
 [ext_resource type="PackedScene" uid="uid://dwwhjsnvuyq87" path="res://Scenes/Obstacles/SpikeTrap.tscn" id="6_pjaxc"]
 [ext_resource type="PackedScene" uid="uid://bjygadbmigkju" path="res://Scenes/Obstacles/ShurikenMoving.tscn" id="7_jh3w5"]
+[ext_resource type="PackedScene" uid="uid://cymu32o0aayss" path="res://Scenes/Enemies/DemonSamurai.tscn" id="8_jh3w5"]
+[ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="9_dgrtl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iddv6"]
 texture = ExtResource("2_cvs70")
@@ -687,28 +689,8 @@ shape = SubResource("RectangleShape2D_p5sdq")
 position = Vector2(216, 136)
 shape = SubResource("RectangleShape2D_p5sdq")
 
-[connection signal="body_entered" from="AddOnElements/SpikeTrap" to="AddOnElements/SpikeTrap" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/SpikeTrap" to="AddOnElements/SpikeTrap" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48831" to="AddOnElements/@Area2D@48831" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48831" to="AddOnElements/@Area2D@48831" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48832" to="AddOnElements/@Area2D@48832" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48832" to="AddOnElements/@Area2D@48832" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48833" to="AddOnElements/@Area2D@48833" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48833" to="AddOnElements/@Area2D@48833" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48834" to="AddOnElements/@Area2D@48834" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48834" to="AddOnElements/@Area2D@48834" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48835" to="AddOnElements/@Area2D@48835" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48835" to="AddOnElements/@Area2D@48835" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48836" to="AddOnElements/@Area2D@48836" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48836" to="AddOnElements/@Area2D@48836" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48837" to="AddOnElements/@Area2D@48837" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48837" to="AddOnElements/@Area2D@48837" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48838" to="AddOnElements/@Area2D@48838" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48838" to="AddOnElements/@Area2D@48838" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48839" to="AddOnElements/@Area2D@48839" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48839" to="AddOnElements/@Area2D@48839" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48840" to="AddOnElements/@Area2D@48840" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48840" to="AddOnElements/@Area2D@48840" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@48841" to="AddOnElements/@Area2D@48841" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@48841" to="AddOnElements/@Area2D@48841" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/ShurikenMoving" to="AddOnElements/ShurikenMoving" method="_on_body_entered"]
+[node name="DemonSamurai" parent="." unique_id=979668803 instance=ExtResource("8_jh3w5")]
+position = Vector2(327, 74)
+
+[node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("9_dgrtl")]
+position = Vector2(113, 122)

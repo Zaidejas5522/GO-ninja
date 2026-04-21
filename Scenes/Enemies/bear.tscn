@@ -175,6 +175,9 @@ sprite_frames = SubResource("SpriteFrames_4or10")
 animation = &"Idle"
 autoplay = "Idle"
 
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=7419590]
+collision_mask = 3
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 shape = SubResource("RectangleShape2D_qpjwo")
 

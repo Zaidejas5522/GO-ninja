@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var speed := 70
+var speed := 40
 var stop_distance := 15.0
 
 var player_reference: Node = null
@@ -8,7 +8,7 @@ var player_reference: Node = null
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast2D
 
-var health = 70
+var health = 150
 
 var current_axis := ""
 var target_breadcrumb: Vector2 = Vector2.ZERO

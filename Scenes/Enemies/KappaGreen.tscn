@@ -176,6 +176,8 @@ animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.61592305
 
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1490055108]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 shape = SubResource("RectangleShape2D_qpjwo")
 
