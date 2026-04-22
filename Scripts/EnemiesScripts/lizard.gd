@@ -4,13 +4,22 @@ extends CharacterBody2D
 # Enemy movement speed
 var speed := 100
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 # Minimum distance before stopping
 var stop_distance := 15.0
 
 var player_reference: Node = null
 #var animated_sprite: AnimatedSprite2D = null
 
+<<<<<<< Updated upstream
 @onready var mob_health_bar: ProgressBar = $mob_health_bar
+=======
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var ray_cast: RayCast2D = $RayCast2D
+>>>>>>> Stashed changes
 
 var health = 30
 
@@ -35,11 +44,33 @@ func _ready():
 	player_reference=get_tree().get_first_node_in_group("player")
 
 
+<<<<<<< Updated upstream
+=======
+func _physics_process(delta: float) -> void:
+	if not player_reference:
+		return
+
+	_update_vision()
+
+	# NIEKADA NECHASE'INA IKI KOL PAMATO
+	if not has_seen_player:
+		_idle()
+		return
+
+	# MATO PLAYER - CHASE BREADCRUMBS
+	if player_visible:
+		_follow_breadcrumbs()
+
+	# NEMATO PLAYER - EINA Į LAST SEEN
+	else:
+		_follow_last_seen()
+
+>>>>>>> Stashed changes
 func take_damage(damage:int):
 	health -= damage
 	
 	# NEW: Recoil in the opposite direction of where the enemy is facing
-	var recoil_strength = 40  # Adjust as needed
+	var recoil_strength = 30  # Adjust as needed
 	global_position += -facing_direction * recoil_strength
 	
 	
@@ -54,6 +85,47 @@ func _physics_process(delta: float) -> void:
 	if not player_reference:
 		return
 	
+<<<<<<< Updated upstream
+=======
+	var drop_scene = MONEY_SCENE
+	if randf() < rare_chance:
+		drop_scene = CONSUMABLE_SCENE
+	
+	var drop = drop_scene.instantiate()
+	drop.global_position = global_position
+	get_parent().add_child(drop)
+	
+	queue_free()	
+		
+		
+		
+		
+		
+		
+		
+
+# LINE OF SIGHT
+func _update_vision():
+	ray_cast.target_position = to_local(player_reference.global_position)
+	ray_cast.force_raycast_update()
+
+	var seen_now = (ray_cast.get_collider() == player_reference)
+
+	# pirmas kartas kai pamato player
+	if seen_now:
+		has_seen_player = true
+
+	player_visible = seen_now and has_seen_player
+
+	# atnaujinam memory tik jei mato
+	if player_visible and player_reference.breadcrumbs.size() > 0:
+		last_known_breadcrumb = player_reference.breadcrumbs[-1]
+
+
+# FOLLOW BREADCRUMBS (kai mato player)
+func _follow_breadcrumbs():
+
+>>>>>>> Stashed changes
 	if player_reference.breadcrumbs.size() == 0:
 		return
 
@@ -121,4 +193,79 @@ func _physics_process(delta: float) -> void:
 		if distance < 5:
 			global_position = target_breadcrumb
 
+<<<<<<< Updated upstream
 		player_reference.breadcrumbs.pop_front()
+=======
+		return
+
+	var direction = Vector2.ZERO
+
+	if current_axis == "":
+		current_axis = "x" if abs(delta_pos.x) > abs(delta_pos.y) else "y"
+
+	if current_axis == "x":
+		direction.x = sign(delta_pos.x)
+		facing_direction = Vector2(direction.x, 0)
+
+		if abs(delta_pos.x) < 2:
+			current_axis = "y"
+
+	elif current_axis == "y":
+		direction.y = sign(delta_pos.y)
+		facing_direction = Vector2(0, direction.y)
+
+		if abs(delta_pos.y) < 2:
+			current_axis = "x"
+
+	_update_animation(direction)
+
+	velocity = direction * speed
+	move_and_slide()
+
+
+# FOLLOW LAST SEEN (kai nemato player)
+func _follow_last_seen():
+
+	var delta_pos = last_known_breadcrumb - global_position
+	var distance = delta_pos.length()
+
+	if distance <= 5:
+		velocity = Vector2.ZERO
+		animated_sprite.stop()
+		return
+
+	var direction = delta_pos.normalized()
+
+	facing_direction = direction
+	current_axis = ""
+
+	_update_animation(direction)
+
+	velocity = direction * speed
+	move_and_slide()
+
+
+# IDLE (kai dar niekada nematė player)
+func _idle():
+	velocity = Vector2.ZERO
+	animated_sprite.stop()
+	move_and_slide()
+
+
+# ANIMATION
+func _update_animation(direction: Vector2):
+	if abs(direction.x) > abs(direction.y):
+		if direction.x > 0:
+			if animated_sprite.animation != "WalkingRight":
+				animated_sprite.play("WalkingRight")
+		else:
+			if animated_sprite.animation != "WalkingLeft":
+				animated_sprite.play("WalkingLeft")
+	else:
+		if direction.y > 0:
+			if animated_sprite.animation != "WalkingDown":
+				animated_sprite.play("WalkingDown")
+		else:
+			if animated_sprite.animation != "WalkingUp":
+				animated_sprite.play("WalkingUp")
+>>>>>>> Stashed changes

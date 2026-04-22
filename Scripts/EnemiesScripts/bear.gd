@@ -122,4 +122,79 @@ func _physics_process(delta: float) -> void:
 		if distance < 5:
 			global_position = target_breadcrumb
 
+<<<<<<< Updated upstream
 		player_reference.breadcrumbs.pop_front()
+=======
+		return
+
+	var direction = Vector2.ZERO
+
+	if current_axis == "":
+		current_axis = "x" if abs(delta_pos.x) > abs(delta_pos.y) else "y"
+
+	if current_axis == "x":
+		direction.x = sign(delta_pos.x)
+		facing_direction = Vector2(direction.x, 0)
+
+		if abs(delta_pos.x) < 2:
+			current_axis = "y"
+
+	elif current_axis == "y":
+		direction.y = sign(delta_pos.y)
+		facing_direction = Vector2(0, direction.y)
+
+		if abs(delta_pos.y) < 2:
+			current_axis = "x"
+
+	_update_animation(direction)
+
+	velocity = direction * speed
+	move_and_slide()
+
+
+# FOLLOW LAST SEEN (kai nemato player)
+func _follow_last_seen():
+
+	var delta_pos = last_known_breadcrumb - global_position
+	var distance = delta_pos.length()
+
+	if distance <= 5:
+		velocity = Vector2.ZERO
+		animated_sprite.stop()
+		return
+
+	var direction = delta_pos.normalized()
+
+	facing_direction = direction
+	current_axis = ""
+
+	_update_animation(direction)
+
+	velocity = direction * speed
+	move_and_slide()
+
+
+# IDLE (kai dar niekada nematė player)
+func _idle():
+	velocity = Vector2.ZERO
+	animated_sprite.stop()
+	move_and_slide()
+
+
+# ANIMATION
+func _update_animation(direction: Vector2):
+	if abs(direction.x) > abs(direction.y):
+		if direction.x > 0:
+			if animated_sprite.animation != "WalkingRight":
+				animated_sprite.play("WalkingRight")
+		else:
+			if animated_sprite.animation != "WalkingLeft":
+				animated_sprite.play("WalkingLeft")
+	else:
+		if direction.y > 0:
+			if animated_sprite.animation != "WalkingDown":
+				animated_sprite.play("WalkingDown")
+		else:
+			if animated_sprite.animation != "WalkingUp":
+				animated_sprite.play("WalkingUp")
+>>>>>>> Stashed changes

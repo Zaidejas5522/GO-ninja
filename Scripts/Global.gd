@@ -1,6 +1,6 @@
 extends Node
 
-var PlayerHealth = 30
+var PlayerHealth = 500
 var IsDamagable = false
 var OtherAttacking = false
 
@@ -15,7 +15,11 @@ var PlayerSpeed = 130
 var PotentialPlayerSpeed = 0
 var CurrentItemSpeed = 0
 
+<<<<<<< Updated upstream
 var PlayerDamage = 3
+=======
+var PlayerDamage = 5000
+>>>>>>> Stashed changes
 var PotentialPlayerDamage = 0
 var CurrentItemDamage = 0
 
@@ -45,3 +49,16 @@ func _addDamage(ItemDamage):
 	PlayerDamage+=ItemDamage
 func _minusDamage(ItemDamage):
 	PlayerDamage-=ItemDamage
+
+
+#UI STUFF (RESET VARIABLES AFTER GANE OVER)
+func start_new_run():
+	PlayerHealth=30
+	MaxPlayerHealth=30
+	PlayerSpeed=130
+	PlayerDamage=10
+	Money=0
+	
+	get_tree().change_scene_to_file("res://Scenes/World.tscn")
+	
+	print("New run started. All progress reset")

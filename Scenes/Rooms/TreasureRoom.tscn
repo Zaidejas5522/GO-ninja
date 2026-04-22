@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://1gpfxoyhnf7k" path="res://Sprites/Items/Treasure/BigTreasureChest.png" id="4_l7jsd"]
 [ext_resource type="Texture2D" uid="uid://do2na0micfc2t" path="res://Sprites/Items/Treasure/LittleTreasureChest.png" id="5_i10yc"]
 [ext_resource type="Script" uid="uid://bly6qpk5xeuyg" path="res://Scripts/Obstacle_Scripts/BaseRoom.gd" id="6_vcc3o"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="7_wx7i2"]
+>>>>>>> Stashed changes
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sm600"]
 texture = ExtResource("1_026ov")
@@ -627,3 +631,9 @@ shape = SubResource("RectangleShape2D_cebmn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitDoor" unique_id=1440426914]
 position = Vector2(216, 136)
 shape = SubResource("RectangleShape2D_cebmn")
+<<<<<<< Updated upstream
+=======
+
+[node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("7_wx7i2")]
+position = Vector2(38, 99)
+>>>>>>> Stashed changes
