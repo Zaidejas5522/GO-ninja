@@ -1,13 +1,15 @@
 extends CharacterBody2D
 
 var speed := 100
+
+
+# Minimum distance before stopping
 var stop_distance := 15.0
 
 var player_reference: Node = null
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast2D
-
 
 var health = 30
 
@@ -39,11 +41,16 @@ func _physics_process(delta: float) -> void:
 	# MATO PLAYER - CHASE BREADCRUMBS
 	if player_visible:
 		_follow_breadcrumbs()
+
+	# NEMATO PLAYER - EINA Į LAST SEEN
+	else:
+		_follow_last_seen()
+
 func take_damage(damage:int):
 	health -= damage
 	
 	# NEW: Recoil in the opposite direction of where the enemy is facing
-	var recoil_strength = 40  # Adjust as needed
+	var recoil_strength = 30  # Adjust as needed
 	global_position += -facing_direction * recoil_strength
 	
 	
@@ -68,11 +75,13 @@ func die():
 	get_parent().add_child(drop)
 	
 	queue_free()	
-
-	# NEMATO PLAYER - EINA Į LAST SEEN
-	else:
-		_follow_last_seen()
-
+		
+		
+		
+		
+		
+		
+		
 
 # LINE OF SIGHT
 func _update_vision():
@@ -183,14 +192,3 @@ func _update_animation(direction: Vector2):
 		else:
 			if animated_sprite.animation != "WalkingUp":
 				animated_sprite.play("WalkingUp")
-
-
-# DAMAGE 
-func take_damage(damage: int):
-	health -= damage
-
-	var recoil_strength = 30
-	global_position += -facing_direction * recoil_strength
-
-	if health <= 0:
-		queue_free()

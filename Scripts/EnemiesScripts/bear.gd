@@ -192,14 +192,3 @@ func _update_animation(direction: Vector2):
 		else:
 			if animated_sprite.animation != "WalkingUp":
 				animated_sprite.play("WalkingUp")
-
-
-# DAMAGE 
-func take_damage(damage: int):
-	health -= damage
-
-	var recoil_strength = 30
-	global_position += -facing_direction * recoil_strength
-
-	if health <= 0:
-		queue_free()

@@ -40,6 +40,7 @@ func _ready() -> void:
 	attacking = false
 	
 
+#pakeiciau, del game over screeno
 func take_damage(damage:int):
 	if Global.IsDamagable == false:
 		if Global.ShieldActive > 0:
@@ -48,8 +49,10 @@ func take_damage(damage:int):
 			Global.PlayerHealth -= damage
 	if Global.PlayerHealth <= 0:
 		print("Player died")
-		Global.PlayerHealth = 150
-		get_tree().reload_current_scene()
+		#Global.PlayerHealth = 150
+		Transitioner.transition()
+		await Transitioner.on_transition_finished
+		get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/GameOver.tscn")
 		
 func take_heal(heal:int):
 	Global.PlayerHealth += heal

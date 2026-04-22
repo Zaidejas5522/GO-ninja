@@ -81,8 +81,16 @@ func _on_local_door_entered(body, target_marker_name):
 			print("tp: ", body.name, " to ", target_marker_name)
 
 func _on_door_entered(body, area):
-	# check ar įėjo žaidėjas ir ar nevyksta perėjimas
+	# 1. Patikrinam ar tai žaidėjas
 	if body.name == "CharacterBody2D" and not is_changing_room:
+		
+		var enemies = get_tree().get_nodes_in_group("enemy")
+		
+		if enemies.size() > 0:
+			print("enemies", enemies.size(), " durys locked")
+			return # SUSTABDAu VISKĄ ČIA
+			
+		# Jei priešų nėra - keičiam kambarį
 		is_changing_room = true
 		call_deferred("_change_room", body, area)
 
@@ -91,7 +99,6 @@ func _change_room(body, area):
 	var going_deeper = (area.name == "ExitDoor")
 	
 	if going_deeper:
-		# jei einame gilyn, žiūrime ar yra kas nors ateityje, jei ne - imam sekantį iš sąrašo
 		if future_stack.size() > 0:
 			history_stack.append(current_room_index)
 			next_index = future_stack.pop_back()
@@ -107,7 +114,9 @@ func _change_room(body, area):
 	if next_index != -1:
 		_load_room(next_index, body, going_deeper)
 	else:
-		print("the end")
+		Transitioner.transition()
+		await Transitioner.on_transition_finished
+		get_tree().change_scene_to_file("res://Scenes/UI/EndingMenu.tscn")
 		is_changing_room = false
 
 func _load_room(index, player = null, deeper = true):

@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://do2na0micfc2t" path="res://Sprites/Items/Treasure/LittleTreasureChest.png" id="5_i10yc"]
 [ext_resource type="Script" uid="uid://bly6qpk5xeuyg" path="res://Scripts/Obstacle_Scripts/BaseRoom.gd" id="6_vcc3o"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="7_wx7i2"]
-[ext_resource type="PackedScene" uid="uid://divorg3dpycx7" path="res://Scenes/Enemies/Skull.tscn" id="8_l7jsd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sm600"]
 texture = ExtResource("1_026ov")
@@ -632,9 +631,3 @@ shape = SubResource("RectangleShape2D_cebmn")
 
 [node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("7_wx7i2")]
 position = Vector2(38, 99)
-
-[node name="Skull" parent="." unique_id=979668803 instance=ExtResource("8_l7jsd")]
-position = Vector2(209, 45)
-
-[node name="Skull2" parent="." unique_id=411075625 instance=ExtResource("8_l7jsd")]
-position = Vector2(209, 204)
