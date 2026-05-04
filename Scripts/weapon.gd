@@ -83,6 +83,7 @@ func _process(delta: float) -> void:
 			Global.IsHovering = false
 			sprite.visible=false
 			reparent(player) #prideda kaip child prie player
+			sprite.show_behind_parent = true
 			taken=1
 			
 			
@@ -133,7 +134,7 @@ func _process(delta: float) -> void:
 		if player.attacking:
 			sprite.visible=true
 		else:
-			sprite.visible=true
+			sprite.visible=false
 
 		# Calculate total offset: base + attack extra
 		var total_offset = offset_distance + attack_extra_offset
