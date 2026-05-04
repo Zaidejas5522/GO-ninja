@@ -65,6 +65,9 @@ func _on_body_entered(body: Node) -> void:
 		"MoneyBag":
 			Global.Money += 10
 			pass
+		"MaxHealth":
+			Global.MaxPlayerHealth += 20
+			pass
 	
 	# Remove the item from the scene
 	queue_free()

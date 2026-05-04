@@ -45,7 +45,7 @@ var enemies_in_area: Array[CharacterBody2D] = []
 
 #--------
 
-var weapons = ["Axe", "Katana", "Stick","Rapier","Lance"]
+var weapons = ["Axe", "Katana", "Stick","Rapier"]
 var weapon=""
 var taken_slot = -1
  
