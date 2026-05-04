@@ -133,7 +133,8 @@ func _process(delta: float) -> void:
 			cooldown_timer.start(Global.SkillCooldown)
 			skill_attack()
 		
-		
+		if skill_attacking:
+			self.global_position=player.global_position
 		if player.attacking:
 			sprite.visible=true
 		else:
@@ -283,18 +284,18 @@ func skill_attack():
 			var pause_between = 0.02          # Pause between thrusts
 	
 			# Determine base position (where the weapon normally rests)
-			var base_pos = Vector2.ZERO
-			match player.facing_direction:
-				player.Direction.DOWN:
-					base_pos = player.global_position + Vector2(0, offset_distance)
-				player.Direction.UP:
-					base_pos =player.global_position + Vector2(0, -offset_distance)
-				player.Direction.LEFT:
-					base_pos = player.global_position + Vector2(-offset_distance, 0)
-				player.Direction.RIGHT:
-					base_pos = player.global_position + Vector2(offset_distance, 0)
-				_:
-					base_pos = player.global_position + Vector2(0, offset_distance)
+			var base_pos =  player.global_position
+			#match player.facing_direction:
+				#player.Direction.DOWN:
+					#base_pos = player.global_position + Vector2(0, offset_distance)
+				#player.Direction.UP:
+					#base_pos =player.global_position + Vector2(0, -offset_distance)
+				#player.Direction.LEFT:
+					#base_pos = player.global_position + Vector2(-offset_distance, 0)
+				#player.Direction.RIGHT:
+					#base_pos = player.global_position + Vector2(offset_distance, 0)
+			#	_:
+					#base_pos = player.global_position + Vector2(0, offset_distance)
 	
 			# Direction unit vector for thrust
 			var thrust_dir := Vector2.ZERO
@@ -311,16 +312,16 @@ func skill_attack():
 					thrust_dir = Vector2.DOWN
 	
 			# Ensure we start at base position
-			position = base_pos
+			global_position = base_pos
 	
 			var tween = create_tween()
 			tween.set_parallel(false)
 	
 			for i in range(thrusts):
 				# Thrust out
-				tween.tween_property(self, "position", base_pos + thrust_dir * thrust_distance, thrust_duration)
+				tween.tween_property(self, "global_position", base_pos + thrust_dir * thrust_distance, thrust_duration)
 				# Thrust back
-				tween.tween_property(self, "position", base_pos, return_duration)
+				tween.tween_property(self, "global_position", base_pos, return_duration)
 				# Small pause between thrusts (except after last)
 				if i < thrusts - 1 and pause_between > 0:
 					tween.tween_interval(pause_between)
@@ -328,7 +329,7 @@ func skill_attack():
 			await tween.finished
 	
 			# Ensure we end at base position
-			position = base_pos
+			global_position = base_pos
 			skill_attacking = false
 			player.attacking=false
 		"Lance":
