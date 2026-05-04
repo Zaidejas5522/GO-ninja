@@ -1,0 +1,371 @@
+[gd_scene format=3 uid="uid://c4aj7vlluupk5"]
+
+[ext_resource type="Texture2D" uid="uid://bfbuin1wyq3a2" path="res://Sprites/Actor/Characters/Inspector/SpriteSheet.png" id="1_b36n5"]
+[ext_resource type="Script" path="res://Scripts/shopkeeper.gd" id="1_rt5wj"]
+[ext_resource type="PackedScene" uid="uid://rbm455k844v4" path="res://Scenes/PlayerStuff/Consumable.tscn" id="2_j8u14"]
+[ext_resource type="Texture2D" uid="uid://bapf33px6rno" path="res://Sprites/Items/Treasure/Coin2.png" id="3_rt5wj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_er3mv"]
+atlas = ExtResource("1_b36n5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8u14"]
+atlas = ExtResource("1_b36n5")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rt5wj"]
+atlas = ExtResource("1_b36n5")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7omd"]
+atlas = ExtResource("1_b36n5")
+region = Rect2(16, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4op2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_er3mv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8u14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rt5wj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7omd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f686m"]
+size = Vector2(18, 16)
+
+[sub_resource type="GDScript" id="GDScript_rt5wj"]
+script/source = "extends Area2D
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var isShop=1
+var cost = 0
+
+# Randomly chosen name for this instance
+var item_name: String = \"\"
+
+func _ready() -> void:
+	# Pick a random name from the list
+	randomize()
+	var names: Array[String] =[\"\"];
+	if isShop == 0:
+		names = [\"Heal1\", \"Upgrade\", \"MoneyBag\"]
+	else:
+		names = [\"Heal1\", \"Upgrade\"]
+
+
+		
+	item_name = names[randi() % names.size()]
+	
+	if isShop == 1:
+		var label: Label = $Label3
+		match item_name:
+			\"Heal1\":
+				cost = 1;
+				pass
+			\"Upgrade\":
+				cost = 2;
+				pass
+		var label_3: Label = $Label3
+		label_3.text = str(cost)
+
+	# Play the corresponding animation
+	animated_sprite.play(item_name)
+	
+	# Connect the body_entered signal (if not connected in editor)
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body: Node) -> void:
+	# Only react if the entering body belongs to the \"player\" group
+	if not body.is_in_group(\"player\"):
+		return
+	
+	if cost > Global.Money:
+		return
+	else:
+		Global.Money-=cost
+	# --- Special effect based on item name ---
+	match item_name:
+		\"Heal1\":
+			Global.PlayerHealth+=10;
+			pass
+		\"Upgrade\":
+			var upgrade_options = [\"PlayerSpeed\", \"PlayerDamage\"]
+			var chosen = upgrade_options[randi() % upgrade_options.size()]
+			match chosen:
+				\"PlayerSpeed\":
+					Global.PlayerSpeed += 5
+				\"PlayerDamage\":
+					Global.PlayerDamage += 5
+			pass
+		\"MoneyBag\":
+			Global.Money += 10
+			pass
+	
+	# Remove the item from the scene
+	queue_free()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sa2k"]
+atlas = ExtResource("3_rt5wj")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e77xb"]
+atlas = ExtResource("3_rt5wj")
+region = Rect2(10, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68t3h"]
+atlas = ExtResource("3_rt5wj")
+region = Rect2(20, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8h7g"]
+atlas = ExtResource("3_rt5wj")
+region = Rect2(30, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o7omd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sa2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e77xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68t3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8h7g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_o7omd"]
+script/source = "extends Area2D
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var isShop=1
+var cost = 0
+
+# Randomly chosen name for this instance
+var item_name: String = \"\"
+
+func _ready() -> void:
+	# Pick a random name from the list
+	randomize()
+	var names: Array[String] =[\"\"];
+	if isShop == 0:
+		names = [\"Heal1\", \"Upgrade\", \"MoneyBag\"]
+	else:
+		names = [\"Heal1\", \"Upgrade\"]
+
+
+		
+	item_name = names[randi() % names.size()]
+	
+	if isShop == 1:
+		var label: Label = $Label3
+		match item_name:
+			\"Heal1\":
+				cost = 1;
+				pass
+			\"Upgrade\":
+				cost = 2;
+				pass
+		var label_3: Label = $Label3
+		label_3.text = str(cost)
+
+	# Play the corresponding animation
+	animated_sprite.play(item_name)
+	
+	# Connect the body_entered signal (if not connected in editor)
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body: Node) -> void:
+	# Only react if the entering body belongs to the \"player\" group
+	if not body.is_in_group(\"player\"):
+		return
+	
+	if cost > Global.Money:
+		return
+	else:
+		Global.Money-=cost
+	# --- Special effect based on item name ---
+	match item_name:
+		\"Heal1\":
+			Global.PlayerHealth+=10;
+			pass
+		\"Upgrade\":
+			var upgrade_options = [\"PlayerSpeed\", \"PlayerDamage\"]
+			var chosen = upgrade_options[randi() % upgrade_options.size()]
+			match chosen:
+				\"PlayerSpeed\":
+					Global.PlayerSpeed += 5
+				\"PlayerDamage\":
+					Global.PlayerDamage += 5
+			pass
+		\"MoneyBag\":
+			Global.Money += 10
+			pass
+	
+	# Remove the item from the scene
+	queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_4op2u"]
+script/source = "extends Area2D
+
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var isShop=1
+var cost = 0
+
+# Randomly chosen name for this instance
+var item_name: String = \"\"
+
+func _ready() -> void:
+	# Pick a random name from the list
+	randomize()
+	var names: Array[String] =[\"\"];
+	if isShop == 0:
+		names = [\"Heal1\", \"Upgrade\", \"MoneyBag\"]
+	else:
+		names = [\"Heal1\", \"Upgrade\"]
+
+
+		
+	item_name = names[randi() % names.size()]
+	
+	if isShop == 1:
+		var label: Label = $Label3
+		match item_name:
+			\"Heal1\":
+				cost = 1;
+				pass
+			\"Upgrade\":
+				cost = 2;
+				pass
+		var label_3: Label = $Label3
+		label_3.text = str(cost)
+
+	# Play the corresponding animation
+	animated_sprite.play(item_name)
+	
+	# Connect the body_entered signal (if not connected in editor)
+	body_entered.connect(_on_body_entered)
+
+func _on_body_entered(body: Node) -> void:
+	# Only react if the entering body belongs to the \"player\" group
+	if not body.is_in_group(\"player\"):
+		return
+	
+	if cost > Global.Money:
+		return
+	else:
+		Global.Money-=cost
+	# --- Special effect based on item name ---
+	match item_name:
+		\"Heal1\":
+			Global.PlayerHealth+=10;
+			pass
+		\"Upgrade\":
+			var upgrade_options = [\"PlayerSpeed\", \"PlayerDamage\"]
+			var chosen = upgrade_options[randi() % upgrade_options.size()]
+			match chosen:
+				\"PlayerSpeed\":
+					Global.PlayerSpeed += 5
+				\"PlayerDamage\":
+					Global.PlayerDamage += 5
+			pass
+		\"MoneyBag\":
+			Global.Money += 10
+			pass
+	
+	# Remove the item from the scene
+	queue_free()
+"
+
+[node name="Area2D" type="Area2D" unique_id=1977815860]
+script = ExtResource("1_rt5wj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1549087061]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_4op2u")
+autoplay = "default"
+frame_progress = 0.4458769
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1167961138]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_f686m")
+
+[node name="Consumable" parent="." unique_id=1046143464 instance=ExtResource("2_j8u14")]
+position = Vector2(-33, 16)
+script = SubResource("GDScript_rt5wj")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Consumable" unique_id=1217296504]
+position = Vector2(-4, 15)
+scale = Vector2(1.05, 1.0685002)
+sprite_frames = SubResource("SpriteFrames_o7omd")
+autoplay = "default"
+
+[node name="Label3" type="Label" parent="Consumable" unique_id=1785274258]
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 11.0
+offset_bottom = 26.333336
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Consumable2" parent="." unique_id=1748707566 instance=ExtResource("2_j8u14")]
+position = Vector2(0, 16)
+script = SubResource("GDScript_o7omd")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Consumable2" unique_id=1859972866]
+position = Vector2(-4, 15)
+scale = Vector2(1.05, 1.0685002)
+sprite_frames = SubResource("SpriteFrames_o7omd")
+autoplay = "default"
+
+[node name="Label3" type="Label" parent="Consumable2" unique_id=1460062626]
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 11.0
+offset_bottom = 26.333336
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Consumable3" parent="." unique_id=981949407 instance=ExtResource("2_j8u14")]
+position = Vector2(31, 16)
+script = SubResource("GDScript_4op2u")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Consumable3" unique_id=1033130682]
+position = Vector2(-4, 15)
+scale = Vector2(1.05, 1.0685002)
+sprite_frames = SubResource("SpriteFrames_o7omd")
+autoplay = "default"
+
+[node name="Label3" type="Label" parent="Consumable3" unique_id=1461244042]
+offset_left = 1.0
+offset_top = 4.0
+offset_right = 11.0
+offset_bottom = 26.333336
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1

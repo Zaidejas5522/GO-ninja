@@ -1,19 +1,20 @@
 extends Area2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-
+var isShop = 0
+var cost =0
 # Randomly chosen name for this instance
 var item_name: String = ""
 
 func _ready() -> void:
 	# Pick a random name from the list
 	randomize()
-<<<<<<< Updated upstream
+
 	var names: Array[String] = ["Heal1", "Upgrade", "MoneyBag"]
 	item_name = names[randi() % names.size()]
 	
-=======
-	var names: Array[String] =[""];
+
+	#var names: Array[String] =[""];
 	if isShop == 0:
 		names = ["Heal1", "Upgrade", "MoneyBag","MaxHealth"]
 	else:
@@ -38,7 +39,7 @@ func _ready() -> void:
 		var label_3: Label = $Label3
 		label_3.text = str(cost)
 
->>>>>>> Stashed changes
+
 	# Play the corresponding animation
 	animated_sprite.play(item_name)
 	
