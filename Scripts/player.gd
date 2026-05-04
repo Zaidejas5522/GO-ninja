@@ -3,7 +3,8 @@ extends CharacterBody2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 @onready var healthBar = $HealthBar
 @onready var collisionshape2d: CollisionShape2D = $DamageArea/CollisionShape2D
-
+var animation=0 #used when the player is hit
+var hit = false
 
 #Speed of the player
 var SPEED = 130.0 
@@ -39,7 +40,16 @@ func _ready() -> void:
 #	healthBar.set_health_bar(health, maxHealth)
 	attacking = false
 	
-
+func _flash(): #animation for getting hit
+	if animation<5:
+		sprite.modulate = Color(25, 0, 0, 0.5)
+		animation+=1;
+	else:
+		if animation >=5 and animation<15:
+			animation+=1
+			sprite.modulate=Color(1, 1, 1, 1)
+		if animation==15:
+			animation=0
 #pakeiciau, del game over screeno
 func take_damage(damage:int):
 	if Global.IsDamagable == false:
@@ -47,6 +57,9 @@ func take_damage(damage:int):
 			Global.ShieldActive-=1
 		else:
 			Global.PlayerHealth -= damage
+			hit=true
+			await get_tree().create_timer(0.5).timeout
+			hit = false
 	if Global.PlayerHealth <= 0:
 		print("Player died")
 		#Global.PlayerHealth = 150
@@ -59,6 +72,11 @@ func take_heal(heal:int):
 	healthBar.change_health(heal)
 
 func _process(delta: float) -> void:
+	if hit:
+		print("HIT")
+		_flash()
+	else:
+		sprite.modulate=Color(1, 1, 1, 1)
 	#damage=Global.PlayerDamage
 	if Global.PlayerHealth <= 0:
 		print("gameover")
