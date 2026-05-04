@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 			taken_slot = slot.addWeapon(weapon)
 			Global.IsHovering = false
 			sprite.visible=false
-			reparent(player)
+			reparent(player) #prideda kaip child prie player
 			taken=1
 			
 			
@@ -97,7 +97,7 @@ func _process(delta: float) -> void:
 		taken_slot = -1
 		sprite.visible=true
 		player_is_here=false
-		reparent(get_tree().current_scene)
+		reparent(get_tree().current_scene) #atima kaip child is player
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:

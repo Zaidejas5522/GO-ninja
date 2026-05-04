@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c4aj7vlluupk5"]
+[gd_scene format=3 uid="uid://drstqllrw0wgf"]
 
 [ext_resource type="Texture2D" uid="uid://bfbuin1wyq3a2" path="res://Sprites/Actor/Characters/Inspector/SpriteSheet.png" id="1_b36n5"]
-[ext_resource type="Script" path="res://Scripts/shopkeeper.gd" id="1_rt5wj"]
+[ext_resource type="Script" uid="uid://fiy7eildbo2b" path="res://Scripts/shopkeeper.gd" id="1_rt5wj"]
 [ext_resource type="PackedScene" uid="uid://rbm455k844v4" path="res://Scenes/PlayerStuff/Consumable.tscn" id="2_j8u14"]
 [ext_resource type="Texture2D" uid="uid://bapf33px6rno" path="res://Sprites/Items/Treasure/Coin2.png" id="3_rt5wj"]
 
@@ -306,7 +306,7 @@ script = ExtResource("1_rt5wj")
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_4op2u")
 autoplay = "default"
-frame_progress = 0.4458769
+frame_progress = 0.40842697
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1167961138]
 visible = false
