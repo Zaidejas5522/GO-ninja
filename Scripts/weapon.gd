@@ -82,6 +82,7 @@ func _process(delta: float) -> void:
 			taken_slot = slot.addWeapon(weapon)
 			Global.IsHovering = false
 			sprite.visible=false
+			reparent(player)
 			taken=1
 			
 			
@@ -96,6 +97,7 @@ func _process(delta: float) -> void:
 		taken_slot = -1
 		sprite.visible=true
 		player_is_here=false
+		reparent(get_tree().current_scene)
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:

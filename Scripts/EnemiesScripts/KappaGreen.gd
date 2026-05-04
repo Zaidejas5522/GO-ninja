@@ -185,11 +185,11 @@ func _update_animation(direction: Vector2):
 
 
 # DAMAGE 
-func take_damage(damage: int):
-	health -= damage
+##func take_damage(damage: int):
+	##health -= damage
 
-	var recoil_strength = 30
-	global_position += -facing_direction * recoil_strength
+	#var recoil_strength = 30
+	#global_position += -facing_direction * recoil_strength
 
-	if health <= 0:
-		queue_free()
+	#if health <= 0:
+		#queue_free()
