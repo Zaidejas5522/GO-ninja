@@ -2,6 +2,7 @@ extends Area2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+#DA REAL SCRIPT
 var isShop=0
 var cost = 0
 
@@ -13,9 +14,9 @@ func _ready() -> void:
 	randomize()
 	var names: Array[String] =[""];
 	if isShop == 0:
-		names = ["Heal1", "Upgrade", "MoneyBag"]
+		names = ["Heal1", "Upgrade", "MoneyBag","MaxHealth"]
 	else:
-		names = ["Heal1", "Upgrade"]
+		names = ["Heal1", "Upgrade","MaxHealth"]
 
 
 		
@@ -29,6 +30,9 @@ func _ready() -> void:
 				pass
 			"Upgrade":
 				cost = 2;
+				pass
+			"MaxHealth":
+				cost = 3;
 				pass
 		var label_3: Label = $Label3
 		label_3.text = str(cost)
@@ -67,6 +71,7 @@ func _on_body_entered(body: Node) -> void:
 			pass
 		"MaxHealth":
 			Global.MaxPlayerHealth += 20
+			Global.PlayerHealth = Global.MaxPlayerHealth
 			pass
 	
 	# Remove the item from the scene
