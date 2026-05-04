@@ -115,7 +115,10 @@ func _process(delta: float) -> void:
 		
 		if hasattacked == false and player.attacking:
 			hasattacked = true
+			self.monitoring = false
 			await get_tree().create_timer(0.1).timeout
+			self.monitoring = true
+			await get_tree().create_timer(0.05).timeout
 			print("START ATTACK")
 			for enemy in enemies_in_area:
 				if is_instance_valid(enemy):   # avoid errors if enemy was freed
@@ -402,8 +405,9 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		Global.PotentialPlayerHealth = item_health
 		Global.PotentialPlayerSpeed=item_speed
 		
-	elif body.is_in_group("enemy"):
-		if taken == 1 and Global.WeaponSlot == taken_slot and player.attacking:
+	elif body.is_in_group("enemy") or body.is_in_group("training"):
+		if player.attacking:
+			if taken == 1 and Global.WeaponSlot == taken_slot and player.attacking:
 				if body not in enemies_in_area:
 					print("added")
 					enemies_in_area.append(body)

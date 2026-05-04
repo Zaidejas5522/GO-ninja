@@ -44,6 +44,7 @@ folder_colors={
 player=""
 WeaponSlot=""
 enemy=""
+training=""
 
 [gui]
 
