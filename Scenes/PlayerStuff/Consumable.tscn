@@ -3,11 +3,16 @@
 [ext_resource type="Script" uid="uid://cc5ukqrk8ifi7" path="res://Scripts/consumable.gd" id="1_hsgbo"]
 [ext_resource type="Texture2D" uid="uid://dk1ewnnq71j8n" path="res://Sprites/Items/Potion/Medipack.png" id="2_r0xdn"]
 [ext_resource type="Texture2D" uid="uid://dgay22wa6atco" path="res://Sprites/Items/Object/MoneyBag.png" id="3_lmi3g"]
+[ext_resource type="Texture2D" uid="uid://b671uq3hb3q2o" path="res://Sprites/Items/Potion/LifePot.png" id="3_r0xdn"]
 [ext_resource type="Texture2D" uid="uid://bqbnpf331rjt" path="res://Sprites/Items/Tool/Anvil.png" id="4_01dfy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38e8x"]
 atlas = ExtResource("2_r0xdn")
 region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmi3g"]
+atlas = ExtResource("3_r0xdn")
+region = Rect2(0, 0, 9, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8c02w"]
 atlas = ExtResource("3_lmi3g")
@@ -25,6 +30,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"Heal1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmi3g")
+}],
+"loop": true,
+"name": &"MaxHealth",
 "speed": 5.0
 }, {
 "frames": [{
@@ -52,7 +65,7 @@ script = ExtResource("1_hsgbo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1155685193]
 sprite_frames = SubResource("SpriteFrames_kgio3")
-animation = &"Heal1"
+animation = &"MaxHealth"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2014956382]
 position = Vector2(0, 0.5)

@@ -8,9 +8,37 @@ var item_name: String = ""
 func _ready() -> void:
 	# Pick a random name from the list
 	randomize()
+<<<<<<< Updated upstream
 	var names: Array[String] = ["Heal1", "Upgrade", "MoneyBag"]
 	item_name = names[randi() % names.size()]
 	
+=======
+	var names: Array[String] =[""];
+	if isShop == 0:
+		names = ["Heal1", "Upgrade", "MoneyBag","MaxHealth"]
+	else:
+		names = ["Heal1", "Upgrade","MaxHealth"]
+
+
+		
+	item_name = names[randi() % names.size()]
+	
+	if isShop == 1:
+		var label: Label = $Label3
+		match item_name:
+			"Heal1":
+				cost = 1;
+				pass
+			"Upgrade":
+				cost = 2;
+				pass
+			"MaxHealth":
+				cost = 3;
+				pass
+		var label_3: Label = $Label3
+		label_3.text = str(cost)
+
+>>>>>>> Stashed changes
 	# Play the corresponding animation
 	animated_sprite.play(item_name)
 	
@@ -38,6 +66,9 @@ func _on_body_entered(body: Node) -> void:
 			pass
 		"MoneyBag":
 			Global.Money += 10
+			pass
+		"MaxHealth":
+			Global.MaxPlayerHealth += 20
 			pass
 	
 	# Remove the item from the scene
