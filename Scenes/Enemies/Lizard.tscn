@@ -153,8 +153,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjwo"]
-size = Vector2(16, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6repo"]
+radius = 6.0
+height = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2imu7"]
 
@@ -173,7 +174,8 @@ frame_progress = 0.014489805
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1516238541]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
-shape = SubResource("RectangleShape2D_qpjwo")
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_6repo")
 
 [node name="LizardDamageArea" type="Area2D" parent="." unique_id=912148255]
 collision_mask = 4

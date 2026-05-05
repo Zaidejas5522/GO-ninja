@@ -4,13 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://yclnki2f8i84" path="res://Sprites/Actor/Boss/GiantRedSamurai/AttackLeft.png" id="2_4bw1v"]
 [ext_resource type="Texture2D" uid="uid://dnk8erch5htd8" path="res://Sprites/Actor/Boss/GiantRedSamurai/AttackRight.png" id="3_falwj"]
 [ext_resource type="Texture2D" uid="uid://ba8fephkmhnkt" path="res://Sprites/Actor/Boss/GiantRedSamurai/Idle.png" id="4_bo5qk"]
+[ext_resource type="Texture2D" uid="uid://de2grc0463qdd" path="res://Sprites/Actor/Boss/GiantRedSamurai/BeforeCharge.png" id="4_nk82b"]
 [ext_resource type="Texture2D" uid="uid://brtnl4qm0mg3d" path="res://Sprites/Actor/Boss/GiantRedSamurai/ChargeLeft.png" id="4_ygnfr"]
 [ext_resource type="Texture2D" uid="uid://2kupxjhelvlo" path="res://Sprites/Actor/Boss/GiantRedSamurai/ChargeRight.png" id="5_nk82b"]
 [ext_resource type="Texture2D" uid="uid://cff72xgqd8xlm" path="res://Sprites/Actor/Boss/GiantRedSamurai/Walk.png" id="5_ygnfr"]
 [ext_resource type="Texture2D" uid="uid://hiqu1j7v0s4i" path="res://Sprites/Actor/Boss/GiantRedSamurai/Hit.png" id="6_bo5qk"]
-[ext_resource type="Script" uid="uid://cgwa46dct3ge1" path="res://Scripts/EnemiesScripts/bear_damage_area.gd" id="6_nk82b"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="7_hucq6"]
+[ext_resource type="Script" uid="uid://di5hm2vp6vi02" path="res://Scripts/EnemiesScripts/samurai_damage_area.gd" id="9_ygnfr"]
 [ext_resource type="AudioStream" uid="uid://elmsnxywre4j" path="res://Audio/Sounds/Hit & Impact/Hit7.wav" id="11_ygnfr"]
+[ext_resource type="AudioStream" uid="uid://bkf8v300ckmdr" path="res://Audio/Sounds/Whoosh & Slash/ChargeSoundBosui.mp3" id="13_hucq6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vq4sh"]
 atlas = ExtResource("2_4bw1v")
@@ -43,6 +45,22 @@ region = Rect2(192, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_b4d14"]
 atlas = ExtResource("3_falwj")
 region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmj6b"]
+atlas = ExtResource("4_nk82b")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0t3g"]
+atlas = ExtResource("4_nk82b")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tw80r"]
+atlas = ExtResource("4_nk82b")
+region = Rect2(192, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp1kp"]
+atlas = ExtResource("4_nk82b")
+region = Rect2(288, 0, 96, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hucq6"]
 atlas = ExtResource("4_ygnfr")
@@ -170,6 +188,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_jmj6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0t3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tw80r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wp1kp")
+}],
+"loop": true,
+"name": &"BeforeCharge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hucq6")
 }, {
 "duration": 1.0,
@@ -260,10 +295,36 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjwo"]
-size = Vector2(35, 30)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ygnfr"]
+radius = 23.5
+height = 62.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bo5qk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hucq6"]
+bg_color = Color(0.060530342, 0.060530365, 0.060530297, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.030303042, 0.001033687, 3.760215e-10, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 25.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq4sh"]
+bg_color = Color(0.8784314, 0.22352941, 0.29803923, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 5.0
+expand_margin_right = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ygnfr"]
 size = Vector2(40, 84)
@@ -281,38 +342,48 @@ script = ExtResource("1_falwj")
 position = Vector2(3.8146973e-06, -1.9999981)
 scale = Vector2(1.4583334, 1.4583334)
 sprite_frames = SubResource("SpriteFrames_4or10")
-animation = &"AttackLeft"
+animation = &"BeforeCharge"
 autoplay = "Idle"
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=416020043]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
 position = Vector2(-0.5, 2)
-shape = SubResource("RectangleShape2D_qpjwo")
+shape = SubResource("CapsuleShape2D_ygnfr")
 
 [node name="SamuraiDamageArea" type="Area2D" parent="." unique_id=912148255]
 collision_mask = 4
-script = ExtResource("6_nk82b")
+script = ExtResource("9_ygnfr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SamuraiDamageArea" unique_id=1640189461]
 visible = false
 shape = SubResource("RectangleShape2D_bo5qk")
 
 [node name="mob_health_bar" type="ProgressBar" parent="." unique_id=2144973691]
-offset_right = 4.0
-offset_bottom = 27.0
+custom_minimum_size = Vector2(100, 0)
+offset_left = -21.0
+offset_top = -42.0
+offset_right = 79.0
+offset_bottom = -15.0
+scale = Vector2(0.35, 0.35)
+theme_override_styles/background = SubResource("StyleBoxFlat_hucq6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vq4sh")
+max_value = 720.0
+show_percentage = false
 script = ExtResource("7_hucq6")
 metadata/_edit_use_anchors_ = true
 
 [node name="AttackLeftArea" type="Area2D" parent="." unique_id=1966334270]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeftArea" unique_id=1332614074]
+visible = false
 position = Vector2(-20, 7)
 shape = SubResource("RectangleShape2D_ygnfr")
 
 [node name="AttackRightArea" type="Area2D" parent="." unique_id=1865742792]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRightArea" unique_id=661531601]
+visible = false
 position = Vector2(19, 7)
 shape = SubResource("RectangleShape2D_nk82b")
 
@@ -320,6 +391,10 @@ shape = SubResource("RectangleShape2D_nk82b")
 stream = ExtResource("11_ygnfr")
 volume_db = -2.718
 bus = &"SFX"
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="." unique_id=900952864]
+stream = ExtResource("13_hucq6")
+volume_db = -20.411
 
 [connection signal="body_entered" from="SamuraiDamageArea" to="SamuraiDamageArea" method="_on_body_entered"]
 [connection signal="body_exited" from="SamuraiDamageArea" to="SamuraiDamageArea" method="_on_body_exited"]
