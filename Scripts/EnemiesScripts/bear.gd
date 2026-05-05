@@ -48,7 +48,7 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage:int):
 	health -= damage
-	
+	$AudioStreamPlayer2D.play()
 	# NEW: Recoil in the opposite direction of where the enemy is facing
 	var recoil_strength = 30  # Adjust as needed
 	global_position += -facing_direction * recoil_strength

@@ -10,6 +10,8 @@ extends Area2D
 @onready var stick_sfx: AudioStreamPlayer2D = $StickSFX
 @onready var rapier_sfx: AudioStreamPlayer2D = $RapierSFX
 @onready var lance_sfx: AudioStreamPlayer2D = $LanceSFX
+@onready var pickup_sfx: AudioStreamPlayer2D = $Pickup
+@onready var drop_sfx: AudioStreamPlayer2D = $Drop
 
 # ---ATTACK STUFF ----
 
@@ -91,6 +93,7 @@ func _process(delta: float) -> void:
 			sprite.visible=false
 			reparent(player) #prideda kaip child prie player
 			sprite.show_behind_parent = true
+			pickup_sfx.play()
 			taken=1
 			
 			
@@ -106,6 +109,7 @@ func _process(delta: float) -> void:
 		sprite.visible=true
 		player_is_here=false
 		reparent(get_tree().current_scene) #atima kaip child is player
+		drop_sfx.play()
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:

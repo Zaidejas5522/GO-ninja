@@ -158,7 +158,7 @@ func _update_animation(direction: Vector2):
 # DAMAGE 
 func take_damage(damage: int):
 	health -= damage
-
+	$AudioStreamPlayer2D.play()
 	var recoil_strength = 30
 	global_position += -facing_direction * recoil_strength
 

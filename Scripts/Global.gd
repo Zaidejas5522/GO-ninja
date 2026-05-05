@@ -17,7 +17,7 @@ var PlayerSpeed = 130
 var PotentialPlayerSpeed = 0
 var CurrentItemSpeed = 0
 
-var PlayerDamage = 5000
+var PlayerDamage = 20
 var PotentialPlayerDamage = 0
 var CurrentItemDamage = 0
 
@@ -56,7 +56,15 @@ func start_new_run():
 	PlayerSpeed=130
 	PlayerDamage=10
 	Money=0
-	
+	IsHovering = false
+	WeaponSlot = 0
+	CurrentItemDamage = 0
+	PotentialPlayerDamage = 0
+	OtherAttacking = false
+	IsDamagable = false
+	ShieldActive = 0
+	SkillReady = true
+	CurrentSkillCooldown = 0
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 	
 	print("New run started. All progress reset")

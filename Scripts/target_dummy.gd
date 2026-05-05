@@ -2,6 +2,7 @@ extends CharacterBody2D
 var animation = 0;
 var hit =0
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _process(delta: float) -> void:
@@ -11,6 +12,7 @@ func _process(delta: float) -> void:
 		sprite.modulate=Color(1, 1, 1, 1)
 func take_damage(damage:int):
 	print("AS GAVAUDAMAGEEE")
+	audio.play();
 	hit=true
 	await get_tree().create_timer(0.5).timeout
 	hit = false

@@ -64,7 +64,7 @@ func _update_vision():
 # DAMAGE
 func take_damage(damage:int):
 	health -= damage
-
+	$AudioStreamPlayer2D.play()
 	global_position += -facing_direction * 30
 
 	hit_timer = 0.7

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cae5lvucq6q47" path="res://Sprites/Actor/Monsters/Bear/SpriteSheet.png" id="1_ylc52"]
 [ext_resource type="Script" uid="uid://cgwa46dct3ge1" path="res://Scripts/EnemiesScripts/bear_damage_area.gd" id="3_0dxi8"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="3_4or10"]
+[ext_resource type="AudioStream" uid="uid://elmsnxywre4j" path="res://Audio/Sounds/Hit & Impact/Hit7.wav" id="5_i5jhw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ylc52"]
 atlas = ExtResource("1_ylc52")
@@ -195,6 +196,11 @@ offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("3_4or10")
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=852985454]
+stream = ExtResource("5_i5jhw")
+volume_db = -2.718
+bus = &"SFX"
 
 [connection signal="body_entered" from="BearDamageArea" to="BearDamageArea" method="_on_body_entered"]
 [connection signal="body_exited" from="BearDamageArea" to="BearDamageArea" method="_on_body_exited"]

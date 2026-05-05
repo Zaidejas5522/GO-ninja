@@ -582,9 +582,9 @@ script = ExtResource("1_61oh7")
 
 [node name="Label" type="Label" parent="Paralax" unique_id=1426269631]
 offset_left = 7.0
-offset_top = -121.0
-offset_right = 253.0
-offset_bottom = 25.333344
+offset_top = -175.0
+offset_right = 288.0
+offset_bottom = -0.66667175
 text = "Left Mouse Button - attack
 Right Mouse Button - skill
 Mouse Wheel - Change weapon

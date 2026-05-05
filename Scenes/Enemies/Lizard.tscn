@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://vb6p4lbi1f88" path="res://Sprites/Actor/Monsters/Lizard/Lizard.png" id="2_svjau"]
 [ext_resource type="Script" uid="uid://cgigofjqtwxmr" path="res://Scripts/EnemiesScripts/lizard_damage_area.gd" id="3_svjau"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="4_4ogu1"]
+[ext_resource type="AudioStream" uid="uid://elmsnxywre4j" path="res://Audio/Sounds/Hit & Impact/Hit7.wav" id="5_6repo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6repo"]
 atlas = ExtResource("2_svjau")
@@ -187,6 +188,11 @@ offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("4_4ogu1")
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=404274064]
+stream = ExtResource("5_6repo")
+volume_db = -2.718
+bus = &"SFX"
 
 [connection signal="body_entered" from="LizardDamageArea" to="LizardDamageArea" method="_on_body_entered"]
 [connection signal="body_exited" from="LizardDamageArea" to="LizardDamageArea" method="_on_body_exited"]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dcboynu28lphs" path="res://Sprites/Actor/Monsters/Reptile/Reptile.png" id="2_n7upd"]
 [ext_resource type="Script" uid="uid://dbjlcrtn55q6v" path="res://Scripts/EnemiesScripts/reptile_damage_area.gd" id="3_43mbf"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="4_4ogu1"]
+[ext_resource type="AudioStream" uid="uid://elmsnxywre4j" path="res://Audio/Sounds/Hit & Impact/Hit7.wav" id="5_43mbf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hhtdb"]
 atlas = ExtResource("2_n7upd")
@@ -186,6 +187,11 @@ offset_right = 4.0
 offset_bottom = 27.0
 script = ExtResource("4_4ogu1")
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2100816124]
+stream = ExtResource("5_43mbf")
+volume_db = -2.718
+bus = &"SFX"
 
 [connection signal="body_entered" from="ReptileDamageArea" to="ReptileDamageArea" method="_on_body_entered"]
 [connection signal="body_exited" from="ReptileDamageArea" to="ReptileDamageArea" method="_on_body_exited"]

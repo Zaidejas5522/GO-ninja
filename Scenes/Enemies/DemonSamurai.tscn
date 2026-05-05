@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://hiqu1j7v0s4i" path="res://Sprites/Actor/Boss/GiantRedSamurai/Hit.png" id="6_bo5qk"]
 [ext_resource type="Script" uid="uid://cgwa46dct3ge1" path="res://Scripts/EnemiesScripts/bear_damage_area.gd" id="6_nk82b"]
 [ext_resource type="Script" uid="uid://cka85i3r8tmfy" path="res://Scripts/mob_health_bar.gd" id="7_hucq6"]
+[ext_resource type="AudioStream" uid="uid://elmsnxywre4j" path="res://Audio/Sounds/Hit & Impact/Hit7.wav" id="11_ygnfr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vq4sh"]
 atlas = ExtResource("2_4bw1v")
@@ -314,6 +315,11 @@ shape = SubResource("RectangleShape2D_ygnfr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRightArea" unique_id=661531601]
 position = Vector2(19, 7)
 shape = SubResource("RectangleShape2D_nk82b")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1497502556]
+stream = ExtResource("11_ygnfr")
+volume_db = -2.718
+bus = &"SFX"
 
 [connection signal="body_entered" from="SamuraiDamageArea" to="SamuraiDamageArea" method="_on_body_entered"]
 [connection signal="body_exited" from="SamuraiDamageArea" to="SamuraiDamageArea" method="_on_body_exited"]
