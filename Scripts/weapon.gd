@@ -446,6 +446,12 @@ func _on_body_exited(body: CharacterBody2D) -> void:
 				if body in enemies_in_area:
 					print("removed")
 					enemies_in_area.erase(body)
+		elif body.is_in_group("training"):
+			await get_tree().create_timer(0.2).timeout
+			if  taken == 1 and Global.WeaponSlot == taken_slot:
+				if body in enemies_in_area:
+					print("removed")
+					enemies_in_area.erase(body)
 		
 	
 func _choose_item_stats(name):

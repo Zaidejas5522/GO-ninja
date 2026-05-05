@@ -11,7 +11,6 @@ func _process(delta: float) -> void:
 	else:
 		sprite.modulate=Color(1, 1, 1, 1)
 func take_damage(damage:int):
-	print("AS GAVAUDAMAGEEE")
 	audio.play();
 	hit=true
 	await get_tree().create_timer(0.5).timeout
