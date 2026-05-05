@@ -160,8 +160,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpjwo"]
-size = Vector2(16, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i5jhw"]
+radius = 7.0
+height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2imu7"]
 
@@ -180,7 +181,7 @@ autoplay = "Idle"
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=899589235]
-shape = SubResource("RectangleShape2D_qpjwo")
+shape = SubResource("CapsuleShape2D_i5jhw")
 
 [node name="BearDamageArea" type="Area2D" parent="." unique_id=912148255]
 visible = false
