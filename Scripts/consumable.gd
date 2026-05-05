@@ -1,6 +1,12 @@
 extends Area2D
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var max_health_sfx: AudioStreamPlayer2D = $MaxHealthSFX
+@onready var heal_sfx: AudioStreamPlayer2D = $HealSFX
+@onready var upgrade_damage_sfx: AudioStreamPlayer2D = $UpgradeDamageSFX
+@onready var upgrade_speed_sfx: AudioStreamPlayer2D = $UpgradeSpeedSFX
+@onready var money_bag_sfx: AudioStreamPlayer2D = $MoneyBagSFX
+
 
 #DA REAL SCRIPT
 var isShop=0
@@ -56,6 +62,8 @@ func _on_body_entered(body: Node) -> void:
 	match item_name:
 		"Heal1":
 			Global.PlayerHealth+=10;
+			heal_sfx.play()
+			await heal_sfx.finished
 			pass
 		"Upgrade":
 			var upgrade_options = ["PlayerSpeed", "PlayerDamage"]
@@ -63,15 +71,23 @@ func _on_body_entered(body: Node) -> void:
 			match chosen:
 				"PlayerSpeed":
 					Global.PlayerSpeed += 5
+					upgrade_speed_sfx.play()
+					await upgrade_speed_sfx.finished
 				"PlayerDamage":
 					Global.PlayerDamage += 5
+					upgrade_damage_sfx.play()
+					await upgrade_damage_sfx.finished
 			pass
 		"MoneyBag":
 			Global.Money += 10
+			money_bag_sfx.play()
+			await money_bag_sfx.finished
 			pass
 		"MaxHealth":
 			Global.MaxPlayerHealth += 20
 			Global.PlayerHealth = Global.MaxPlayerHealth
+			max_health_sfx.play()
+			await max_health_sfx.finished
 			pass
 	
 	# Remove the item from the scene

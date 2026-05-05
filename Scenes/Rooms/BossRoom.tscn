@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bjygadbmigkju" path="res://Scenes/Obstacles/ShurikenMoving.tscn" id="7_jh3w5"]
 [ext_resource type="PackedScene" uid="uid://cymu32o0aayss" path="res://Scenes/Enemies/DemonSamurai.tscn" id="8_jh3w5"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="9_dgrtl"]
+[ext_resource type="AudioStream" uid="uid://cc7ue8r3xx74x" path="res://Audio/Musics/24 - Final Area.ogg" id="11_ymdxv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iddv6"]
 texture = ExtResource("2_cvs70")
@@ -698,28 +699,7 @@ position = Vector2(327, 74)
 [node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("9_dgrtl")]
 position = Vector2(113, 122)
 
-[connection signal="body_entered" from="AddOnElements/SpikeTrap" to="AddOnElements/SpikeTrap" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/SpikeTrap" to="AddOnElements/SpikeTrap" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149282" to="AddOnElements/@Area2D@149282" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149282" to="AddOnElements/@Area2D@149282" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149283" to="AddOnElements/@Area2D@149283" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149283" to="AddOnElements/@Area2D@149283" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149284" to="AddOnElements/@Area2D@149284" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149284" to="AddOnElements/@Area2D@149284" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149285" to="AddOnElements/@Area2D@149285" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149285" to="AddOnElements/@Area2D@149285" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149286" to="AddOnElements/@Area2D@149286" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149286" to="AddOnElements/@Area2D@149286" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149287" to="AddOnElements/@Area2D@149287" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149287" to="AddOnElements/@Area2D@149287" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149288" to="AddOnElements/@Area2D@149288" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149288" to="AddOnElements/@Area2D@149288" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149289" to="AddOnElements/@Area2D@149289" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149289" to="AddOnElements/@Area2D@149289" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149290" to="AddOnElements/@Area2D@149290" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149290" to="AddOnElements/@Area2D@149290" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149291" to="AddOnElements/@Area2D@149291" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149291" to="AddOnElements/@Area2D@149291" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/@Area2D@149292" to="AddOnElements/@Area2D@149292" method="_on_body_entered"]
-[connection signal="body_exited" from="AddOnElements/@Area2D@149292" to="AddOnElements/@Area2D@149292" method="_on_body_exited"]
-[connection signal="body_entered" from="AddOnElements/ShurikenMoving" to="AddOnElements/ShurikenMoving" method="_on_body_entered"]
+[node name="RoomMusic" type="AudioStreamPlayer2D" parent="." unique_id=135557278]
+stream = ExtResource("11_ymdxv")
+volume_db = -20.0
+bus = &"Music"

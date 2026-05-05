@@ -11,6 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://764buqgjlawc" path="res://Sprites/Items/Weapons/Lance/SpriteInHand.png" id="7_nlhjp"]
 [ext_resource type="Texture2D" uid="uid://b4po4wblh1e55" path="res://Sprites/Items/Weapons/Rapier/Sprite.png" id="8_0n3rh"]
 [ext_resource type="Texture2D" uid="uid://c1poumnln1db4" path="res://Sprites/Items/Weapons/Rapier/SpriteInHand.png" id="9_11rfp"]
+[ext_resource type="AudioStream" uid="uid://bftbl42i7hlqt" path="res://Audio/Sounds/Whoosh & Slash/Whoosh.wav" id="12_nlhjp"]
+[ext_resource type="AudioStream" uid="uid://cldup0ashi2t3" path="res://Audio/Sounds/Whoosh & Slash/Sword2.wav" id="13_thfnc"]
+[ext_resource type="AudioStream" uid="uid://1threltgqxdd" path="res://Audio/Sounds/Whoosh & Slash/Slash4.wav" id="14_thfnc"]
+[ext_resource type="AudioStream" uid="uid://k3hmbrkkeoiw" path="res://Audio/Sounds/Whoosh & Slash/Whoosh2.wav" id="15_i0icy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6qhy"]
 radius = 5.0
@@ -152,6 +156,29 @@ sprite_frames = SubResource("SpriteFrames_ab45v")
 animation = &"RapierHand"
 flip_h = true
 flip_v = true
+
+[node name="AxeSFX" type="AudioStreamPlayer2D" parent="." unique_id=589409032]
+stream = ExtResource("12_nlhjp")
+bus = &"SFX"
+
+[node name="KatanaSFX" type="AudioStreamPlayer2D" parent="." unique_id=1394528627]
+stream = ExtResource("13_thfnc")
+bus = &"SFX"
+
+[node name="StickSFX" type="AudioStreamPlayer2D" parent="." unique_id=1103207075]
+stream = ExtResource("14_thfnc")
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="RapierSFX" type="AudioStreamPlayer2D" parent="." unique_id=459655994]
+stream = ExtResource("12_nlhjp")
+max_polyphony = 5
+bus = &"SFX"
+
+[node name="LanceSFX" type="AudioStreamPlayer2D" parent="." unique_id=1416844398]
+stream = ExtResource("15_i0icy")
+max_polyphony = 5
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

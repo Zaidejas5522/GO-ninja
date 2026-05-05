@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://yocja5gegld5" path="res://Sprites/Backgrounds/UI/Space Background Game Over.png" id="1_mur6t"]
 [ext_resource type="Script" uid="uid://cqckkttrli6p1" path="res://Scripts/UI_Scripts/ending_menu.gd" id="1_y0vcn"]
 [ext_resource type="FontFile" uid="uid://cgtlfif4iw4gk" path="res://Black Mustang.ttf" id="2_y0vcn"]
+[ext_resource type="AudioStream" uid="uid://bfetdry0y1fxr" path="res://Audio/Musics/25 - End Theme 2.ogg" id="4_j7cte"]
+[ext_resource type="AudioStream" uid="uid://dncinptl70q7g" path="res://Audio/Sounds/Menu/Menu5.wav" id="5_m144j"]
+[ext_resource type="AudioStream" uid="uid://blspdtebcq8ew" path="res://Audio/Sounds/Menu/Cancel2.wav" id="6_7iyml"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7cte"]
 texture = ExtResource("1_mur6t")
@@ -132,6 +135,17 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_y0vcn")
 theme_override_font_sizes/font_size = 120
 text = "LEVEL COMPLETE"
+
+[node name="EndSFX" type="AudioStreamPlayer2D" parent="." unique_id=810855660]
+stream = ExtResource("4_j7cte")
+volume_db = -20.0
+bus = &"Music"
+
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="." unique_id=1168755216]
+stream = ExtResource("5_m144j")
+
+[node name="ExitSFX" type="AudioStreamPlayer2D" parent="." unique_id=1031235160]
+stream = ExtResource("6_7iyml")
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_next_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button4" to="." method="_on_restart_level_pressed"]

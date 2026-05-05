@@ -4,6 +4,13 @@ extends Area2D
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var slot = get_tree().get_first_node_in_group("WeaponSlot")
 
+# sfx stuff
+@onready var axe_sfx: AudioStreamPlayer2D = $AxeSFX
+@onready var katana_sfx: AudioStreamPlayer2D = $KatanaSFX
+@onready var stick_sfx: AudioStreamPlayer2D = $StickSFX
+@onready var rapier_sfx: AudioStreamPlayer2D = $RapierSFX
+@onready var lance_sfx: AudioStreamPlayer2D = $LanceSFX
+
 # ---ATTACK STUFF ----
 
 @export var offset_distance: float = 0
@@ -137,6 +144,7 @@ func _process(delta: float) -> void:
 			self.global_position=player.global_position
 		if player.attacking:
 			sprite.visible=true
+			
 		else:
 			sprite.visible=false
 
@@ -190,7 +198,10 @@ func start_attack_motion():
 	# Kill any ongoing tween to avoid conflicts
 	if current_attack_tween:
 		current_attack_tween.kill()
-
+	
+	# cia pagal ideja galima pakeist ir padaryt, kad butu SFX for skilled attacks, o ne basic attacks.
+	_item_sound(weapon)
+	
 	# Create a new tween for the thrust motion
 	current_attack_tween = create_tween()
 	# Extend forward (half the attack time)
@@ -420,6 +431,7 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 
 func _on_body_exited(body: CharacterBody2D) -> void:
 		print("body exit")
+		#### cia idet pick up sound
 		if body.is_in_group("player"):
 			if taken == 0:
 				Global.IsHovering = false
@@ -449,3 +461,16 @@ func _choose_item_stats(name):
 		"Lance":
 			attack_extra_distance = 32
 			attack_duration = 0.5
+
+func _item_sound(name):
+	match name:
+		"Axe":
+			axe_sfx.play()
+		"Katana":
+			katana_sfx.play()
+		"Stick":
+			stick_sfx.play()
+		"Rapier":
+			rapier_sfx.play()
+		"Lance":
+			lance_sfx.play()

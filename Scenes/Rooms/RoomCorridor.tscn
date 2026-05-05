@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://2bggujrla3o3"]
 
+[ext_resource type="Script" uid="uid://tou6i0d1obvx" path="res://Scripts/Room.gd" id="1_61oh7"]
 [ext_resource type="Texture2D" uid="uid://dyaifg63r1og" path="res://Sprites/Backgrounds/Tilesets/Interior/TilesetInteriorFloor.png" id="1_k5c00"]
 [ext_resource type="PackedScene" uid="uid://3md8nj6xddm0" path="res://Scenes/Paralax.tscn" id="1_xoo8x"]
 [ext_resource type="Texture2D" uid="uid://32eo5uag7vev" path="res://Sprites/Backgrounds/Tilesets/Interior/TilesetWallSimple.png" id="2_xoo8x"]
 [ext_resource type="Texture2D" uid="uid://nhd1k7i5j22g" path="res://Sprites/Backgrounds/Tilesets/TilesetElement.png" id="3_lm4rn"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="6_2eotq"]
 [ext_resource type="PackedScene" uid="uid://dqglp5p0oj57x" path="res://Scenes/Enemies/target_dummy.tscn" id="6_6ebw3"]
+[ext_resource type="AudioStream" uid="uid://ctkgl101mv6cw" path="res://Audio/Musics/23 - Road.ogg" id="8_61oh7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ebw3"]
 texture = ExtResource("1_k5c00")
@@ -574,6 +576,7 @@ sources/2 = SubResource("TileSetAtlasSource_61oh7")
 size = Vector2(16, 16)
 
 [node name="RoomCorridor" type="Node2D" unique_id=1432320223]
+script = ExtResource("1_61oh7")
 
 [node name="Paralax" parent="." unique_id=860814984 instance=ExtResource("1_xoo8x")]
 
@@ -615,3 +618,8 @@ position = Vector2(74, 82)
 
 [node name="TargetDummy" parent="." unique_id=1885105193 instance=ExtResource("6_6ebw3")]
 position = Vector2(133, 17)
+
+[node name="RoomMusic" type="AudioStreamPlayer2D" parent="." unique_id=1012098819]
+stream = ExtResource("8_61oh7")
+volume_db = -20.0
+bus = &"Music"

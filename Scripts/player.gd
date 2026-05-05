@@ -3,6 +3,12 @@ extends CharacterBody2D
 @onready var attack_hitbox: Area2D = $AttackHitbox
 @onready var healthBar = $HealthBar
 @onready var collisionshape2d: CollisionShape2D = $DamageArea/CollisionShape2D
+@onready var player_dead: AudioStreamPlayer2D = $PlayerDead
+@onready var take_dmg: AudioStreamPlayer2D = $TakeDmg
+@onready var dash_sfx: AudioStreamPlayer2D = $DashSFX
+@onready var bare_attack_sfx: AudioStreamPlayer2D = $BareAttackSFX
+
+
 var animation=0 #used when the player is hit
 var hit = false
 
@@ -57,15 +63,18 @@ func take_damage(damage:int):
 			Global.ShieldActive-=1
 		else:
 			Global.PlayerHealth -= damage
+			take_dmg.play()
 			hit=true
 			await get_tree().create_timer(0.5).timeout
 			hit = false
 	if Global.PlayerHealth <= 0:
+		player_dead.play()
 		print("Player died")
 		#Global.PlayerHealth = 150
 		Transitioner.transition()
 		await Transitioner.on_transition_finished
 		get_tree().call_deferred("change_scene_to_file", "res://Scenes/UI/GameOver.tscn")
+		
 		
 func take_heal(heal:int):
 	Global.PlayerHealth += heal
@@ -82,8 +91,10 @@ func _process(delta: float) -> void:
 		print("gameover")
 	if Input.is_action_just_pressed("Attack") and not attacking:
 		start_attack()
+		bare_attack_sfx.play()
 	elif Input.is_action_just_pressed("Dash") and not isdashing and candash:
 		start_dash()
+		dash_sfx.play()
 	
 	
 	if attacking:

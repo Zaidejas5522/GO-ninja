@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://b3ns4vwugwdfg"]
 
 [ext_resource type="PackedScene" uid="uid://3md8nj6xddm0" path="res://Scenes/Paralax.tscn" id="1_e7dc4"]
+[ext_resource type="Script" uid="uid://tou6i0d1obvx" path="res://Scripts/Room.gd" id="1_mfmex"]
 [ext_resource type="Texture2D" uid="uid://dyaifg63r1og" path="res://Sprites/Backgrounds/Tilesets/Interior/TilesetInteriorFloor.png" id="2_18u5k"]
 [ext_resource type="Texture2D" uid="uid://32eo5uag7vev" path="res://Sprites/Backgrounds/Tilesets/Interior/TilesetWallSimple.png" id="3_hr4lj"]
 [ext_resource type="Texture2D" uid="uid://b5oyt8sw2l68i" path="res://Sprites/Backgrounds/Tilesets/TilesetVillageAbandoned.png" id="4_2xgcd"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://lb7jlro0ipxx" path="res://Sprites/Backgrounds/Tilesets/TilesetField.png" id="7_5n0on"]
 [ext_resource type="Script" uid="uid://bly6qpk5xeuyg" path="res://Scripts/Obstacle_Scripts/BaseRoom.gd" id="8_clfhn"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="9_clfhn"]
+[ext_resource type="AudioStream" uid="uid://cm80leb6ohql5" path="res://Audio/Musics/9 - Quiet.ogg" id="12_mfmex"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3f8ul"]
 texture = ExtResource("2_18u5k")
@@ -1478,6 +1480,7 @@ sources/6 = SubResource("TileSetAtlasSource_clfhn")
 size = Vector2(16, 16)
 
 [node name="StartRoom" type="Node2D" unique_id=1432320223]
+script = ExtResource("1_mfmex")
 
 [node name="Paralax" parent="." unique_id=860814984 instance=ExtResource("1_e7dc4")]
 
@@ -1514,3 +1517,8 @@ shape = SubResource("RectangleShape2D_18u5k")
 
 [node name="Weapon" parent="." unique_id=1349717131 instance=ExtResource("9_clfhn")]
 position = Vector2(136, 176)
+
+[node name="RoomMusic" type="AudioStreamPlayer2D" parent="." unique_id=1793138712]
+stream = ExtResource("12_mfmex")
+volume_db = -20.0
+bus = &"Music"

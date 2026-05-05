@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byviwyorymbtq" path="res://Scripts/money.gd" id="1_jdanp"]
 [ext_resource type="Texture2D" uid="uid://bapf33px6rno" path="res://Sprites/Items/Treasure/Coin2.png" id="2_hkngm"]
+[ext_resource type="AudioStream" uid="uid://ds54rp2166egv" path="res://Audio/Sounds/Bonus/Coin.wav" id="3_hkngm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e6ret"]
 atlas = ExtResource("2_hkngm")
@@ -51,5 +52,9 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146409275]
 shape = SubResource("RectangleShape2D_k1fcq")
+
+[node name="CoinSFX" type="AudioStreamPlayer2D" parent="." unique_id=915544782]
+stream = ExtResource("3_hkngm")
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,5 +1,6 @@
 extends Node
 
+
 var PlayerHealth = 100
 var IsDamagable = false
 var OtherAttacking = false
@@ -56,6 +57,6 @@ func start_new_run():
 	PlayerDamage=10
 	Money=0
 	
-	get_tree().change_scene_to_file("res://Scenes/World.tscn")
+	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 	
 	print("New run started. All progress reset")
