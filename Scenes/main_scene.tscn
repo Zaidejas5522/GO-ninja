@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://d3ck5t4am5w4"]
+[gd_scene format=3 uid="uid://d4bon137twu3g"]
 
 [ext_resource type="Script" uid="uid://blu3ooxd2q7uu" path="res://Scripts/DungeonGenerator.gd" id="1_52fb6"]
 [ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/PlayerStuff/Player.tscn" id="2_6l7je"]

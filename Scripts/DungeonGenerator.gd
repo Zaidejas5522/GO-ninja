@@ -6,6 +6,13 @@ var history_stack = []     # Saugo buvusių kambarių indeksus
 var future_stack = []      # Saugo future kambarių indeksus (grįžimui)
 var is_changing_room = false
 
+const _ROOM_PRELOADS = [
+	preload("res://Scenes/Rooms/StartRoom.tscn"),
+	preload("res://Scenes/Rooms/RoomCorridor.tscn"),
+	preload("res://Scenes/Rooms/CombatRoom.tscn"),
+	preload("res://Scenes/Rooms/TreasureRoom.tscn"),
+	preload("res://Scenes/Rooms/BossRoom.tscn")
+]
 # room sequence
 @onready var room_sequence = [
 	"res://Scenes/Rooms/StartRoom.tscn",
@@ -121,7 +128,7 @@ func _change_room(body, area):
 
 func _load_room(index, player = null, deeper = true):
 	var path = room_sequence[index]
-	if FileAccess.file_exists(path):
+	if ResourceLoader.exists(path):
 		var next_scene = load(path)
 		var new_room = next_scene.instantiate()
 		

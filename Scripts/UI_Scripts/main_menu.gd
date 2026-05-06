@@ -7,6 +7,7 @@ extends Control
 @onready var main_buttons: VBoxContainer = $MainButtons
 @onready var options: Panel = $Options
 
+@onready var world_scene = preload("res://Scenes/World.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main_menu_sfx.play()
@@ -24,7 +25,8 @@ func _on_start_pressed() -> void:
 	button_sfx.play()
 	Transitioner.transition()
 	await Transitioner.on_transition_finished
-	get_tree().change_scene_to_file("res://Scenes/World.tscn")
+	get_tree().change_scene_to_packed(world_scene)
+	#get_tree().change_scene_to_file.call_deferred("res://Scenes/World.tscn")
 
 
 func _on_settings_pressed() -> void:

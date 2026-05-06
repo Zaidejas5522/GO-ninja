@@ -74,3 +74,21 @@ func start_new_run():
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 	
 	print("New run started. All progress reset")
+var debounce_timer: SceneTreeTimer = null
+
+func _input(event):
+	if event is InputEventKey and event.keycode == KEY_F11 and event.pressed:
+		toggle_fullscreen_safe()
+
+func toggle_fullscreen_safe():
+	if debounce_timer: return  # still cooling down
+	
+	var current_mode = DisplayServer.window_get_mode()
+	if current_mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	
+	debounce_timer = get_tree().create_timer(0.3)
+	await debounce_timer.timeout
+	debounce_timer = null
