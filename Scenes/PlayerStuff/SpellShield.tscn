@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://cvmg600abcf13" path="res://Sprites/FX/Magic/Shield/SpriteSheetBlue.png" id="1_16wev"]
 [ext_resource type="Script" uid="uid://glasbcwrspqf" path="res://Scripts/spell_shield.gd" id="1_brgt7"]
+[ext_resource type="AudioStream" uid="uid://0gxta0yaiwg4" path="res://Audio/Sounds/Elemental/Bubble.wav" id="3_m85ns"]
+[ext_resource type="AudioStream" uid="uid://dost1m276wvil" path="res://Audio/Sounds/Elemental/Bubble2.wav" id="4_dhvdk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_brgt7"]
 atlas = ExtResource("1_16wev")
@@ -60,3 +62,11 @@ script = ExtResource("1_brgt7")
 sprite_frames = SubResource("SpriteFrames_f0rvr")
 autoplay = "default"
 frame_progress = 0.14074926
+
+[node name="Shield" type="AudioStreamPlayer2D" parent="." unique_id=1872263373]
+stream = ExtResource("3_m85ns")
+bus = &"SFX"
+
+[node name="Shield2" type="AudioStreamPlayer2D" parent="." unique_id=1644862441]
+stream = ExtResource("4_dhvdk")
+bus = &"SFX"

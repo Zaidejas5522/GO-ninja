@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://c8kh1222u5thq"]
+
+[ext_resource type="Texture2D" uid="uid://yocja5gegld5" path="res://Sprites/Backgrounds/UI/Space Background Game Over.png" id="1_mur6t"]
+[ext_resource type="Script" uid="uid://cqckkttrli6p1" path="res://Scripts/UI_Scripts/ending_menu.gd" id="1_y0vcn"]
+[ext_resource type="FontFile" uid="uid://cgtlfif4iw4gk" path="res://Black Mustang.ttf" id="2_y0vcn"]
+[ext_resource type="AudioStream" uid="uid://bfetdry0y1fxr" path="res://Audio/Musics/25 - End Theme 2.ogg" id="4_j7cte"]
+[ext_resource type="AudioStream" uid="uid://dncinptl70q7g" path="res://Audio/Sounds/Menu/Menu5.wav" id="5_m144j"]
+[ext_resource type="AudioStream" uid="uid://blspdtebcq8ew" path="res://Audio/Sounds/Menu/Cancel2.wav" id="6_7iyml"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7cte"]
+texture = ExtResource("1_mur6t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3l33"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m144j"]
+bg_color = Color(0.25565878, 0.2556588, 0.2556587, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7iyml"]
+bg_color = Color(0.41981313, 0.41981313, 0.41981304, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_etppg"]
+
+[node name="EndingMenu" type="Control" unique_id=1989367622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y0vcn")
+
+[node name="Panel" type="Panel" parent="." unique_id=1276674148]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_j7cte")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=312537813]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -92.0
+offset_right = 208.0
+offset_bottom = 224.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=10373420]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_r3l33")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m144j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7iyml")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_etppg")
+text = "NEXT LEVEL"
+
+[node name="Button4" type="Button" parent="VBoxContainer" unique_id=357945582]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_r3l33")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m144j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7iyml")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_etppg")
+text = "RESTART LEVEL"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=429791519]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_r3l33")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m144j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7iyml")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_etppg")
+text = "OPTIONS"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=904404040]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_r3l33")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m144j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7iyml")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_etppg")
+text = "EXIT"
+
+[node name="Label" type="Label" parent="." unique_id=275933832]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -345.0
+offset_right = 345.0
+offset_bottom = 216.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_y0vcn")
+theme_override_font_sizes/font_size = 120
+text = "LEVEL COMPLETE"
+
+[node name="EndSFX" type="AudioStreamPlayer2D" parent="." unique_id=810855660]
+stream = ExtResource("4_j7cte")
+volume_db = -20.0
+bus = &"Music"
+
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="." unique_id=1168755216]
+stream = ExtResource("5_m144j")
+
+[node name="ExitSFX" type="AudioStreamPlayer2D" parent="." unique_id=1031235160]
+stream = ExtResource("6_7iyml")
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button4" to="." method="_on_restart_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_exit_pressed"]

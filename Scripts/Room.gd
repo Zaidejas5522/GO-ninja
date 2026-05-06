@@ -1,7 +1,10 @@
 extends Node2D
 
+@onready var room_music: AudioStreamPlayer2D = $RoomMusic
+
 func _ready():
 	visible = true
+	room_music.play()
 
 func discover_room():
 	visible = true

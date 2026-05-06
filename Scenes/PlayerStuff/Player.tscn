@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://demvewyrja0h4" path="res://Sprites/Actor/Characters/NinjaGreen/SeparateAnim/Attack.png" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://ci1hmcl1uvad" path="res://Sprites/Actor/Characters/NinjaGreen/SpriteSheet.png" id="2_gntrk"]
 [ext_resource type="Texture2D" uid="uid://v718wgj4358x" path="res://Sprites/Actor/Characters/NinjaGreen/SeparateAnim/Jump.png" id="3_dewec"]
+[ext_resource type="AudioStream" uid="uid://bb2volor2piu" path="res://Audio/Jingles/GameOver.wav" id="5_ahhcf"]
+[ext_resource type="AudioStream" uid="uid://bupfkpqtasa1a" path="res://Audio/Sounds/Hit & Impact/Impact.wav" id="6_i2mes"]
+[ext_resource type="AudioStream" uid="uid://detgxhe7q12rq" path="res://Audio/Sounds/Whoosh & Slash/Launch.wav" id="7_tssdy"]
+[ext_resource type="AudioStream" uid="uid://cii61dvo7k56g" path="res://Audio/Sounds/Hit & Impact/Impact5.wav" id="8_xt2od"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qidb7"]
 atlas = ExtResource("2_dewec")
@@ -314,10 +318,27 @@ position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_77cb1")
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=107413334]
+visible = false
 script = SubResource("GDScript_gntrk")
 
 [node name="1" type="CollisionShape2D" parent="AttackHitbox" unique_id=1682648341]
 position = Vector2(-10.375, 1)
 shape = SubResource("RectangleShape2D_dewec")
+
+[node name="PlayerDead" type="AudioStreamPlayer2D" parent="." unique_id=767871119]
+stream = ExtResource("5_ahhcf")
+bus = &"SFX"
+
+[node name="TakeDmg" type="AudioStreamPlayer2D" parent="." unique_id=1055095569]
+stream = ExtResource("6_i2mes")
+bus = &"SFX"
+
+[node name="DashSFX" type="AudioStreamPlayer2D" parent="." unique_id=1550092529]
+stream = ExtResource("7_tssdy")
+bus = &"SFX"
+
+[node name="BareAttackSFX" type="AudioStreamPlayer2D" parent="." unique_id=1363863242]
+stream = ExtResource("8_xt2od")
+bus = &"SFX"
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]

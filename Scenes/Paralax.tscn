@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://3md8nj6xddm0"]
+
+[ext_resource type="Texture2D" uid="uid://yocja5gegld5" path="res://Sprites/Backgrounds/UI/Space Background Game Over.png" id="1_e8uqe"]
+[ext_resource type="Texture2D" uid="uid://c8cxkxdgrpuhn" path="res://Sprites/Backgrounds/UI/Space Background 2.png" id="2_tjl2y"]
+
+[node name="Paralax" type="Node2D" unique_id=860814984]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1616194759]
+scroll_scale = Vector2(0.7, 1)
+repeat_size = Vector2(2773, 1634)
+autoscroll = Vector2(0.7, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1076465939]
+texture = ExtResource("1_e8uqe")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D" unique_id=943515228]
+visible = false
+texture = ExtResource("2_tjl2y")

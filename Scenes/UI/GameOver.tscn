@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://pqqq835ke62m"]
+
+[ext_resource type="Texture2D" uid="uid://yocja5gegld5" path="res://Sprites/Backgrounds/UI/Space Background Game Over.png" id="1_6pbke"]
+[ext_resource type="Script" uid="uid://r55yyl0fmm4u" path="res://Scripts/UI_Scripts/game_over.gd" id="1_wpfos"]
+[ext_resource type="FontFile" uid="uid://cgtlfif4iw4gk" path="res://Black Mustang.ttf" id="3_34bmr"]
+[ext_resource type="AudioStream" uid="uid://c06tivqj32t5s" path="res://Audio/Musics/7 - Sad Theme.ogg" id="4_wpfos"]
+[ext_resource type="AudioStream" uid="uid://blspdtebcq8ew" path="res://Audio/Sounds/Menu/Cancel2.wav" id="5_bnh5c"]
+[ext_resource type="AudioStream" uid="uid://dncinptl70q7g" path="res://Audio/Sounds/Menu/Menu5.wav" id="6_cf87c"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34bmr"]
+texture = ExtResource("1_6pbke")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pbke"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34bmr"]
+bg_color = Color(0.37036446, 0.37036452, 0.37036437, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpfos"]
+bg_color = Color(0.50534403, 0.5053441, 0.50534385, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ielvo"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="GameOver" type="Control" unique_id=1860532366]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wpfos")
+
+[node name="Panel" type="Panel" parent="." unique_id=168207762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_34bmr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=486573246]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -96.0
+offset_right = 160.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1883386383]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_6pbke")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_34bmr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wpfos")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ielvo")
+text = "RESTART"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1951571570]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_6pbke")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_34bmr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wpfos")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ielvo")
+text = "EXIT"
+
+[node name="Label" type="Label" parent="." unique_id=1155293781]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -222.5
+offset_right = 222.5
+offset_bottom = 216.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_34bmr")
+theme_override_font_sizes/font_size = 120
+text = "GAME OVER"
+
+[node name="GameOverSFX" type="AudioStreamPlayer2D" parent="." unique_id=1911244863]
+stream = ExtResource("4_wpfos")
+volume_db = -20.0
+bus = &"Music"
+
+[node name="ExitSFX" type="AudioStreamPlayer2D" parent="." unique_id=2003312112]
+stream = ExtResource("5_bnh5c")
+
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="." unique_id=615037397]
+stream = ExtResource("6_cf87c")
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_exit_pressed"]

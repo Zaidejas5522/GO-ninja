@@ -4,6 +4,17 @@ extends Area2D
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var slot = get_tree().get_first_node_in_group("WeaponSlot")
 
+# sfx stuff
+@onready var axe_sfx: AudioStreamPlayer2D = $AxeSFX
+@onready var katana_sfx: AudioStreamPlayer2D = $KatanaSFX
+@onready var stick_sfx: AudioStreamPlayer2D = $StickSFX
+@onready var rapier_sfx: AudioStreamPlayer2D = $RapierSFX
+@onready var lance_sfx: AudioStreamPlayer2D = $LanceSFX
+@onready var pickup_sfx: AudioStreamPlayer2D = $Pickup
+@onready var drop_sfx: AudioStreamPlayer2D = $Drop
+@onready var shield: AudioStreamPlayer2D = $Shield
+@onready var shield_2: AudioStreamPlayer2D = $Shield2
+
 # ---ATTACK STUFF ----
 
 @export var offset_distance: float = 0
@@ -45,7 +56,7 @@ var enemies_in_area: Array[CharacterBody2D] = []
 
 #--------
 
-var weapons = ["Axe", "Katana", "Stick","Rapier","Lance"]
+var weapons = ["Axe", "Katana", "Stick","Rapier"]
 var weapon=""
 var taken_slot = -1
  
@@ -57,7 +68,7 @@ func _ready() -> void:
 	sprite.play(str(weapon))
 	item_damage=round(randf_range(1,10))
 	item_health=round(randf_range(1,10))
-	item_speed=round(randf_range(10,100))
+	item_speed=round(randf_range(60,100))
 	_choose_item_stats(weapon)
 	
 	#-----
@@ -82,6 +93,9 @@ func _process(delta: float) -> void:
 			taken_slot = slot.addWeapon(weapon)
 			Global.IsHovering = false
 			sprite.visible=false
+			reparent(player) #prideda kaip child prie player
+			sprite.show_behind_parent = true
+			pickup_sfx.play()
 			taken=1
 			
 			
@@ -96,6 +110,8 @@ func _process(delta: float) -> void:
 		taken_slot = -1
 		sprite.visible=true
 		player_is_here=false
+		reparent(get_tree().current_scene) #atima kaip child is player
+		drop_sfx.play()
 		taken=0
 		
 	if taken == 1 and Global.WeaponSlot == taken_slot:
@@ -112,7 +128,10 @@ func _process(delta: float) -> void:
 		
 		if hasattacked == false and player.attacking:
 			hasattacked = true
+			self.monitoring = false
 			await get_tree().create_timer(0.1).timeout
+			self.monitoring = true
+			await get_tree().create_timer(0.05).timeout
 			print("START ATTACK")
 			for enemy in enemies_in_area:
 				if is_instance_valid(enemy):   # avoid errors if enemy was freed
@@ -127,11 +146,13 @@ func _process(delta: float) -> void:
 			cooldown_timer.start(Global.SkillCooldown)
 			skill_attack()
 		
-		
+		if skill_attacking:
+			self.global_position=player.global_position
 		if player.attacking:
 			sprite.visible=true
+			
 		else:
-			sprite.visible=true
+			sprite.visible=false
 
 		# Calculate total offset: base + attack extra
 		var total_offset = offset_distance + attack_extra_offset
@@ -183,7 +204,10 @@ func start_attack_motion():
 	# Kill any ongoing tween to avoid conflicts
 	if current_attack_tween:
 		current_attack_tween.kill()
-
+	
+	# cia pagal ideja galima pakeist ir padaryt, kad butu SFX for skilled attacks, o ne basic attacks.
+	_item_sound(weapon)
+	
 	# Create a new tween for the thrust motion
 	current_attack_tween = create_tween()
 	# Extend forward (half the attack time)
@@ -230,6 +254,7 @@ func skill_attack():
 			player.attacking=false
 			self.scale = old_scale
 		"Katana":
+			shield.play()
 			Global.ShieldActive = 1
 			var shield_scene = preload("res://Scenes/PlayerStuff/SpellShield.tscn")
 			var shield = shield_scene.instantiate()
@@ -277,18 +302,18 @@ func skill_attack():
 			var pause_between = 0.02          # Pause between thrusts
 	
 			# Determine base position (where the weapon normally rests)
-			var base_pos = Vector2.ZERO
-			match player.facing_direction:
-				player.Direction.DOWN:
-					base_pos = player.global_position + Vector2(0, offset_distance)
-				player.Direction.UP:
-					base_pos =player.global_position + Vector2(0, -offset_distance)
-				player.Direction.LEFT:
-					base_pos = player.global_position + Vector2(-offset_distance, 0)
-				player.Direction.RIGHT:
-					base_pos = player.global_position + Vector2(offset_distance, 0)
-				_:
-					base_pos = player.global_position + Vector2(0, offset_distance)
+			var base_pos =  player.global_position
+			#match player.facing_direction:
+				#player.Direction.DOWN:
+					#base_pos = player.global_position + Vector2(0, offset_distance)
+				#player.Direction.UP:
+					#base_pos =player.global_position + Vector2(0, -offset_distance)
+				#player.Direction.LEFT:
+					#base_pos = player.global_position + Vector2(-offset_distance, 0)
+				#player.Direction.RIGHT:
+					#base_pos = player.global_position + Vector2(offset_distance, 0)
+			#	_:
+					#base_pos = player.global_position + Vector2(0, offset_distance)
 	
 			# Direction unit vector for thrust
 			var thrust_dir := Vector2.ZERO
@@ -305,16 +330,16 @@ func skill_attack():
 					thrust_dir = Vector2.DOWN
 	
 			# Ensure we start at base position
-			position = base_pos
+			global_position = base_pos
 	
 			var tween = create_tween()
 			tween.set_parallel(false)
 	
 			for i in range(thrusts):
 				# Thrust out
-				tween.tween_property(self, "position", base_pos + thrust_dir * thrust_distance, thrust_duration)
+				tween.tween_property(self, "global_position", base_pos + thrust_dir * thrust_distance, thrust_duration)
 				# Thrust back
-				tween.tween_property(self, "position", base_pos, return_duration)
+				tween.tween_property(self, "global_position", base_pos, return_duration)
 				# Small pause between thrusts (except after last)
 				if i < thrusts - 1 and pause_between > 0:
 					tween.tween_interval(pause_between)
@@ -322,7 +347,7 @@ func skill_attack():
 			await tween.finished
 	
 			# Ensure we end at base position
-			position = base_pos
+			global_position = base_pos
 			skill_attacking = false
 			player.attacking=false
 		"Lance":
@@ -399,8 +424,9 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		Global.PotentialPlayerHealth = item_health
 		Global.PotentialPlayerSpeed=item_speed
 		
-	elif body.is_in_group("enemy"):
-		if taken == 1 and Global.WeaponSlot == taken_slot and player.attacking:
+	elif body.is_in_group("enemy") or body.is_in_group("training"):
+		if player.attacking:
+			if taken == 1 and Global.WeaponSlot == taken_slot and player.attacking:
 				if body not in enemies_in_area:
 					print("added")
 					enemies_in_area.append(body)
@@ -412,6 +438,7 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 
 func _on_body_exited(body: CharacterBody2D) -> void:
 		print("body exit")
+		#### cia idet pick up sound
 		if body.is_in_group("player"):
 			if taken == 0:
 				Global.IsHovering = false
@@ -422,22 +449,41 @@ func _on_body_exited(body: CharacterBody2D) -> void:
 				if body in enemies_in_area:
 					print("removed")
 					enemies_in_area.erase(body)
+		elif body.is_in_group("training"):
+			await get_tree().create_timer(0.2).timeout
+			if  taken == 1 and Global.WeaponSlot == taken_slot:
+				if body in enemies_in_area:
+					print("removed")
+					enemies_in_area.erase(body)
 		
 	
 func _choose_item_stats(name):
 	match name:
 		"Axe":
 			attack_extra_distance = 20
-			attack_duration = 0.3
+			attack_duration = 0.55
 		"Katana":
 			attack_extra_distance = 12
-			attack_duration = 0.2
+			attack_duration = 0.45
 		"Stick":
 			attack_extra_distance = 27
-			attack_duration = 0.4 
+			attack_duration = 0.65
 		"Rapier":
 			attack_extra_distance = 15
-			attack_duration = 0.25
+			attack_duration = 0.5
 		"Lance":
 			attack_extra_distance = 32
-			attack_duration = 0.5
+			attack_duration = 0.7
+
+func _item_sound(name):
+	match name:
+		"Axe":
+			axe_sfx.play()
+		"Katana":
+			katana_sfx.play()
+		"Stick":
+			stick_sfx.play()
+		"Rapier":
+			rapier_sfx.play()
+		"Lance":
+			lance_sfx.play()

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://7r0twmiiwyv4" path="res://Sprites/Ui/Skill Icon/Items & Weapon/Guard.png" id="1_vbdgd"]
 [ext_resource type="Script" uid="uid://dolua7xsbp7uh" path="res://Scripts/skill.gd" id="1_w84k6"]
 [ext_resource type="Texture2D" uid="uid://3l7ndkreers" path="res://Sprites/Ui/Skill Icon/Items & Weapon/GuardDisabled.png" id="2_w84k6"]
+[ext_resource type="AudioStream" uid="uid://d0dqn5q4bwg5q" path="res://Audio/Sounds/Magic & Skill/Fx.wav" id="4_tu5xk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ntjkg"]
 atlas = ExtResource("1_vbdgd")
@@ -53,3 +54,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_fppku")
 theme_override_styles/fill = SubResource("StyleBoxFlat_tu5xk")
 fill_mode = 1
 show_percentage = false
+
+[node name="SkillSFX" type="AudioStreamPlayer2D" parent="." unique_id=691779980]
+stream = ExtResource("4_tu5xk")
+bus = &"SFX"

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var speed := 60
+
 var stop_distance := 15.0
 
 var player_reference: Node = null
@@ -19,6 +20,10 @@ var player_visible := false
 var has_seen_player := false
 var last_known_breadcrumb: Vector2 = Vector2.ZERO
 
+# KNOCKBACK
+var knockback_velocity := Vector2.ZERO
+var knockback_timer := 0.0
+
 
 func _ready():
 	player_reference = get_tree().get_first_node_in_group("player")
@@ -28,20 +33,57 @@ func _physics_process(delta: float) -> void:
 	if not player_reference:
 		return
 
+	
+	if knockback_timer > 0:
+		knockback_timer -= delta
+		velocity = knockback_velocity
+		move_and_slide()
+		return
+
 	_update_vision()
 
-	# NIEKADA NECHASE'INA IKI KOL PAMATO
 	if not has_seen_player:
 		_idle()
 		return
 
-	# MATO PLAYER - CHASE BREADCRUMBS
 	if player_visible:
 		_follow_breadcrumbs()
-
-	# NEMATO PLAYER - EINA Į LAST SEEN
 	else:
 		_follow_last_seen()
+
+
+func take_damage(damage:int):
+	health -= damage
+	$AudioStreamPlayer2D.play()
+
+	
+	var recoil_strength = 180
+	knockback_velocity = -facing_direction * recoil_strength
+	knockback_timer = 0.15
+
+	if health <= 0:
+		
+		die()
+
+
+func die():
+	const MONEY_SCENE = preload("res://Scenes/PlayerStuff/Money.tscn")
+	const CONSUMABLE_SCENE = preload("res://Scenes/PlayerStuff/Consumable.tscn")
+
+	var rare_chance = 0.1
+
+	var drop_scene = MONEY_SCENE
+	if randf() < rare_chance:
+		drop_scene = CONSUMABLE_SCENE
+
+	var drop = drop_scene.instantiate()
+	drop.global_position = global_position
+	get_parent().add_child(drop)
+	$AudioStreamPlayer2D.play()
+	var sound_duration = $AudioStreamPlayer2D.stream.get_length()
+	await get_tree().create_timer(sound_duration).timeout
+	
+	queue_free()
 
 
 # LINE OF SIGHT
@@ -51,18 +93,16 @@ func _update_vision():
 
 	var seen_now = (ray_cast.get_collider() == player_reference)
 
-	# pirmas kartas kai pamato player
 	if seen_now:
 		has_seen_player = true
 
 	player_visible = seen_now and has_seen_player
 
-	# atnaujinam memory tik jei mato
 	if player_visible and player_reference.breadcrumbs.size() > 0:
 		last_known_breadcrumb = player_reference.breadcrumbs[-1]
 
 
-# FOLLOW BREADCRUMBS (kai mato player)
+# FOLLOW BREADCRUMBS
 func _follow_breadcrumbs():
 
 	if player_reference.breadcrumbs.size() == 0:
@@ -108,7 +148,7 @@ func _follow_breadcrumbs():
 	move_and_slide()
 
 
-# FOLLOW LAST SEEN (kai nemato player)
+# FOLLOW LAST SEEN
 func _follow_last_seen():
 
 	var delta_pos = last_known_breadcrumb - global_position
@@ -130,7 +170,7 @@ func _follow_last_seen():
 	move_and_slide()
 
 
-# IDLE (kai dar niekada nematė player)
+# IDLE
 func _idle():
 	velocity = Vector2.ZERO
 	animated_sprite.stop()
@@ -153,14 +193,3 @@ func _update_animation(direction: Vector2):
 		else:
 			if animated_sprite.animation != "WalkingUp":
 				animated_sprite.play("WalkingUp")
-
-
-# DAMAGE 
-func take_damage(damage: int):
-	health -= damage
-
-	var recoil_strength = 30
-	global_position += -facing_direction * recoil_strength
-
-	if health <= 0:
-		queue_free()

@@ -8,10 +8,16 @@ extends Node2D
 @onready var labelSpeed: Label = $Speed/Label
 @onready var label2Speed: Label = $Speed/Label2
 
+
+@onready var label_3: Label = $Label3
+
+
+
 @onready var slot = get_tree().get_first_node_in_group("WeaponSlot")
 
 func _process(delta: float) -> void:
 	# Update base stats
+	label_3.text=str(Global.Money).trim_suffix(".0")
 	labelStrength.text = str(Global.PlayerDamage).trim_suffix(".0")
 	labelHealth.text = str(Global.MaxPlayerHealth).trim_suffix(".0")
 	labelSpeed.text = str(round(Global.PlayerSpeed/10)).trim_suffix(".0")

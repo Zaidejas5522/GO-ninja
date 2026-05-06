@@ -7,14 +7,19 @@ var stop_distance := 20.0
 var attack_range := 30
 var charge_range := 300
 
-var attack_damage := 4
-var charge_damage := 8
+var attack_damage := 8
+var charge_damage := 12
+
+
+var knockback_velocity := Vector2.ZERO
+var knockback_timer := 0.0
 
 # STATES
 enum State {
 	IDLE,
 	WALK,
 	ATTACK,
+	BEFORE_CHARGE,
 	CHARGE
 }
 
@@ -22,10 +27,10 @@ var current_state = State.IDLE
 
 # TIMERS
 var attack_timer := 0.0
-var attack_cooldown := 3.0
+var attack_cooldown := 0.5
 
 var charge_timer := 0.0
-var charge_cooldown := 8.0
+var charge_cooldown := 1.0
 
 var hit_timer := 0.0
 
@@ -53,7 +58,7 @@ func _ready():
 	attack_right_area.monitoring = false
 
 
-# 👁️ LOS
+# LOS
 func _update_vision():
 	ray_cast.target_position = to_local(player_reference.global_position)
 	ray_cast.force_raycast_update()
@@ -64,14 +69,35 @@ func _update_vision():
 # DAMAGE
 func take_damage(damage:int):
 	health -= damage
+	$AudioStreamPlayer2D.play()
 
-	global_position += -facing_direction * 30
+	knockback_velocity = -facing_direction * 200
+	knockback_timer = 0.15
 
-	hit_timer = 0.7
+	hit_timer = 0.1
 	current_state = State.IDLE
 
 	if health <= 0:
-		queue_free()
+		die()
+		
+		
+func die():
+	const MONEY_SCENE = preload("res://Scenes/PlayerStuff/Money.tscn")
+	const CONSUMABLE_SCENE = preload("res://Scenes/PlayerStuff/Consumable.tscn")
+
+	var rare_chance = 0.1
+	
+	var drop_scene = MONEY_SCENE
+	if randf() < rare_chance:
+		drop_scene = CONSUMABLE_SCENE
+	
+	var drop = drop_scene.instantiate()
+	drop.global_position = global_position
+	get_parent().add_child(drop)
+	$AudioStreamPlayer2D.play()
+	var sound_duration = $AudioStreamPlayer2D.stream.get_length()
+	await get_tree().create_timer(sound_duration).timeout
+	queue_free()	
 
 
 func _physics_process(delta: float) -> void:
@@ -79,7 +105,12 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_update_vision()
-
+	
+	if knockback_timer > 0:
+		knockback_timer -= delta
+		velocity = knockback_velocity
+		move_and_slide()
+	
 	# HIT LOCK
 	if hit_timer > 0:
 		hit_timer -= delta
@@ -91,12 +122,12 @@ func _physics_process(delta: float) -> void:
 	attack_cooldown = max(attack_cooldown - delta, 0)
 	charge_cooldown = max(charge_cooldown - delta, 0)
 
-	# ❌ JEI NEMATO → TIK STOVI
+	# JEI NEMATO → TIK STOVI
 	if not player_visible:
 		_idle()
 		return
-
-	# 👁️ MATO → AI
+	
+	# MATO → AI
 	match current_state:
 		State.IDLE, State.WALK:
 			handle_movement(delta)
@@ -105,11 +136,14 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			update_attack(delta)
 
+		State.BEFORE_CHARGE:
+			update_before_charge(delta)
+
 		State.CHARGE:
 			update_charge(delta)
 
 
-# 🧱 MOVEMENT (tik kai MATO player)
+# MOVEMENT
 func handle_movement(delta):
 
 	if player_reference.breadcrumbs.size() == 0:
@@ -158,7 +192,7 @@ func handle_movement(delta):
 			player_reference.breadcrumbs.pop_front()
 
 
-# ❌ IDLE (kai nemato player)
+# IDLE
 func _idle():
 	current_state = State.IDLE
 	velocity = Vector2.ZERO
@@ -166,7 +200,7 @@ func _idle():
 	move_and_slide()
 
 
-# ⚔️ ATTACK LOGIC
+# ATTACK LOGIC
 func handle_attack_logic():
 	var distance = global_position.distance_to(player_reference.global_position)
 
@@ -177,7 +211,7 @@ func handle_attack_logic():
 			start_charge()
 
 
-# 🔥 ATTACK
+# ATTACK
 func start_attack():
 	current_state = State.ATTACK
 	attack_timer = 0.6
@@ -201,11 +235,11 @@ func update_attack(delta):
 	if attack_timer < 0.3 and attack_timer > 0.3 - delta:
 		if facing_direction.x < 0:
 			for body in attack_left_area.get_overlapping_bodies():
-				if body.has_method("take_damage"):
+				if body.is_in_group("player") and body.has_method("take_damage"):
 					body.take_damage(attack_damage)
 		else:
 			for body in attack_right_area.get_overlapping_bodies():
-				if body.has_method("take_damage"):
+				if body.is_in_group("player") and body.has_method("take_damage"):
 					body.take_damage(attack_damage)
 
 	if attack_timer <= 0:
@@ -216,17 +250,30 @@ func update_attack(delta):
 		attack_right_area.monitoring = false
 
 
-# 🏃 CHARGE
+# CHARGE
 func start_charge():
-	current_state = State.CHARGE
-	charge_timer = 0.6
+	current_state = State.BEFORE_CHARGE
+	charge_timer = 1.0
 
+	velocity = Vector2.ZERO
 	charge_direction = (player_reference.global_position - global_position).normalized()
 
-	if charge_direction.x < 0:
-		animated_sprite.play("ChargeLeft")
-	else:
-		animated_sprite.play("ChargeRight")
+	animated_sprite.play("BeforeCharge")
+	$AudioStreamPlayer2D2.play()
+
+
+func update_before_charge(delta):
+	charge_timer -= delta
+	velocity = Vector2.ZERO
+
+	if charge_timer <= 0:
+		current_state = State.CHARGE
+		charge_timer = 0.6
+
+		if charge_direction.x < 0:
+			animated_sprite.play("ChargeLeft")
+		else:
+			animated_sprite.play("ChargeRight")
 
 
 func update_charge(delta):

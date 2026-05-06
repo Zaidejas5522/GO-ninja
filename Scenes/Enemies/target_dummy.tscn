@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dqglp5p0oj57x"]
+
+[ext_resource type="Script" uid="uid://j8qyxufw8s8h" path="res://Scripts/target_dummy.gd" id="1_hhydw"]
+[ext_resource type="Texture2D" uid="uid://poxha6g8ur5q" path="res://Sprites/Actor/Characters/Statue/SpriteSheet.png" id="2_xnlle"]
+[ext_resource type="AudioStream" uid="uid://elmsnxywre4j" path="res://Audio/Sounds/Hit & Impact/Hit7.wav" id="3_xnlle"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hhydw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djroh"]
+atlas = ExtResource("2_xnlle")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7105u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djroh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TargetDummy" type="CharacterBody2D" unique_id=1885105193 groups=["training"]]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_hhydw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1816246987 groups=["training"]]
+shape = SubResource("RectangleShape2D_hhydw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1874284167 groups=["training"]]
+sprite_frames = SubResource("SpriteFrames_7105u")
+autoplay = "default"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1327364619]
+stream = ExtResource("3_xnlle")
+volume_db = -2.718
+bus = &"SFX"
