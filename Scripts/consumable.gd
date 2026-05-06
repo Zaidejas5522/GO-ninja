@@ -6,6 +6,7 @@ extends Area2D
 @onready var upgrade_damage_sfx: AudioStreamPlayer2D = $UpgradeDamageSFX
 @onready var upgrade_speed_sfx: AudioStreamPlayer2D = $UpgradeSpeedSFX
 @onready var money_bag_sfx: AudioStreamPlayer2D = $MoneyBagSFX
+@onready var weapon_slot = get_tree().get_first_node_in_group("WeaponSlot")
 
 
 #DA REAL SCRIPT
@@ -20,9 +21,9 @@ func _ready() -> void:
 	randomize()
 	var names: Array[String] =[""];
 	if isShop == 0:
-		names = ["Heal1", "Upgrade", "MoneyBag","MaxHealth"]
+		names = ["Heal1", "Upgrade", "MoneyBag","MaxHealth","MoreSlot"]
 	else:
-		names = ["Heal1", "Upgrade","MaxHealth"]
+		names = ["Heal1", "Upgrade","MaxHealth","MoreSlot"]
 
 
 		
@@ -38,6 +39,9 @@ func _ready() -> void:
 				cost = 2;
 				pass
 			"MaxHealth":
+				cost = 3;
+				pass
+			"MoreSlot":
 				cost = 3;
 				pass
 		var label_3: Label = $Label3
@@ -88,6 +92,11 @@ func _on_body_entered(body: Node) -> void:
 			Global.PlayerHealth = Global.MaxPlayerHealth
 			max_health_sfx.play()
 			await max_health_sfx.finished
+			pass
+		"MoreSlot":
+			weapon_slot.addSlot()
+			upgrade_speed_sfx.play()
+			await upgrade_speed_sfx.finished
 			pass
 	
 	# Remove the item from the scene

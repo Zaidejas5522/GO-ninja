@@ -27,10 +27,10 @@ var current_state = State.IDLE
 
 # TIMERS
 var attack_timer := 0.0
-var attack_cooldown := 3.0
+var attack_cooldown := 0.5
 
 var charge_timer := 0.0
-var charge_cooldown := 8.0
+var charge_cooldown := 1.0
 
 var hit_timer := 0.0
 
@@ -74,7 +74,7 @@ func take_damage(damage:int):
 	knockback_velocity = -facing_direction * 200
 	knockback_timer = 0.15
 
-	hit_timer = 0.7
+	hit_timer = 0.1
 	current_state = State.IDLE
 
 	if health <= 0:
@@ -94,7 +94,9 @@ func die():
 	var drop = drop_scene.instantiate()
 	drop.global_position = global_position
 	get_parent().add_child(drop)
-	
+	$AudioStreamPlayer2D.play()
+	var sound_duration = $AudioStreamPlayer2D.stream.get_length()
+	await get_tree().create_timer(sound_duration).timeout
 	queue_free()	
 
 

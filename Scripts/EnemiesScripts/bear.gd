@@ -62,6 +62,7 @@ func take_damage(damage:int):
 	knockback_timer = 0.15
 
 	if health <= 0:
+		
 		die()
 
 
@@ -78,7 +79,10 @@ func die():
 	var drop = drop_scene.instantiate()
 	drop.global_position = global_position
 	get_parent().add_child(drop)
-
+	$AudioStreamPlayer2D.play()
+	var sound_duration = $AudioStreamPlayer2D.stream.get_length()
+	await get_tree().create_timer(sound_duration).timeout
+	
 	queue_free()
 
 

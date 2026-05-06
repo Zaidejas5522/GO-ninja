@@ -53,7 +53,7 @@ func die():
 	# Preload the scenes (you can also use @export, but you requested hardcoded paths)
 	const MONEY_SCENE = preload("res://Scenes/PlayerStuff/Money.tscn")
 	const CONSUMABLE_SCENE = preload("res://Scenes/PlayerStuff/Consumable.tscn")
-
+	$AudioStreamPlayer2D.play()
 	var rare_chance = 0.1   # 10% chance for consumable drop
 	
 	var drop_scene = MONEY_SCENE
@@ -63,7 +63,9 @@ func die():
 	var drop = drop_scene.instantiate()
 	drop.global_position = global_position
 	get_parent().add_child(drop)
-	
+	$AudioStreamPlayer2D.play()
+	var sound_duration = $AudioStreamPlayer2D.stream.get_length()
+	await get_tree().create_timer(sound_duration).timeout
 	queue_free()	
 
 

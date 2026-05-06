@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://b8uxkl02oobii" path="res://Scenes/Enemies/Reptile.tscn" id="11_rb00f"]
 [ext_resource type="PackedScene" uid="uid://divorg3dpycx7" path="res://Scenes/Enemies/Skull.tscn" id="12_hkwc4"]
 [ext_resource type="AudioStream" uid="uid://xpjo5ipssbi7" path="res://Audio/Musics/17 - Fight.ogg" id="14_w7kte"]
+[ext_resource type="PackedScene" uid="uid://cyli1l8pkb042" path="res://Scenes/Enemies/Lizard.tscn" id="15_yr3op"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h7asn"]
 texture = ExtResource("2_ob0g0")
@@ -1118,3 +1119,6 @@ position = Vector2(46, 275)
 stream = ExtResource("14_w7kte")
 volume_db = -20.0
 bus = &"Music"
+
+[node name="Lizard" parent="." unique_id=153667868 instance=ExtResource("15_yr3op")]
+position = Vector2(309, 374)

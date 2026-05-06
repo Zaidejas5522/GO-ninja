@@ -17,6 +17,8 @@
 [ext_resource type="AudioStream" uid="uid://k3hmbrkkeoiw" path="res://Audio/Sounds/Whoosh & Slash/Whoosh2.wav" id="15_i0icy"]
 [ext_resource type="AudioStream" uid="uid://btmqbjnaxtyme" path="res://Audio/Sounds/Menu/Accept9.wav" id="16_gw18d"]
 [ext_resource type="AudioStream" uid="uid://b5yfn84pqu247" path="res://Audio/Sounds/Menu/Cancel.wav" id="17_0cunb"]
+[ext_resource type="AudioStream" uid="uid://0gxta0yaiwg4" path="res://Audio/Sounds/Elemental/Bubble.wav" id="18_ab45v"]
+[ext_resource type="AudioStream" uid="uid://dost1m276wvil" path="res://Audio/Sounds/Elemental/Bubble2.wav" id="19_8cayk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a6qhy"]
 radius = 5.0
@@ -188,6 +190,14 @@ bus = &"SFX"
 
 [node name="Drop" type="AudioStreamPlayer2D" parent="." unique_id=710589123]
 stream = ExtResource("17_0cunb")
+bus = &"SFX"
+
+[node name="Shield" type="AudioStreamPlayer2D" parent="." unique_id=58271246]
+stream = ExtResource("18_ab45v")
+bus = &"SFX"
+
+[node name="Shield2" type="AudioStreamPlayer2D" parent="." unique_id=1216897709]
+stream = ExtResource("19_8cayk")
 bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

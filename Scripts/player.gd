@@ -9,6 +9,8 @@ extends CharacterBody2D
 @onready var bare_attack_sfx: AudioStreamPlayer2D = $BareAttackSFX
 
 
+
+
 var animation=0 #used when the player is hit
 var hit = false
 

@@ -12,6 +12,8 @@ extends Area2D
 @onready var lance_sfx: AudioStreamPlayer2D = $LanceSFX
 @onready var pickup_sfx: AudioStreamPlayer2D = $Pickup
 @onready var drop_sfx: AudioStreamPlayer2D = $Drop
+@onready var shield: AudioStreamPlayer2D = $Shield
+@onready var shield_2: AudioStreamPlayer2D = $Shield2
 
 # ---ATTACK STUFF ----
 
@@ -66,7 +68,7 @@ func _ready() -> void:
 	sprite.play(str(weapon))
 	item_damage=round(randf_range(1,10))
 	item_health=round(randf_range(1,10))
-	item_speed=round(randf_range(10,100))
+	item_speed=round(randf_range(60,100))
 	_choose_item_stats(weapon)
 	
 	#-----
@@ -252,6 +254,7 @@ func skill_attack():
 			player.attacking=false
 			self.scale = old_scale
 		"Katana":
+			shield.play()
 			Global.ShieldActive = 1
 			var shield_scene = preload("res://Scenes/PlayerStuff/SpellShield.tscn")
 			var shield = shield_scene.instantiate()
@@ -458,19 +461,19 @@ func _choose_item_stats(name):
 	match name:
 		"Axe":
 			attack_extra_distance = 20
-			attack_duration = 0.3
+			attack_duration = 0.55
 		"Katana":
 			attack_extra_distance = 12
-			attack_duration = 0.2
+			attack_duration = 0.45
 		"Stick":
 			attack_extra_distance = 27
-			attack_duration = 0.4 
+			attack_duration = 0.65
 		"Rapier":
 			attack_extra_distance = 15
-			attack_duration = 0.25
+			attack_duration = 0.5
 		"Lance":
 			attack_extra_distance = 32
-			attack_duration = 0.5
+			attack_duration = 0.7
 
 func _item_sound(name):
 	match name:

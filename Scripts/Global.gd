@@ -1,7 +1,7 @@
 extends Node
 
 
-var PlayerHealth = 100
+var PlayerHealth = 40
 var IsDamagable = false
 var OtherAttacking = false
 var Money = 0
@@ -9,7 +9,7 @@ var Money = 0
 
 
 #POTENTIAL STUFF IS IN WEAPON SCRIPT WHEN A BODY ENTERS AREA 2D AND CURRENT IS IN PROCESS METHOD
-var MaxPlayerHealth = 100
+var MaxPlayerHealth = 40
 var PotentialPlayerHealth = 0
 var CurrentItemHealth = 0
 
@@ -17,26 +17,32 @@ var PlayerSpeed = 130
 var PotentialPlayerSpeed = 0
 var CurrentItemSpeed = 0
 
-var PlayerDamage = 20
+var PlayerDamage = 10
 var PotentialPlayerDamage = 0
 var CurrentItemDamage = 0
 
 
 #----
 var WeaponSlot = 0
+var MaxSlot = 2
 var IsHovering = false
 #----
 
 var SkillReady = true
-var SkillCooldown = 2
+var SkillCooldown = 5
 var CurrentSkillCooldown = 0
 
 var ShieldActive = 0
 
+
+
 func _addHealth(ItemHealth):
 	MaxPlayerHealth+=ItemHealth
+	PlayerHealth+=ItemHealth
 func _minusHealth(ItemHealth):
 	MaxPlayerHealth-=ItemHealth
+	if(PlayerHealth>MaxPlayerHealth):
+		PlayerHealth=MaxPlayerHealth
 		
 func _addSpeed(ItemSpeed):
 	PlayerSpeed+=ItemSpeed
@@ -51,8 +57,8 @@ func _minusDamage(ItemDamage):
 
 #UI STUFF (RESET VARIABLES AFTER GANE OVER)
 func start_new_run():
-	PlayerHealth=30
-	MaxPlayerHealth=30
+	PlayerHealth=40
+	MaxPlayerHealth=40
 	PlayerSpeed=130
 	PlayerDamage=10
 	Money=0

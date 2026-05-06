@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dgay22wa6atco" path="res://Sprites/Items/Object/MoneyBag.png" id="3_lmi3g"]
 [ext_resource type="Texture2D" uid="uid://b671uq3hb3q2o" path="res://Sprites/Items/Potion/LifePot.png" id="3_r0xdn"]
 [ext_resource type="Texture2D" uid="uid://bqbnpf331rjt" path="res://Sprites/Items/Tool/Anvil.png" id="4_01dfy"]
+[ext_resource type="Texture2D" uid="uid://ccjxvdju3jd0b" path="res://Sprites/Items/Object/Bag.png" id="5_kgio3"]
 [ext_resource type="AudioStream" uid="uid://bcta5bn7sorfl" path="res://Audio/Sounds/Magic & Skill/Heal.wav" id="6_222qo"]
 [ext_resource type="AudioStream" uid="uid://dgnbigor1nssw" path="res://Audio/Sounds/Magic & Skill/Heal3.wav" id="7_kgio3"]
 [ext_resource type="AudioStream" uid="uid://bavok8vhy232k" path="res://Audio/Sounds/Magic & Skill/Magic2.wav" id="8_l8eng"]
@@ -22,6 +23,10 @@ region = Rect2(0, 0, 9, 11)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8c02w"]
 atlas = ExtResource("3_lmi3g")
 region = Rect2(0, 0, 14, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8eng"]
+atlas = ExtResource("5_kgio3")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_222qo"]
 atlas = ExtResource("4_01dfy")
@@ -55,6 +60,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_l8eng")
+}],
+"loop": true,
+"name": &"MoreSlot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_222qo")
 }],
 "loop": true,
@@ -70,7 +83,7 @@ script = ExtResource("1_hsgbo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1155685193]
 sprite_frames = SubResource("SpriteFrames_kgio3")
-animation = &"MaxHealth"
+animation = &"MoreSlot"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2014956382]
 position = Vector2(0, 0.5)
