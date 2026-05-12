@@ -1504,7 +1504,7 @@ script = ExtResource("8_clfhn")
 current_type = 2
 
 [node name="DoorEnter" type="Marker2D" parent="." unique_id=2072303098]
-position = Vector2(208, 112)
+position = Vector2(136, 108)
 
 [node name="DoorReturn" type="Marker2D" parent="." unique_id=761726629]
 position = Vector2(136, 144)
