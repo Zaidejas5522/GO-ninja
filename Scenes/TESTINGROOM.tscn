@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="3_831o6"]
 [ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="5_vmvel"]
 [ext_resource type="PackedScene" uid="uid://br6166lm1wcw8" path="res://Scenes/Enemies/bear.tscn" id="7_4oh1l"]
+[ext_resource type="PackedScene" uid="uid://c2t73myafyy6b" path="res://Scenes/Obstacles/QuickSand.tscn" id="9_y57jb"]
+[ext_resource type="PackedScene" uid="uid://bjygadbmigkju" path="res://Scenes/Obstacles/ShurikenMoving.tscn" id="10_eo2vv"]
+[ext_resource type="PackedScene" uid="uid://dwwhjsnvuyq87" path="res://Scenes/Obstacles/SpikeTrap.tscn" id="11_x15nk"]
 [ext_resource type="PackedScene" uid="uid://rbm455k844v4" path="res://Scenes/PlayerStuff/Consumable.tscn" id="12_eo2vv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kanf6"]
@@ -68,24 +71,24 @@ shape = SubResource("RectangleShape2D_kanf6")
 scale = Vector2(0.3, 0.3)
 texture = SubResource("PlaceholderTexture2D_npm7a")
 
-[node name="CharacterBody2D" parent="." unique_id=1119619144 instance=ExtResource("1_qh7q1")]
+[node name="Player" parent="." unique_id=1119619144 instance=ExtResource("1_qh7q1")]
 position = Vector2(196, 206)
 
-[node name="Stats" parent="CharacterBody2D" unique_id=1149489152 instance=ExtResource("2_5qmmk")]
+[node name="Stats" parent="Player" unique_id=1149489152 instance=ExtResource("2_5qmmk")]
 position = Vector2(-360.1896, -155.61194)
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1827669814]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1827669814]
 visible = false
 zoom = Vector2(1.5, 1.5)
 
-[node name="HealthBar" parent="CharacterBody2D" unique_id=139421163 instance=ExtResource("1_awecc")]
+[node name="HealthBar" parent="Player" unique_id=139421163 instance=ExtResource("1_awecc")]
 position = Vector2(-293.1896, -194.61194)
 
-[node name="WeaponSlot" parent="CharacterBody2D" unique_id=496132504 instance=ExtResource("3_5qmmk")]
+[node name="WeaponSlot" parent="Player" unique_id=496132504 instance=ExtResource("3_5qmmk")]
 position = Vector2(-331.18964, 167.38806)
 scale = Vector2(3, 3)
 
-[node name="Node2D" parent="CharacterBody2D" unique_id=1917729211 instance=ExtResource("5_vmvel")]
+[node name="Node2D" parent="Player" unique_id=1917729211 instance=ExtResource("5_vmvel")]
 position = Vector2(-255.1896, 171.38806)
 scale = Vector2(2, 2)
 
@@ -109,3 +112,12 @@ position = Vector2(77, 38)
 
 [node name="Consumable2" parent="." unique_id=1156219933 instance=ExtResource("12_eo2vv")]
 position = Vector2(113, 39)
+
+[node name="QuickSandTrap" parent="." unique_id=766078108 instance=ExtResource("9_y57jb")]
+position = Vector2(204, 78)
+
+[node name="ShurikenMoving" parent="." unique_id=1942575249 instance=ExtResource("10_eo2vv")]
+position = Vector2(180, 338)
+
+[node name="SpikeTrap" parent="." unique_id=471977528 instance=ExtResource("11_x15nk")]
+position = Vector2(333, 162)
