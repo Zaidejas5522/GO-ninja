@@ -28,7 +28,7 @@ func _ready():
 			current_room = child
 			break
 			
-	var player = get_node_or_null("CharacterBody2D")
+	var player = get_node_or_null("Player")
 	
 	if current_room == null:
 		_load_room(0, player)
