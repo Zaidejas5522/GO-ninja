@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="3_5qmmk"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="3_831o6"]
 [ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="5_vmvel"]
-[ext_resource type="PackedScene" uid="uid://cymu32o0aayss" path="res://Scenes/Enemies/DemonSamurai.tscn" id="7_7ins6"]
+[ext_resource type="PackedScene" uid="uid://br6166lm1wcw8" path="res://Scenes/Enemies/bear.tscn" id="7_4oh1l"]
 [ext_resource type="PackedScene" uid="uid://rbm455k844v4" path="res://Scenes/PlayerStuff/Consumable.tscn" id="12_eo2vv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kanf6"]
@@ -94,14 +94,14 @@ position = Vector2(216, 223)
 [node name="Weapon2" parent="." unique_id=432669457 instance=ExtResource("3_831o6")]
 position = Vector2(254, 224)
 
+[node name="Bear" parent="." unique_id=979668803 instance=ExtResource("7_4oh1l")]
+position = Vector2(66.354355, 209.78922)
+
 [node name="Weapon3" parent="." unique_id=1349717131 instance=ExtResource("3_831o6")]
 position = Vector2(168, 223)
 
 [node name="Weapon4" parent="." unique_id=107981680 instance=ExtResource("3_831o6")]
 position = Vector2(114, 186)
-
-[node name="DemonSamurai" parent="." unique_id=979668803 instance=ExtResource("7_7ins6")]
-position = Vector2(72, 207)
 
 [node name="Consumable" parent="." unique_id=1046143464 instance=ExtResource("12_eo2vv")]
 position = Vector2(77, 38)

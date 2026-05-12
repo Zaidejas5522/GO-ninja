@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="GO-ninja"
-run/main_scene="uid://b1c0n5bjmtuj4"
+run/main_scene="uid://dfln20iyviqp8"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 <<<<<<<Updatedupstreamconfig/features=PackedStringArray("4.5", "Forward Plus")
@@ -30,14 +30,25 @@ Transitioner="*uid://bnssgdi0kt4tx"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
 "res://Audio/": "purple",
 "res://Scenes/": "red",
 "res://Scripts/": "yellow",
-"res://Sprites/": "green"
+"res://Sprites/": "green",
+"res://test/": "orange"
 }
+
+[gdunit4]
+
+settings/common/update_notification_enabled=false
+settings/test/test_discovery=true
+ui/toolbar/run_overall=true
 
 [global_group]
 
