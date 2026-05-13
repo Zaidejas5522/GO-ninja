@@ -1,7 +1,7 @@
 extends Node
 
 
-var PlayerHealth = 40
+var PlayerHealth = 400
 var IsDamagable = false
 var OtherAttacking = false
 var Money = 0
@@ -9,7 +9,7 @@ var Money = 0
 
 
 #POTENTIAL STUFF IS IN WEAPON SCRIPT WHEN A BODY ENTERS AREA 2D AND CURRENT IS IN PROCESS METHOD
-var MaxPlayerHealth = 40
+var MaxPlayerHealth = 400
 var PotentialPlayerHealth = 0
 var CurrentItemHealth = 0
 

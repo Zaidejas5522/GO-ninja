@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="3_5qmmk"]
 [ext_resource type="PackedScene" uid="uid://02exqobn8eft" path="res://Scenes/PlayerStuff/weapon.tscn" id="3_831o6"]
 [ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="5_vmvel"]
-[ext_resource type="PackedScene" uid="uid://br6166lm1wcw8" path="res://Scenes/Enemies/bear.tscn" id="7_4oh1l"]
 [ext_resource type="PackedScene" uid="uid://c2t73myafyy6b" path="res://Scenes/Obstacles/QuickSand.tscn" id="9_y57jb"]
 [ext_resource type="PackedScene" uid="uid://bjygadbmigkju" path="res://Scenes/Obstacles/ShurikenMoving.tscn" id="10_eo2vv"]
 [ext_resource type="PackedScene" uid="uid://dwwhjsnvuyq87" path="res://Scenes/Obstacles/SpikeTrap.tscn" id="11_x15nk"]
+[ext_resource type="Script" uid="uid://dhs2ty8wh3j2e" path="res://Scripts/test.gd" id="11_y57jb"]
 [ext_resource type="PackedScene" uid="uid://rbm455k844v4" path="res://Scenes/PlayerStuff/Consumable.tscn" id="12_eo2vv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kanf6"]
@@ -98,9 +98,6 @@ position = Vector2(216, 223)
 [node name="Weapon2" parent="." unique_id=432669457 instance=ExtResource("3_831o6")]
 position = Vector2(254, 224)
 
-[node name="Bear" parent="." unique_id=979668803 instance=ExtResource("7_4oh1l")]
-position = Vector2(66.354355, 209.78922)
-
 [node name="Weapon3" parent="." unique_id=1349717131 instance=ExtResource("3_831o6")]
 position = Vector2(168, 223)
 
@@ -121,3 +118,6 @@ position = Vector2(180, 338)
 
 [node name="SpikeTrap" parent="." unique_id=471977528 instance=ExtResource("11_x15nk")]
 position = Vector2(333, 162)
+
+[node name="Test" type="Node2D" parent="." unique_id=1997928439]
+script = ExtResource("11_y57jb")

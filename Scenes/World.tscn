@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cafc7lujrnh3s" path="res://Scenes/PlayerStuff/stats.tscn" id="5_q2d71"]
 [ext_resource type="PackedScene" uid="uid://hqy0rgoftvls" path="res://Scenes/HealthBar.tscn" id="6_uo7di"]
 [ext_resource type="PackedScene" uid="uid://d3ul14grg8g54" path="res://Scenes/PlayerStuff/weapon_slot.tscn" id="7_kn06e"]
+[ext_resource type="Script" uid="uid://cy7c88obme0lv" path="res://Scripts/testing_rooms.gd" id="7_y7y61"]
 [ext_resource type="PackedScene" uid="uid://bypikxkvdqgpk" path="res://Scenes/PlayerStuff/Skill.tscn" id="8_7yo87"]
 
 [node name="World" type="Node2D" unique_id=1974652767]
@@ -29,3 +30,6 @@ scale = Vector2(3, 3)
 [node name="Node2D" parent="Player" unique_id=1917729211 instance=ExtResource("8_7yo87")]
 position = Vector2(-255.1896, 171.38806)
 scale = Vector2(2, 2)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=178790170]
+script = ExtResource("7_y7y61")

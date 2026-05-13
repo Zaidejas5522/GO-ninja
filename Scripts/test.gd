@@ -8,7 +8,7 @@ extends Node2D
 @export var spawn_radius := 150.0           # small radius around player
 @export var move_radius := 200.0            # small circle for player movement
 @export var wave_interval := 2.0            # seconds between spawning waves
-@export var max_memory_mb := 100.0          # stop when memory exceeds this (MB)
+@export var target_fps := 30.0              # stop when FPS drops to this value
 @export var max_enemies := 500              # safety cap
 
 # ============================================================
@@ -30,7 +30,7 @@ func _ready():
 		push_error("No player found. Add player to group 'player'.")
 		return
 	player = players[0] as CharacterBody2D
-	print("PerformanceMonitor ready. Press F1 to start stress test (stops at %.1f MB)." % max_memory_mb)
+	print("PerformanceMonitor ready. Press F1 to start continuous stress test.")
 
 func _input(event):
 	if event.is_action_pressed("ui_f1"):
@@ -43,10 +43,11 @@ func start_stress_test():
 	if moving or spawning:
 		print("Test already running.")
 		return
-	print("Starting continuous stress test. Will stop when memory > %.1f MB." % max_memory_mb)
+	print("Starting continuous stress test. Will stop when FPS drops below %.1f." % target_fps)
 	moving = true
 	spawning = true
 	wave_timer = wave_interval
+	# Start player moving in a small circle
 	_move_player_in_circle()
 
 # ============================================================
@@ -54,9 +55,9 @@ func start_stress_test():
 # ============================================================
 func _move_player_in_circle():
 	var center = player.global_position
-	var speed := 100.0
+	var speed := 100.0          # movement speed in pixels per second
 	var radius := move_radius
-	var angular_speed := speed / radius
+	var angular_speed := speed / radius   # radians per second
 	var last_time := Time.get_ticks_msec() / 1000.0
 	
 	while moving and is_instance_valid(player):
@@ -72,11 +73,10 @@ func _process(delta):
 	if not spawning:
 		return
 	
-	# Check memory only (FPS condition removed)
-	var memory_bytes = Performance.get_monitor(Performance.MEMORY_STATIC)
-	var memory_mb = memory_bytes / (1024.0 * 1024.0)
-	if memory_mb >= max_memory_mb:
-		_stop_test("Memory exceeded %.1f MB (current: %.1f MB)" % [max_memory_mb, memory_mb])
+	# Check FPS and stop if too low
+	var fps = Performance.get_monitor(Performance.TIME_FPS)
+	if fps <= target_fps:
+		_stop_test("FPS dropped to %.1f (below target %.1f)" % [fps, target_fps])
 		return
 	
 	# Spawn waves periodically
@@ -129,8 +129,7 @@ func log_performance(tag: String = ""):
 	var fps = Performance.get_monitor(Performance.TIME_FPS)
 	var process_ms = Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0
 	var physics_ms = Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) * 1000.0
-	var memory_bytes = Performance.get_monitor(Performance.MEMORY_STATIC)
-	var memory_mb = memory_bytes / (1024.0 * 1024.0)
+	var memory_kb = Performance.get_monitor(Performance.MEMORY_STATIC) / 1024
 	var objects = Performance.get_monitor(Performance.OBJECT_COUNT)
 	
 	var report = "=== %s Performance ===\n" % [tag if tag != "" else "Stress Test"]
@@ -138,7 +137,7 @@ func log_performance(tag: String = ""):
 	report += "FPS: %.1f\n" % fps
 	report += "Process: %.2f ms\n" % process_ms
 	report += "Physics: %.2f ms\n" % physics_ms
-	report += "Memory: %.2f MB\n" % memory_mb
+	report += "Memory: %d KB\n" % memory_kb
 	report += "Total objects: %d" % objects
 	
 	print(report)
