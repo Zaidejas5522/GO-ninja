@@ -1507,7 +1507,7 @@ current_type = 2
 position = Vector2(136, 108)
 
 [node name="DoorReturn" type="Marker2D" parent="." unique_id=761726629]
-position = Vector2(136, 144)
+position = Vector2(207, 159)
 
 [node name="ExitDoor" type="Area2D" parent="." unique_id=666402901 groups=["doors"]]
 

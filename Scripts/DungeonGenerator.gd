@@ -76,7 +76,7 @@ func _on_local_teleport(body, target_marker_name):
 		# kolkas taip, del enemies triggerinimo (nepamirst patikrint veliau)
 func _on_local_door_entered(body, target_marker_name):
 	# checkas ar playeris ar enemy group object
-	if body.name == "CharacterBody2D" or body.is_in_group("enemy"):
+	if body.is_in_group("player") or body.is_in_group("enemy"):
 		var target = current_room.find_child(target_marker_name, true, false)
 		
 		if target:
@@ -89,7 +89,7 @@ func _on_local_door_entered(body, target_marker_name):
 
 func _on_door_entered(body, area):
 	# 1. Patikrinam ar tai žaidėjas
-	if body.name == "CharacterBody2D" and not is_changing_room:
+	if body.is_in_group("player") and not is_changing_room:
 		
 		var enemies = get_tree().get_nodes_in_group("enemy")
 		

@@ -1,3 +1,11 @@
 [gd_scene format=3 uid="uid://dtymbv8xmol7u"]
 
+[ext_resource type="PackedScene" uid="uid://bb4j6akeso10e" path="res://Scenes/World.tscn" id="1_t7ffa"]
+[ext_resource type="PackedScene" uid="uid://mhflwkvvtmwl" path="res://Scenes/PlayerStuff/Player.tscn" id="2_r3wus"]
+
 [node name="RoomManager" type="Node2D" unique_id=876483847]
+
+[node name="World" parent="." unique_id=1974652767 instance=ExtResource("1_t7ffa")]
+position = Vector2(928.4999, 195.99997)
+
+[node name="Player" parent="." unique_id=1119619144 instance=ExtResource("2_r3wus")]
